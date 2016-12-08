@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MengYinNotifier</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="intro">随着科技的发展，2016年人类已经全面进入了信息爆发的时代，这个时代的特征是---界面和信息通过大数据潜在的影响人类各种行为的过程中，产生了大量的副作用。在数据爆发的时代，日益增长的信息量早已溢出普通人的时间规划，在这样现实冲突下，想要实现人生规划，活得更加有效率， 必须对自控能力和时间规划能力有进一步的高要求， 然而大多数人需要有养成良好的时间习惯， 必须通过工具辅助实现。我们开发这个APP 的目的，就是通过接轨新时代有亲和力的二次元文化外壳对接未来精英所必备的 时间规划内涵， 具备这双重属性的APP 目前市场处于空缺状态。\n我们的口号是\n"萌音猫和未来的精英一起成长"\n"通过一款APP延长你10年有效寿命"\n"从时间牢笼中的困兽到掌控自我之神的转变"</string>
+</resources>
