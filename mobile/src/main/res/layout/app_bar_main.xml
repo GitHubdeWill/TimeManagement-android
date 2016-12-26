@@ -21,6 +21,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/stat_sys_upload"
-        app:backgroundTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
+        app:backgroundTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        app:fabSize="normal"
+        app:elevation="10dp" />
 
 </android.support.design.widget.CoordinatorLayout>

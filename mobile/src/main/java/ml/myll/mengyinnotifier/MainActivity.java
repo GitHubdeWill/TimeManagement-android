@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -40,6 +42,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.Calendar;
+import java.util.concurrent.Exchanger;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ObservableScrollViewCallbacks {
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mFabIsShown;
     private Point screenSize;
     private float timePercent;
+    private Point fabPos;
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll,
@@ -235,7 +239,7 @@ public class MainActivity extends AppCompatActivity
         //Get Display Size
         Display display = getWindowManager().getDefaultDisplay();
         screenSize = new Point();
-        display.getSize(screenSize);
+        display.getRealSize(screenSize);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         int years = settings.getInt("year", 1900);
@@ -257,13 +261,36 @@ public class MainActivity extends AppCompatActivity
         time_text = (TextView) findViewById(R.id.intro_time);
     }
 
+    public boolean openned = false;
+    final Handler handler = new Handler();
+    Runnable mLongPressed = new Runnable() {
+        public void run() {
+            Log.i("", "Long press!");
+            expandFAB(1);
+            Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
+            DialogFragment newFragment = new DatePickerFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+            openned=true;
+        }
+    };
+
     private void initViews () {
         this.setSupportActionBar(toolbar);
 
         RelativeLayout must = (RelativeLayout) findViewById(R.id.statusView);
         LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result+=getResources().getDimensionPixelSize(resourceId);
+        }
+        Log.i(TAG, "Status bar+Nav:"+result+"");
         must.setMinimumHeight(screenSize.y);
-        must.getLayoutParams().height = screenSize.y > inner.getLayoutParams().height ? screenSize.y : inner.getLayoutParams().height;
+        must.getLayoutParams().height = screenSize.y-result > inner.getLayoutParams().height ? screenSize.y-result : inner.getLayoutParams().height;
         must.requestLayout();
 
         mImageView.setImageBitmap(
@@ -273,12 +300,23 @@ public class MainActivity extends AppCompatActivity
         mTitleView.setText(getTitle());
         setTitle(null);
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        mFab.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_SHORT).show();
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getSupportFragmentManager(), "datePicker");
+            public boolean onTouch(View view, MotionEvent event) {
+                if (openned) return false;
+//                if (motionEvent.getActionMasked()==MotionEvent.ACTION_DOWN) {expandFAB(1); return true;}
+//                else if (motionEvent.getActionMasked()==MotionEvent.ACTION_UP) {expandFAB(0); return true;}
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    handler.postDelayed(mLongPressed, 600);
+                    expandFAB(1);
+                    return true;
+                }
+                if((event.getAction() == MotionEvent.ACTION_UP)) {
+                    handler.removeCallbacks(mLongPressed);
+                    expandFAB(0);
+                    return true;
+                }
+                return false;
             }
         });
         mFab.setClickable(false);
@@ -289,7 +327,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Back to the Top", Snackbar.LENGTH_LONG).show();
                 scrollBack();
             }
         });
@@ -301,16 +338,16 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        LinearLayout.LayoutParams rel_btn = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, screenSize.y);
-        statusLayout.setLayoutParams(rel_btn);
+//        LinearLayout.LayoutParams rel_btn = new LinearLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT, screenSize.y);
+//        statusLayout.setLayoutParams(rel_btn);
 
         updateProgress();
     }
 
     public void expandFAB(int mode) {
         if (mode == 1) {
-            ValueAnimator animator = ValueAnimator.ofFloat(1, 30).setDuration(1000);
+            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 30).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -321,7 +358,7 @@ public class MainActivity extends AppCompatActivity
             });
             animator.start();
         } else if (mode == 0) {
-            ValueAnimator animator = ValueAnimator.ofFloat(30, 1).setDuration(1000);
+            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 1).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -333,6 +370,7 @@ public class MainActivity extends AppCompatActivity
             animator.start();
         }
     }
+
 
     public void updateProgress () {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -352,10 +390,12 @@ public class MainActivity extends AppCompatActivity
             public void onAnimationUpdate(ValueAnimator animation) {
                 float percent = (float) animation.getAnimatedValue();
                 progressBar.setProgress(100- (int) percent);
-                time_text.setText("\nYou still have "+
-                        (int) (percent/1)+ " years " +
-                        (int) (percent%1*12) + " months " +
-                        (int) (percent%(1.0F/12.0F)*365) + " days" +
+                String minus = percent<0?"-":"";
+                time_text.setText("\nYou still have:\n"+
+                        minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "") +
+                        (Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent))+ " years " +
+                        minus+((int)(percent%1*12) < 10 ? "0" : "") + Math.abs((int)(percent%1*12)) + " months " +
+                        minus+((int)(percent%(1.0F/12.0F)*365) < 10 ? "0" : "") + Math.abs((int)(percent%(1.0F/12.0F)*365)) + " days" +
                         "\nuntil 100 years old.");
                 if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
                         Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -381,9 +421,9 @@ public class MainActivity extends AppCompatActivity
             final Calendar c = Calendar.getInstance();
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
+            MainActivity a = (MainActivity)getActivity();
+            a.expandFAB(1);
 
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.expandFAB(1);
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, 2000, month, day);
         }
@@ -397,6 +437,7 @@ public class MainActivity extends AppCompatActivity
             editor.apply();
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.expandFAB(0);
+            mainActivity.openned=false;
             mainActivity.updateProgress();
         }
 
@@ -404,6 +445,7 @@ public class MainActivity extends AppCompatActivity
         public void onCancel(DialogInterface dialog) {
             super.onCancel(dialog);
             MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.openned=false;
             mainActivity.expandFAB(0);
         }
     }
