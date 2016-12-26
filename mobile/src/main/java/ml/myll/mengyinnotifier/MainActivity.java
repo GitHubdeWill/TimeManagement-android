@@ -38,10 +38,16 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.Exchanger;
 
 public class MainActivity extends AppCompatActivity
@@ -338,11 +344,22 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-//        LinearLayout.LayoutParams rel_btn = new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, screenSize.y);
-//        statusLayout.setLayoutParams(rel_btn);
-
         updateProgress();
+
+        LineChart chart = new LineChart(this);
+        int[] dataObjects = {1,2,3,4,5};
+
+        List<Entry> entries = new ArrayList<>();
+
+        for (int data : dataObjects) {
+
+            // turn your data into Entry objects
+            entries.add(new Entry(data, data));
+        }
+        chart.setData(new LineData(new LineDataSet(entries, "Time Analysis")));
+        inner.addView(chart);
+        chart.getLayoutParams().height=1000;
+        chart.requestLayout();
     }
 
     public void expandFAB(int mode) {

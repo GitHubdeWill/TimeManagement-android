@@ -22,6 +22,10 @@
         <activity android:name=".SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat"/>
+
+        <activity android:name=".AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat"/>
     </application>
 
 </manifest>
