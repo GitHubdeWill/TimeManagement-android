@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -73,16 +71,14 @@ public class MainActivity extends AppCompatActivity
     private int mFabMargin;
     private boolean mFabIsShown;
     private Point screenSize;
-    private int timePercent;
+    private float timePercent;
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll,
                                 boolean dragging) {
-            Log.e("MY", "Y:"+scrollY);
 
         // Translate overlay and image
         float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
-            Log.e("MY", "Y:"+mFlexibleSpaceImageHeight);
         int minOverlayTransitionY = mActionBarSize - mOverlayView.getHeight();
         mOverlayView.setTranslationY(ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0));
         mImageView.setTranslationY(ScrollUtils.getFloat(-scrollY / 2, minOverlayTransitionY, 0));
@@ -206,10 +202,13 @@ public class MainActivity extends AppCompatActivity
         //Set Toolbar as Action Bar
         this.setSupportActionBar(toolbar);
 
+        Log.i(TAG, "Getting Attributes...");
         setAttributes();
 
+        Log.i(TAG, "Finding Views...");
         findViews();
 
+        Log.i(TAG, "Initializing Views...");
         initViews();
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
@@ -218,6 +217,8 @@ public class MainActivity extends AppCompatActivity
                 onScrollChanged(0, false, false);
             }
         });
+
+        Log.i(TAG, "OnCreate All Done!");
     }
 
     private void setAttributes() {
@@ -259,6 +260,12 @@ public class MainActivity extends AppCompatActivity
     private void initViews () {
         this.setSupportActionBar(toolbar);
 
+        RelativeLayout must = (RelativeLayout) findViewById(R.id.statusView);
+        LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
+        must.setMinimumHeight(screenSize.y);
+        must.getLayoutParams().height = screenSize.y > inner.getLayoutParams().height ? screenSize.y : inner.getLayoutParams().height;
+        must.requestLayout();
+
         mImageView.setImageBitmap(
                 CommonUtils.decodeSampledBitmapFromResource(getResources(),
                         R.drawable.bg, screenSize.x, R.dimen.flexible_space_image_height));
@@ -278,7 +285,6 @@ public class MainActivity extends AppCompatActivity
         mFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
         mFab.setScaleX(0);
         mFab.setScaleY(0);
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,16 +336,27 @@ public class MainActivity extends AppCompatActivity
 
     public void updateProgress () {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        int years = settings.getInt("year", 1900);
-        timePercent = (100 + years - Calendar.getInstance().get(Calendar.YEAR));
+        int year = settings.getInt("year", 1900);
+        int month = settings.getInt("month", 1);
+        int day = settings.getInt("day",1);
+        timePercent =(year
+                + (float)month/12.0F
+                + (float)day/365.0F + 100)
+                - Calendar.getInstance().get(Calendar.YEAR)
+                - Calendar.getInstance().get(Calendar.MONTH)/12.0F
+                - Calendar.getInstance().get(Calendar.DAY_OF_MONTH)/365.0F;
         progressBar.setScaleY(15f);
-        ValueAnimator animator = ValueAnimator.ofInt(100, timePercent).setDuration(5000);
+        ValueAnimator animator = ValueAnimator.ofFloat(100.0F, timePercent).setDuration(5000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int percent = (int) animation.getAnimatedValue();
-                progressBar.setProgress(100-percent);
-                time_text.setText("You still have "+percent+ " years until 100 years old.");
+                float percent = (float) animation.getAnimatedValue();
+                progressBar.setProgress(100- (int) percent);
+                time_text.setText("\nYou still have "+
+                        (int) (percent/1)+ " years " +
+                        (int) (percent%1*12) + " months " +
+                        (int) (percent%(1.0F/12.0F)*365) + " days" +
+                        "\nuntil 100 years old.");
                 if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
                         Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
                 else if (percent < 40) progressBar.getProgressDrawable().setColorFilter(

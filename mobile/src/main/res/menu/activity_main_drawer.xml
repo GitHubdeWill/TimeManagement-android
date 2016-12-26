@@ -16,7 +16,7 @@
             android:title="Play" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_setting_light"
+            android:icon="@drawable/ic_menu_camera"
             android:title="Settings" />
     </group>
 

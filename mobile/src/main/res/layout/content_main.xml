@@ -35,7 +35,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <View
                 android:layout_width="match_parent"
@@ -46,7 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/common_google_signin_btn_text_dark_pressed"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="4.54">
 
                 <TextView
                     android:id="@+id/intro_time"
@@ -57,12 +59,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="Time Left:"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="24sp" />
 
                 <RelativeLayout
                     android:id="@+id/statusView"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp">
+                    android:layout_height="match_parent">
 
 
                     <ProgressBar
@@ -104,9 +107,11 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_below="@+id/textView4">
+                        android:layout_below="@+id/textView4"
+                        android:id="@+id/mustL"
+                        android:weightSum="1">
 
                         <TextView
                             android:id="@+id/textView7"
@@ -115,7 +120,8 @@
                             android:layout_marginLeft="@dimen/activity_vertical_margin"
                             android:layout_marginRight="@dimen/activity_vertical_margin"
                             android:layout_marginTop="@dimen/cast_libraries_material_featurehighlight_center_horizontal_offset"
-                            android:text="@string/intro" />
+                            android:text="@string/intro"
+                            android:layout_weight="2.25" />
                     </LinearLayout>
 
                 </RelativeLayout>
