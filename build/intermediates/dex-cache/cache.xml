@@ -520,7 +520,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="9725af2e0b49aa28e40ff3e727bb8c59fc99dc5d">
+        sha1="c7e610acac98122dc88c35c986c6ed9303cb43b3">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f1496f898b6700ade0f6ecffb450d438094ef06e\classes.dex" />
     </item>
     <item
@@ -538,7 +538,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="ffcb0dc89d34273e84df9ae577c5cdbad5f2b5ec">
+        sha1="964f7d8c42290efdad960330b619cad8bb76b64a">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_aa19a34a918922765612b0142c133a77d6472c33\classes.dex" />
     </item>
     <item

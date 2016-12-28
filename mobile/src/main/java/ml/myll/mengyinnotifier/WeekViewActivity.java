@@ -158,4 +158,8 @@ public class WeekViewActivity extends WeekBaseActivity {
         return events;
     }
 
+    private void readRecord () {
+
+    }
+
 }

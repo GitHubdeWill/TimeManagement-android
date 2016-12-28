@@ -3,6 +3,14 @@ package ml.myll.mengyinnotifier;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by William on 2016/11/26.
@@ -10,6 +18,8 @@ import android.graphics.BitmapFactory;
 
 public class CommonUtils {
 
+    final static String TAG = "COM_UTIL";
+    public static boolean hasPermission = false;
 
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {
@@ -50,5 +60,31 @@ public class CommonUtils {
         return inSampleSize;
     }
 
+    public static void createRecordIfNotCreated() {
+        Log.e(TAG, "Start creating store file Dir");
+        String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
+        File f = new File(local_file);
+        if(!f.exists()||!f.isDirectory()){
+            f.mkdirs();
+        }
 
+        Log.e(TAG, "Start creating File");
+        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        if(f0.exists()) {
+            Log.i(TAG, "record.txt Already existed, Skipping");
+        } else {
+            try {
+                Log.e(TAG, f0.getPath());
+                if (!f0.createNewFile()) {
+                    System.out.println("File already exists");
+                } else {
+                    System.out.println("File created");
+                }
+            } catch (IOException ex) {
+                Log.e(TAG, "create Error");
+                ex.printStackTrace();
+            }
+        }
+        hasPermission = true;
+    }
 }

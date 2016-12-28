@@ -4,6 +4,7 @@ import android.*;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,8 +64,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
 
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "Main";
     public static final String PREFS_NAME = "Settings";
     final static int REQUEST_CODE = 8699;
+    final static String FILENAME = "file";
 
     //Tool Bar
     Toolbar toolbar;
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity
     private Point screenSize;
     private float timePercent;
     public boolean opened = false;
+    private int currEvent;
 
     //Share
     ShareActionProvider mShareActionProvider;
@@ -336,6 +344,24 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try{
+            FileInputStream fis = openFileInput(FILENAME);
+            Scanner scanner = new Scanner(fis);
+            int c = scanner.nextInt();
+            Log.i(TAG, "Read "+c);
+            if (c<6) currEvent = c;
+            Log.i(TAG, "Prev event is "+currEvent);
+            scanner.close();
+        } catch (Exception e) {
+            try {
+                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write((0+"").getBytes());
+                fos.flush();fos.close();
+            } catch (IOException e1) {
+                e.printStackTrace();
+            }
+        }
+
         //Set Toolbar as Action Bar
         this.setSupportActionBar(toolbar);
 
@@ -362,7 +388,6 @@ public class MainActivity extends AppCompatActivity
 
     private void requestPermission() {
         if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)) {
 
             // Should we show an explanation?
@@ -378,14 +403,6 @@ public class MainActivity extends AppCompatActivity
                         new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},
                         REQUEST_CODE);
 
-            }if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                Toast.makeText(this, "Also, we need to check our stored data in your phone.", Toast.LENGTH_LONG).show();
-
             } else {
 
                 // No explanation needed, we can request the permission.
@@ -398,6 +415,8 @@ public class MainActivity extends AppCompatActivity
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
+        } else {
+            CommonUtils.createRecordIfNotCreated();
         }
     }
 
@@ -410,6 +429,7 @@ public class MainActivity extends AppCompatActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Got it!", Toast.LENGTH_LONG).show();
+                    CommonUtils.createRecordIfNotCreated();
                 } else {
                     Toast.makeText(this, "The App is not gonna work for now", Toast.LENGTH_LONG).show();
                     finish();
@@ -518,7 +538,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.getMenu().getItem(currEvent).setChecked(true);
 
         updateProgress();
 
@@ -757,20 +777,72 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (fos == null) return false;
         switch (id) {
         case R.id.sleep:
-
+            try{
+                fos.write((0+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 0");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            item.setChecked(true);
+            break;
         case R.id.work:
-
+            try{
+                fos.write((1+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 1");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            item.setChecked(true);
+            break;
         case R.id.study:
-
+            try{
+                fos.write((2+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 2");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            item.setChecked(true);
+            break;
         case R.id.sustain:
-
+            try{
+                fos.write((3+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 3");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            item.setChecked(true);
+            break;
         case R.id.recreation:
-
+            try{
+                fos.write((4+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 4");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            item.setChecked(true);
+            break;
         case R.id.other:
-
+            try{
+                fos.write((5+"").getBytes());
+                fos.flush();fos.close();
+                Log.i(TAG, "Event changed to 5");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             item.setChecked(true);
             break;
         case R.id.nav_setting:
