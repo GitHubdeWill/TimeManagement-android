@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="MaterialIntroView-1.5.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.github.iammert/MaterialIntroView/1.5.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.github.iammert/MaterialIntroView/1.5.2/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -46,7 +46,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/common_google_signin_btn_text_dark_pressed"
+                android:background="@color/colorPrimaryDark"
                 android:orientation="vertical"
                 android:layout_weight="4.54">
 
@@ -59,7 +59,7 @@
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="Time Left:"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="@color/text"
                     android:textSize="24sp" />
 
                 <RelativeLayout
@@ -84,7 +84,7 @@
                         android:layout_below="@+id/timeBar"
                         android:layout_marginRight="@dimen/activity_vertical_margin"
                         android:text="100"
-                        android:textColor="@color/common_google_signin_btn_text_light_pressed" />
+                        android:textColor="@color/text" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -94,7 +94,7 @@
                         android:layout_below="@+id/timeBar"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
                         android:text="0"
-                        android:textColor="@color/common_google_signin_btn_text_light_pressed" />
+                        android:textColor="@color/text" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -103,7 +103,7 @@
                         android:layout_below="@+id/timeBar"
                         android:layout_centerHorizontal="true"
                         android:text="50"
-                        android:textColor="@color/common_google_signin_btn_text_light_pressed" />
+                        android:textColor="@color/text" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -113,15 +113,6 @@
                         android:id="@+id/mustL"
                         android:weightSum="1">
 
-                        <TextView
-                            android:id="@+id/textView7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_vertical_margin"
-                            android:layout_marginRight="@dimen/activity_vertical_margin"
-                            android:layout_marginTop="@dimen/cast_libraries_material_featurehighlight_center_horizontal_offset"
-                            android:text="@string/intro"
-                            android:layout_weight="2.25" />
                     </LinearLayout>
 
                 </RelativeLayout>

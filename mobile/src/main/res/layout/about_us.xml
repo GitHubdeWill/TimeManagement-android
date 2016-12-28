@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bg2"
+            android:id="@+id/imageView2"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="201dp"
+                app:srcCompat="@drawable/icon"
+                android:id="@+id/imageView3" />
+
+            <TextView
+                android:text="@string/intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textColor="@color/text"
+                android:gravity="bottom" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

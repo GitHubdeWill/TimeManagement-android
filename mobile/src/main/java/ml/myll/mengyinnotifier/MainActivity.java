@@ -8,24 +8,27 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,20 +41,28 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.concurrent.Exchanger;
+
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ObservableScrollViewCallbacks {
+        implements NavigationView.OnNavigationItemSelectedListener, ObservableScrollViewCallbacks, OnChartValueSelectedListener {
 
 
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
@@ -61,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     //Tool Bar
     Toolbar toolbar;
 
-    //Main Act Pic
+    //Views
     private ImageView mImageView;
     private View mOverlayView;
     private ObservableScrollView mScrollView;
@@ -70,10 +81,10 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private RelativeLayout statusLayout;
     private ProgressBar progressBar;
     private TextView time_text;
 
+    //Basic values
     private int mActionBarSize;
     private int mFlexibleSpaceShowFabOffset;
     private int mFlexibleSpaceImageHeight;
@@ -81,8 +92,22 @@ public class MainActivity extends AppCompatActivity
     private boolean mFabIsShown;
     private Point screenSize;
     private float timePercent;
-    private Point fabPos;
+    public boolean opened = false;
 
+    //Handler for date picker
+    final Handler handler = new Handler();
+    Runnable mLongPressed = new Runnable() {
+        public void run() {
+            Log.i("", "Long press!");
+            expandFAB(1);
+            Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
+            DialogFragment newFragment = new DatePickerFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+            opened=true;
+        }
+    };
+
+    //ScrollView
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll,
                                 boolean dragging) {
@@ -124,25 +149,6 @@ public class MainActivity extends AppCompatActivity
             showFab();
         }
     }
-
-    private void showFab() {
-        if (!mFabIsShown) {
-            ViewPropertyAnimator.animate(mFab).cancel();
-            ViewPropertyAnimator.animate(mFab).scaleX(1).scaleY(1).setDuration(200).start();
-            mFab.setClickable(true);
-            mFabIsShown = true;
-        }
-    }
-
-    private void hideFab() {
-        if (mFabIsShown) {
-            ViewPropertyAnimator.animate(mFab).cancel();
-            ViewPropertyAnimator.animate(mFab).scaleX(0).scaleY(0).setDuration(200).start();
-            mFab.setClickable(false);
-            mFabIsShown = false;
-        }
-    }
-
     @Override
     public void onDownMotionEvent() {
 
@@ -161,7 +167,96 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //For onUpOrCancelMotionEvent
+
+    //Show and hide Fab
+    private void showFab() {
+        if (!mFabIsShown) {
+            ViewPropertyAnimator.animate(mFab).cancel();
+            ViewPropertyAnimator.animate(mFab).scaleX(1).scaleY(1).setDuration(200).start();
+            mFab.setClickable(true);
+            mFabIsShown = true;
+        }
+    }
+
+    private void hideFab() {
+        if (mFabIsShown) {
+            ViewPropertyAnimator.animate(mFab).cancel();
+            ViewPropertyAnimator.animate(mFab).scaleX(0).scaleY(0).setDuration(200).start();
+            mFab.setClickable(false);
+            mFabIsShown = false;
+        }
+    }
+
+    public void expandFAB(int mode) {
+        if (mode == 1) {
+            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 30).setDuration(1000);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float translationY = (float) animation.getAnimatedValue();
+                    mFab.setScaleX(translationY);
+                    mFab.setScaleY(translationY);
+                }
+            });
+            animator.start();
+        } else if (mode == 0) {
+            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 1).setDuration(1000);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float translationY = (float) animation.getAnimatedValue();
+                    mFab.setScaleX(translationY);
+                    mFab.setScaleY(translationY);
+                }
+            });
+            animator.start();
+        }
+    }
+
+    //Update TimeCount ProgressBar
+    public void updateProgress () {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        int year = settings.getInt("year", 2000);
+        int month = settings.getInt("month", 1);
+        int day = settings.getInt("day",1);
+        timePercent =(year
+                + (float)month/12.0F
+                + (float)day/365.0F + 100)
+                - Calendar.getInstance().get(Calendar.YEAR)
+                - Calendar.getInstance().get(Calendar.MONTH)/12.0F
+                - Calendar.getInstance().get(Calendar.DAY_OF_MONTH)/365.0F;
+        progressBar.setScaleY(15f);
+        ValueAnimator animator = ValueAnimator.ofFloat(100.0F, timePercent).setDuration(5000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float percent = (float) animation.getAnimatedValue();
+                progressBar.setProgress(100- (int) percent);
+                String minus = percent<0?"-":"";
+                String text = getString(R.string.progress);
+                time_text.setText(text
+                        .replace("0000", minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "")
+                                +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
+                        .replace("000", minus+((int)(percent%1*12) < 10 ? "0" : "") + Math.abs((int)(percent%1*12)))
+                        .replace("00", minus+((int)(percent%(1.0F/12.0F)*365) < 10 ? "0" : "")
+                                + Math.abs((int)(percent%(1.0F/12.0F)*365)))
+                );
+                if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+                else if (percent < 40) progressBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(255, 127, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+                else if (percent < 60) progressBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(255, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+                else if (percent < 80) progressBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(127, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+                else if (percent <= 100) progressBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(0, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+        });
+        animator.start();
+    }
+
+    //Show and hide Toolbar
     private boolean toolbarIsShown() {
         return toolbar.getTranslationY() == 0;
     }
@@ -190,7 +285,7 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
-    //Called when Scroll Back is clicked
+    //Scroll back to the top
     private void scrollBack() {
         onUpOrCancelMotionEvent(ScrollState.DOWN);
         ValueAnimator animator = ValueAnimator.ofFloat(mScrollView.getCurrentScrollY(), 0).setDuration(500);
@@ -204,6 +299,25 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
+    //Pie Chart
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getY() + ", index: " + h.getX()
+                        + ", DataSet index: " + h.getDataSetIndex());
+
+        Intent intent = new Intent(this, WeekViewActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Log.i(TAG, "Nothing");
+    }
+
+    //Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,6 +334,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.i(TAG, "Initializing Views...");
         initViews();
+        introView();
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
             @Override
@@ -262,23 +377,9 @@ public class MainActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab2);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        statusLayout = (RelativeLayout) findViewById(R.id.statusView);
         progressBar = (ProgressBar) findViewById(R.id.timeBar);
         time_text = (TextView) findViewById(R.id.intro_time);
     }
-
-    public boolean openned = false;
-    final Handler handler = new Handler();
-    Runnable mLongPressed = new Runnable() {
-        public void run() {
-            Log.i("", "Long press!");
-            expandFAB(1);
-            Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
-            DialogFragment newFragment = new DatePickerFragment();
-            newFragment.show(getSupportFragmentManager(), "datePicker");
-            openned=true;
-        }
-    };
 
     private void initViews () {
         this.setSupportActionBar(toolbar);
@@ -309,9 +410,7 @@ public class MainActivity extends AppCompatActivity
         mFab.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                if (openned) return false;
-//                if (motionEvent.getActionMasked()==MotionEvent.ACTION_DOWN) {expandFAB(1); return true;}
-//                else if (motionEvent.getActionMasked()==MotionEvent.ACTION_UP) {expandFAB(0); return true;}
+                if (opened) return false;
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     handler.postDelayed(mLongPressed, 600);
                     expandFAB(1);
@@ -346,89 +445,150 @@ public class MainActivity extends AppCompatActivity
 
         updateProgress();
 
-        LineChart chart = new LineChart(this);
-        int[] dataObjects = {1,2,3,4,5};
 
-        List<Entry> entries = new ArrayList<>();
+        PieChart chart = new PieChart(this);
 
-        for (int data : dataObjects) {
-
-            // turn your data into Entry objects
-            entries.add(new Entry(data, data));
-        }
-        chart.setData(new LineData(new LineDataSet(entries, "Time Analysis")));
+        initChart(chart);
         inner.addView(chart);
-        chart.getLayoutParams().height=1000;
+        chart.getLayoutParams().height=screenSize.y*3/4;
         chart.requestLayout();
     }
 
-    public void expandFAB(int mode) {
-        if (mode == 1) {
-            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 30).setDuration(1000);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float translationY = (float) animation.getAnimatedValue();
-                    mFab.setScaleX(translationY);
-                    mFab.setScaleY(translationY);
-                }
-            });
-            animator.start();
-        } else if (mode == 0) {
-            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 1).setDuration(1000);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float translationY = (float) animation.getAnimatedValue();
-                    mFab.setScaleX(translationY);
-                    mFab.setScaleY(translationY);
-                }
-            });
-            animator.start();
+    private void introView() {
+        new MaterialIntroView.Builder(this)
+                .enableDotAnimation(false)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.ALL)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setInfoText(getString(R.string.introfab))
+                .setTarget(mFab)
+                .setUsageId("mFab1")
+                .show();
+    }
+
+    //Setup Chart
+    private void initChart(PieChart mChart){
+        mChart.setUsePercentValues(true);
+        mChart.getDescription().setEnabled(false);
+        mChart.setExtraOffsets(5, 10, 5, 5);
+
+        mChart.setDragDecelerationFrictionCoef(0.95f);
+
+        mChart.setCenterText(generateCenterSpannableText());
+
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColor(R.color.primary);
+
+        mChart.setTransparentCircleColor(Color.WHITE);
+        mChart.setTransparentCircleAlpha(110);
+
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
+
+        mChart.setDrawCenterText(true);
+
+        mChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChart.setRotationEnabled(false);
+        mChart.setHighlightPerTapEnabled(true);
+
+        // mChart.setUnit(" €");
+        // mChart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        mChart.setOnChartValueSelectedListener(this);
+
+        setData(100, mChart);
+
+//        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        // mChart.spin(2000, 0, 360);
+
+        Legend l = mChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+
+        // entry label styling
+        mChart.setEntryLabelColor(Color.BLACK);
+        mChart.setEntryLabelTextSize(12f);
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("萌音嘹亮\n时间管理分析系统");
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 4, 0);
+        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 4, s.length() - 4, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 4, s.length() - 4, 0);
+        s.setSpan(new RelativeSizeSpan(.8f), 4, s.length() - 4, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 4, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 4, s.length(), 0);
+        return s;
+    }
+
+    private void setData(float range, PieChart mChart) {
+        int count = 6;
+        float mult = range;
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        String[] items = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+        for (int i = 0; i < count ; i++) {
+            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5), items[i]));
         }
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setValueTextColor(Color.WHITE);
+
+        // add a lot of colors
+
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
+        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.BLACK);
+        mChart.setData(data);
+
+        // undo all highlights
+        mChart.highlightValues(null);
+
+        mChart.invalidate();
     }
 
-
-    public void updateProgress () {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        int year = settings.getInt("year", 1900);
-        int month = settings.getInt("month", 1);
-        int day = settings.getInt("day",1);
-        timePercent =(year
-                + (float)month/12.0F
-                + (float)day/365.0F + 100)
-                - Calendar.getInstance().get(Calendar.YEAR)
-                - Calendar.getInstance().get(Calendar.MONTH)/12.0F
-                - Calendar.getInstance().get(Calendar.DAY_OF_MONTH)/365.0F;
-        progressBar.setScaleY(15f);
-        ValueAnimator animator = ValueAnimator.ofFloat(100.0F, timePercent).setDuration(5000);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float percent = (float) animation.getAnimatedValue();
-                progressBar.setProgress(100- (int) percent);
-                String minus = percent<0?"-":"";
-                time_text.setText("\nYou still have:\n"+
-                        minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "") +
-                        (Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent))+ " years " +
-                        minus+((int)(percent%1*12) < 10 ? "0" : "") + Math.abs((int)(percent%1*12)) + " months " +
-                        minus+((int)(percent%(1.0F/12.0F)*365) < 10 ? "0" : "") + Math.abs((int)(percent%(1.0F/12.0F)*365)) + " days" +
-                        "\nuntil 100 years old.");
-                if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 40) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 127, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 60) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 80) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(127, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent <= 100) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(0, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-        });
-        animator.start();
-    }
-
+    //Date Picker
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -454,7 +614,7 @@ public class MainActivity extends AppCompatActivity
             editor.apply();
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.expandFAB(0);
-            mainActivity.openned=false;
+            mainActivity.opened=false;
             mainActivity.updateProgress();
         }
 
@@ -462,11 +622,14 @@ public class MainActivity extends AppCompatActivity
         public void onCancel(DialogInterface dialog) {
             super.onCancel(dialog);
             MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.openned=false;
+            mainActivity.opened=false;
             mainActivity.expandFAB(0);
         }
     }
 
+    /**
+     * Override Back Pressed to close the drawer if opened
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -502,7 +665,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

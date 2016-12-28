@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">萌音时间管理</string>
+    <string name="action_day_view">一天</string>
+    <string name="action_settings">设置</string>
+    <string name="action_three_day_view">三天</string>
+    <string name="action_today">今天</string>
+    <string name="action_week_view">一周</string>
+    <string name="title_activity_week_view">时间规划器</string>
+    <string name="progress">你还剩下\n0000年000月00天\n到一百岁。</string>
+    <string name="introfab">长按按钮设置您的生日</string>
+</resources>
