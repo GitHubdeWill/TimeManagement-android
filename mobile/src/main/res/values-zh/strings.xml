@@ -9,4 +9,11 @@
     <string name="title_activity_week_view">时间规划器</string>
     <string name="progress">你还剩下\n0000年000月00天\n到一百岁。</string>
     <string name="introfab">长按按钮设置您的生日</string>
+    <string name="other">其他</string>
+    <string name="recreation">娱乐</string>
+    <string name="share">分享</string>
+    <string name="sleep">睡觉</string>
+    <string name="study">学习</string>
+    <string name="sustain">生活</string>
+    <string name="work">工作</string>
 </resources>

@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Manage" />
+            android:id="@+id/sleep"
+            android:icon="@drawable/ic_local_hotel_black_24px"
+            android:title="@string/sleep" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Pictures" />
+            android:id="@+id/work"
+            android:icon="@drawable/ic_business_center_black_24px"
+            android:title="@string/work" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Play" />
+            android:id="@+id/study"
+            android:icon="@drawable/ic_local_library_black_24px"
+            android:title="@string/study" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Settings" />
+            android:id="@+id/sustain"
+            android:icon="@drawable/ic_restaurant_black_24px"
+            android:title="@string/sustain" />
+        <item
+            android:id="@+id/recreation"
+            android:icon="@drawable/ic_beach_access_black_24px"
+            android:title="@string/recreation" />
+        <item
+            android:id="@+id/other"
+            android:icon="@drawable/ic_local_bar_black_24px"
+            android:title="@string/other" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Advance">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/action_settings" />
         </menu>
     </item>
 

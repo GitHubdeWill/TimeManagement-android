@@ -1,29 +1,38 @@
 package ml.myll.mengyinnotifier;
 
+import android.*;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.ActionProvider;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +77,7 @@ public class MainActivity extends AppCompatActivity
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
     private static final String TAG = "Main";
     public static final String PREFS_NAME = "Settings";
+    final static int REQUEST_CODE = 8699;
 
     //Tool Bar
     Toolbar toolbar;
@@ -93,6 +103,9 @@ public class MainActivity extends AppCompatActivity
     private Point screenSize;
     private float timePercent;
     public boolean opened = false;
+
+    //Share
+    ShareActionProvider mShareActionProvider;
 
     //Handler for date picker
     final Handler handler = new Handler();
@@ -327,6 +340,7 @@ public class MainActivity extends AppCompatActivity
         this.setSupportActionBar(toolbar);
 
         Log.i(TAG, "Getting Attributes...");
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) requestPermission();
         setAttributes();
 
         Log.i(TAG, "Finding Views...");
@@ -344,6 +358,67 @@ public class MainActivity extends AppCompatActivity
         });
 
         Log.i(TAG, "OnCreate All Done!");
+    }
+
+    private void requestPermission() {
+        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                Toast.makeText(this, "We need to store the data in your phone.", Toast.LENGTH_LONG).show();
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE);
+
+            }if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                Toast.makeText(this, "Also, we need to check our stored data in your phone.", Toast.LENGTH_LONG).show();
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Got it!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "The App is not gonna work for now", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void setAttributes() {
@@ -365,6 +440,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         int years = settings.getInt("year", 1900);
         timePercent = (100 + years - Calendar.getInstance().get(Calendar.YEAR));
+
     }
 
     private void findViews () {
@@ -442,6 +518,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         updateProgress();
 
@@ -645,6 +722,15 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         scrollBack();
+
+        MenuItem shareItem = menu.findItem(R.id.nav_share);
+        mShareActionProvider =
+                (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "我在使用萌音时间管理系统耶~你也来试试吧！");
+        sendIntent.setType("text/plain");
+        setShareIntent(sendIntent);
         return true;
     }
 
@@ -660,6 +746,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
             return true;
+        } if (id == R.id.nav_share) {
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -670,25 +758,36 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id) {
+        case R.id.sleep:
 
-        } else if (id == R.id.nav_slideshow) {
+        case R.id.work:
 
-        } else if (id == R.id.nav_manage) {
+        case R.id.study:
+
+        case R.id.sustain:
+
+        case R.id.recreation:
+
+        case R.id.other:
+
+            item.setChecked(true);
+            break;
+        case R.id.nav_setting:
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
+            ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
             return true;
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        default:
+            break;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
 }

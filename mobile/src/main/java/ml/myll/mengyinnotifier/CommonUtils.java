@@ -49,4 +49,6 @@ public class CommonUtils {
 
         return inSampleSize;
     }
+
+
 }

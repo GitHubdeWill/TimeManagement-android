@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MengYinNotifier</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
@@ -17,4 +17,13 @@
     <string name="action_three_day_view">3 day view</string>
     <string name="action_week_view">Week view</string>
     <string name="title_activity_week_view">Time Manager</string>
+
+    <string name="sleep">Sleeping</string>
+    <string name="work">Working</string>
+    <string name="study">Studying</string>
+    <string name="sustain">Sustaining</string>
+    <string name="recreation">Recreation</string>
+    <string name="other">Other</string>
+
+    <string name="share">Share</string>
 </resources>
