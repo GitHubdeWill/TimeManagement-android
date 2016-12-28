@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -373,7 +374,7 @@ public class MainActivity extends AppCompatActivity
         findViews();
 
         Log.i(TAG, "Initializing Views...");
-        initViews();
+        initViews(0);
         introView();
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
@@ -477,78 +478,95 @@ public class MainActivity extends AppCompatActivity
         time_text = (TextView) findViewById(R.id.intro_time);
     }
 
-    private void initViews () {
-        this.setSupportActionBar(toolbar);
-
+    private void initViews (int mode) {
         RelativeLayout must = (RelativeLayout) findViewById(R.id.statusView);
         LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result+=getResources().getDimensionPixelSize(resourceId);
-        }
-        Log.i(TAG, "Status bar+Nav:"+result+"");
-        must.setMinimumHeight(screenSize.y);
-        must.getLayoutParams().height = screenSize.y-result > inner.getLayoutParams().height ? screenSize.y-result : inner.getLayoutParams().height;
-        must.requestLayout();
+        switch (mode) {
+            case 0:
+            this.setSupportActionBar(toolbar);
 
-        mImageView.setImageBitmap(
-                CommonUtils.decodeSampledBitmapFromResource(getResources(),
-                        R.drawable.bg, screenSize.x, R.dimen.flexible_space_image_height));
-        mScrollView.setScrollViewCallbacks(this);
-        mTitleView.setText(getTitle());
-        setTitle(null);
+            int result = 0;
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                result = getResources().getDimensionPixelSize(resourceId);
+            }
+            resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                result += getResources().getDimensionPixelSize(resourceId);
+            }
+            Log.i(TAG, "Status bar+Nav:" + result + "");
+            must.setMinimumHeight(screenSize.y);
+            must.getLayoutParams().height = screenSize.y - result > inner.getLayoutParams().height ? screenSize.y - result : inner.getLayoutParams().height;
+            must.requestLayout();
 
-        mFab.setOnTouchListener(new View.OnTouchListener() {
+            mImageView.setImageBitmap(
+                    CommonUtils.decodeSampledBitmapFromResource(getResources(),
+                            R.drawable.bg, screenSize.x, R.dimen.flexible_space_image_height));
+            mScrollView.setScrollViewCallbacks(this);
+            mTitleView.setText(getTitle());
+            setTitle(null);
+
+            mFab.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent event) {
+                    if (opened) return false;
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        handler.postDelayed(mLongPressed, 600);
+                        expandFAB(1);
+                        return true;
+                    }
+                    if ((event.getAction() == MotionEvent.ACTION_UP)) {
+                        handler.removeCallbacks(mLongPressed);
+                        expandFAB(0);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            mFab.setClickable(false);
+            mFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
+            mFab.setScaleX(0);
+            mFab.setScaleY(0);
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    refresh();
+                }
+            });
+
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            navigationView.setNavigationItemSelectedListener(this);
+            navigationView.getMenu().getItem(currEvent).setChecked(true);
+            case 1:
+            updateProgress();
+
+            PieChart chart = new PieChart(this);
+
+            initChart(chart);
+            inner.addView(chart);
+            chart.getLayoutParams().height = screenSize.y * 3 / 4;
+            chart.requestLayout();
+        }
+    }
+
+    private void refresh () {
+        initViews(1);
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 360).setDuration(500);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (opened) return false;
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    handler.postDelayed(mLongPressed, 600);
-                    expandFAB(1);
-                    return true;
-                }
-                if((event.getAction() == MotionEvent.ACTION_UP)) {
-                    handler.removeCallbacks(mLongPressed);
-                    expandFAB(0);
-                    return true;
-                }
-                return false;
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float angle = (float) animation.getAnimatedValue();
+                fab.setRotation(angle);
             }
         });
-        mFab.setClickable(false);
-        mFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
-        mFab.setScaleX(0);
-        mFab.setScaleY(0);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scrollBack();
-            }
-        });
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(currEvent).setChecked(true);
-
-        updateProgress();
-
-
-        PieChart chart = new PieChart(this);
-
-        initChart(chart);
-        inner.addView(chart);
-        chart.getLayoutParams().height=screenSize.y*3/4;
-        chart.requestLayout();
+        animator.start();
+        scrollBack();
+        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
     }
 
     private void introView() {
