@@ -3,6 +3,7 @@ package ml.myll.mengyinnotifier;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,17 +16,22 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
-public abstract class WeekBaseActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+public abstract class WeekBaseActivity extends AppCompatActivity
+        implements WeekView.EventClickListener,
+        MonthLoader.MonthChangeListener,
+        WeekView.EventLongPressListener,
+        WeekView.EmptyViewLongPressListener {
     //View types
-    private static final int TYPE_DAY_VIEW = 1;
-    private static final int TYPE_THREE_DAY_VIEW = 2;
-    private static final int TYPE_WEEK_VIEW = 3;
+    public static final int TYPE_DAY_VIEW = 1;
+    public static final int TYPE_THREE_DAY_VIEW = 2;
+    public static final int TYPE_WEEK_VIEW = 3;
     //Default View
-    private int mWeekViewType = TYPE_THREE_DAY_VIEW;
+    public int mWeekViewType = TYPE_DAY_VIEW;
     //Must have instance
-    private WeekView mWeekView;
+    protected WeekView mWeekView;
 
 
     @Override
@@ -51,7 +57,8 @@ public abstract class WeekBaseActivity extends AppCompatActivity implements Week
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(false);
+        setupDateTimeInterpreter(true);
+        mWeekView.refreshDrawableState();
     }
 
 
@@ -115,7 +122,7 @@ public abstract class WeekBaseActivity extends AppCompatActivity implements Week
      * date values otherwise.
      * @param shortDate True if the date values should be short.
      */
-    private void setupDateTimeInterpreter(final boolean shortDate) {
+    protected void setupDateTimeInterpreter(final boolean shortDate) {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
             @Override
             public String interpretDate(Calendar date) {
@@ -133,8 +140,13 @@ public abstract class WeekBaseActivity extends AppCompatActivity implements Week
 
             @Override
             public String interpretTime(int hour) {
-//                return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
-                return hour+"";
+                String ret = hour > 11 ?
+                        +(hour - 12) + " "+getString(R.string.PM) : (hour == 0 ?
+                        "12"+ " "+getString(R.string.AM) : hour + " "+getString(R.string.AM));
+                while (ret.length() < 5){
+                    ret = "0"+ret;
+                }
+                return ret;
             }
         });
     }

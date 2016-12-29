@@ -1,7 +1,5 @@
 package ml.myll.mengyinnotifier;
 
-import android.*;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,15 +11,11 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,7 +28,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.ActionProvider;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +45,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -65,10 +59,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOError;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -101,6 +98,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private ProgressBar progressBar;
     private TextView time_text;
+    private PieChart pChart;
 
     //Basic values
     private int mActionBarSize;
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     private Point screenSize;
     private float timePercent;
     public boolean opened = false;
-    private int currEvent;
+    private int currEvent = 5;
 
     //Share
     ShareActionProvider mShareActionProvider;
@@ -211,7 +209,7 @@ public class MainActivity extends AppCompatActivity
 
     public void expandFAB(int mode) {
         if (mode == 1) {
-            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 30).setDuration(1000);
+            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 35).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -257,11 +255,11 @@ public class MainActivity extends AppCompatActivity
                 String minus = percent<0?"-":"";
                 String text = getString(R.string.progress);
                 time_text.setText(text
-                        .replace("0000", minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "")
-                                +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
-                        .replace("000", minus+((int)(percent%1*12) < 10 ? "0" : "") + Math.abs((int)(percent%1*12)))
-                        .replace("00", minus+((int)(percent%(1.0F/12.0F)*365) < 10 ? "0" : "")
+                        .replace("DD", minus+(Math.abs((int)(percent%(1.0F/12.0F)*365)) < 10 ? "0" : "")
                                 + Math.abs((int)(percent%(1.0F/12.0F)*365)))
+                        .replace("MM", minus+(Math.abs((int)(percent%1*12)) < 10 ? "0" : "") + Math.abs((int)(percent%1*12)))
+                        .replace("YYYY", minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "")
+                                +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
                 );
                 if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
                         Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -367,7 +365,6 @@ public class MainActivity extends AppCompatActivity
         this.setSupportActionBar(toolbar);
 
         Log.i(TAG, "Getting Attributes...");
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) requestPermission();
         setAttributes();
 
         Log.i(TAG, "Finding Views...");
@@ -375,6 +372,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.i(TAG, "Initializing Views...");
         initViews(0);
+
         introView();
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
@@ -385,40 +383,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         Log.i(TAG, "OnCreate All Done!");
-    }
-
-    private void requestPermission() {
-        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                Toast.makeText(this, "We need to store the data in your phone.", Toast.LENGTH_LONG).show();
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE);
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            CommonUtils.createRecordIfNotCreated();
-        }
     }
 
     @Override
@@ -531,7 +495,14 @@ public class MainActivity extends AppCompatActivity
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    scrollBack();
+                }
+            });
+            fab.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
                     refresh();
+                    return true;
                 }
             });
 
@@ -545,12 +516,14 @@ public class MainActivity extends AppCompatActivity
             case 1:
             updateProgress();
 
-            PieChart chart = new PieChart(this);
 
-            initChart(chart);
-            inner.addView(chart);
-            chart.getLayoutParams().height = screenSize.y * 3 / 4;
-            chart.requestLayout();
+            if (mode == 0) {
+                pChart = new PieChart(this);
+                inner.addView(pChart);
+                pChart.getLayoutParams().height = screenSize.y * 3 / 4;
+                pChart.requestLayout();
+            }
+            if(pChart != null)initChart(pChart);
         }
     }
 
@@ -565,7 +538,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         animator.start();
-        scrollBack();
         Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
     }
 
@@ -580,6 +552,18 @@ public class MainActivity extends AppCompatActivity
                 .performClick(true)
                 .setInfoText(getString(R.string.introfab))
                 .setTarget(mFab)
+                .setUsageId("mFab1")
+                .show();
+        new MaterialIntroView.Builder(this)
+                .enableDotAnimation(true)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.ALL)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setInfoText(getString(R.string.introfab2))
+                .setTarget(fab)
                 .setUsageId("mFab1")
                 .show();
     }
@@ -616,7 +600,9 @@ public class MainActivity extends AppCompatActivity
         // add a selection listener
         mChart.setOnChartValueSelectedListener(this);
 
-        setData(100, mChart);
+        setData(mChart);
+
+        mChart.animateY(1400, Easing.EasingOption.EaseInOutBounce);
 
 //        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -626,7 +612,7 @@ public class MainActivity extends AppCompatActivity
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
-        l.setXEntrySpace(7f);
+        l.setXEntrySpace(0f);
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
@@ -648,18 +634,20 @@ public class MainActivity extends AppCompatActivity
         return s;
     }
 
-    private void setData(float range, PieChart mChart) {
+    private void setData(PieChart mChart) {
         int count = 6;
-        float mult = range;
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        String[] items = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
+        String[] items = CommonUtils.ITEMS;
+        long[] times = CommonUtils.getTotalTime();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5), items[i]));
+            PieEntry ent = new PieEntry((float)times[i], items[i]);
+            entries.add(ent);
+
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
@@ -673,19 +661,19 @@ public class MainActivity extends AppCompatActivity
 
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
+//
+//        for (int c : ColorTemplate.JOYFUL_COLORS)
+//            colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
+//        for (int c : ColorTemplate.COLORFUL_COLORS)
+//            colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
+//        for (int c : ColorTemplate.LIBERTY_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.PASTEL_COLORS)
+//            colors.add(c);
+//
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
@@ -795,72 +783,41 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (fos == null) return false;
         switch (id) {
         case R.id.sleep:
-            try{
-                fos.write((0+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 0");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.newEvent(0);
+            renewCurEvent(0);
+            Log.i(TAG, "Event changed to 0");
             item.setChecked(true);
             break;
         case R.id.work:
-            try{
-                fos.write((1+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 1");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.newEvent(1);
+            renewCurEvent(1);
+            Log.i(TAG, "Event changed to 1");
             item.setChecked(true);
             break;
         case R.id.study:
-            try{
-                fos.write((2+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 2");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            item.setChecked(true);
-            break;
-        case R.id.sustain:
-            try{
-                fos.write((3+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 3");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.newEvent(2);
+            renewCurEvent(2);
+            Log.i(TAG, "Event changed to 2");
             item.setChecked(true);
             break;
         case R.id.recreation:
-            try{
-                fos.write((4+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 4");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.newEvent(3);
+            renewCurEvent(3);
+            Log.i(TAG, "Event changed to 3");
+            item.setChecked(true);
+            break;
+        case R.id.sustain:
+            CommonUtils.newEvent(4);
+            renewCurEvent(4);
+            Log.i(TAG, "Event changed to 4");
             item.setChecked(true);
             break;
         case R.id.other:
-            try{
-                fos.write((5+"").getBytes());
-                fos.flush();fos.close();
-                Log.i(TAG, "Event changed to 5");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.newEvent(5);
+            renewCurEvent(5);
+            Log.i(TAG, "Event changed to 5");
             item.setChecked(true);
             break;
         case R.id.nav_setting:
@@ -874,10 +831,26 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void renewCurEvent (int cur){
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (fos == null) return;
+        try {
+            fos.write((cur + "").getBytes());
+            fos.flush();
+            fos.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
         }
     }
-
 }

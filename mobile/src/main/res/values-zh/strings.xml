@@ -7,7 +7,7 @@
     <string name="action_today">今天</string>
     <string name="action_week_view">一周</string>
     <string name="title_activity_week_view">时间规划器</string>
-    <string name="progress">你还剩下\n0000年000月00天\n到一百岁。</string>
+    <string name="progress">你还剩下\nYYYY年MM月DD天\n到一百岁。</string>
     <string name="introfab">长按按钮设置您的生日</string>
     <string name="other">其他</string>
     <string name="recreation">娱乐</string>
@@ -16,4 +16,8 @@
     <string name="study">学习</string>
     <string name="sustain">生活</string>
     <string name="work">工作</string>
+    <string name="introfab2">单击返回顶部，长按刷新内容</string>
+    <string name="please_open_again">请点击菜单的今天以刷新日历</string>
+    <string name="AM">上午</string>
+    <string name="PM">下午</string>
 </resources>
