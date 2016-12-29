@@ -109,6 +109,19 @@ public class CommonUtils {
         hasPermission = true;
     }
 
+    public static void recreateRecord () {
+        Log.e(TAG, "Start checking store file Dir");
+        File f = new File(local_file);
+
+        Log.e(TAG, "Start creating File");
+        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        if(f0.exists()) {
+            Log.i(TAG, "record.txt existed, Deleting");
+            f0.delete();
+        }
+        createRecordIfNotCreated();
+    }
+
     private static void initFile (File f0) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(f0));

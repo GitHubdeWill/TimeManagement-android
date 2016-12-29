@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             try {
                 FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                fos.write((0+"").getBytes());
+                fos.write((5+"").getBytes());
                 fos.flush();fos.close();
             } catch (IOException e1) {
                 e.printStackTrace();

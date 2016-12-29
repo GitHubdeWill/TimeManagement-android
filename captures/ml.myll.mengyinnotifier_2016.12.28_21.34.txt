@@ -1,0 +1,76 @@
+TASK ml.myll.mengyinnotifier id=6842
+  ACTIVITY ml.myll.mengyinnotifier/.MainActivity 232d515 pid=21952
+    Local FragmentActivity e4b79b3 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@fbbb810
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@fbbb810
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.DecorView{35bbd63 V.E..... ... 0,0-1440,2560}
+        android.widget.LinearLayout{47794b7 V.E..... ... 0,0-1440,2392}
+          android.view.ViewStub{1626f09 G.E..... ... 0,0-0,0 #10203e8 android:id/action_mode_bar_stub}
+          android.widget.FrameLayout{f684fb6 V.E..... ... 0,0-1440,2392}
+            android.support.v7.widget.FitWindowsLinearLayout{512b51 V.E..... ... 0,0-1440,2392 #7f1000b2 app:id/action_bar_root}
+              android.support.v7.widget.ViewStubCompat{eb4350e G.E..... ... 0,0-0,0 #7f1000b3 app:id/action_mode_bar_stub}
+              android.support.v7.widget.ContentFrameLayout{aca1878 V.E..... ... 0,0-1440,2392 #1020002 android:id/content}
+                android.support.v4.widget.DrawerLayout{16175db VFED.... F.. 0,0-1440,2392 #7f1000c9 app:id/drawer_layout}
+                  android.support.design.widget.CoordinatorLayout{45e2eea V.ED.... ... 0,0-1440,2392}
+                    android.widget.FrameLayout{3105219 V.E..... ... 0,84-1440,2392}
+                      android.support.v7.widget.Toolbar{4137e90 V.E..... ... 0,0-1440,196 #7f1000d2 app:id/toolbar}
+                        android.support.v7.widget.AppCompatImageButton{3cf389 VFED..C. ... 0,0-196,196}
+                        android.support.v7.widget.ActionMenuView{9e283bd V.E..... ... 1300,0-1440,196}
+                          android.support.v7.widget.ActionMenuPresenter$OverflowMenuButton{ac3ddb2 VFED..CL ... 0,14-140,182}
+                      android.support.v7.widget.AppCompatImageView{11d9f8e V.ED.... ... 0,0-1440,840 #7f100099 app:id/image}
+                      android.view.View{60e63af V.ED.... ... 0,0-1440,840 #7f1000f4 app:id/overlay}
+                      com.github.ksoichiro.android.observablescrollview.ObservableScrollView{ed9f3bc VFED.... ... 0,0-1440,2308 #7f10002a app:id/scroll}
+                        android.widget.LinearLayout{a783f45 V.E..... ... 0,0-1440,3521}
+                          android.view.View{cd8269a V.ED.... ... 0,0-1440,840}
+                          android.widget.LinearLayout{8e78bcb V.E..... ... 0,840-1440,3521}
+                            android.support.v7.widget.AppCompatTextView{1308fa8 V.ED.... ... 0,0-1440,373 #7f1000f5 app:id/intro_time}
+                            android.widget.RelativeLayout{1628ac1 V.E..... ... 0,373-1440,2681 #7f1000f6 app:id/statusView}
+                              android.widget.ProgressBar{f821266 V.ED.... ... 56,0-1384,193 #7f1000f7 app:id/timeBar}
+                              android.support.v7.widget.AppCompatTextView{ce119a7 V.ED.... ... 1312,193-1384,250 #7f1000f8 app:id/textView4}
+                              android.support.v7.widget.AppCompatTextView{fd2fe54 V.ED.... ... 56,193-80,250 #7f1000f9 app:id/textView5}
+                              android.support.v7.widget.AppCompatTextView{f4c11fd V.ED.... ... 696,193-744,250 #7f1000fa app:id/textView6}
+                              android.widget.LinearLayout{78ceef2 V.E..... ... 0,250-1440,2170 #7f1000fb app:id/mustL}
+                                com.github.mikephil.charting.charts.PieChart{8fba943 V.ED.... ... 0,0-1440,1920}
+                      android.widget.LinearLayout{d8babc0 V.E..... ... 0,0-1440,1036}
+                        android.support.v7.widget.AppCompatTextView{94cd0f9 V.ED.... ... 231,0-1265,196 #7f10009d app:id/title}
+                        android.view.View{6f7083e V.ED.... ... 56,196-1440,1036}
+                      com.melnykov.fab.FloatingActionButton{9a5969f VFED..C. ... 0,0-196,196 #7f1000fc app:id/fab}
+                    android.support.design.widget.FloatingActionButton{dcaf6d5 VFED..CL ... 1188,2140-1384,2336 #7f1000ce app:id/fab2}
+                  android.support.design.widget.NavigationView{d5fc3ec I.ED.... ... -980,0-0,2392 #7f1000ca app:id/nav_view}
+                    android.support.design.internal.NavigationMenuView{40083b5 VFED.V.. ... 0,0-980,2392 #7f100104 app:id/design_navigation_view}
+                      android.widget.LinearLayout{9d6fdbb V.E..... ... 0,0-980,588 #7f100103 app:id/navigation_header_container}
+                        android.widget.LinearLayout{b7b32d8 V.E..... ... 0,0-980,560}
+                          android.support.v7.widget.AppCompatImageView{802a631 V.ED.... ... 56,124-266,334 #7f100128 app:id/imageView}
+                          android.support.v7.widget.AppCompatTextView{2a9e116 V.ED.... ... 56,334-924,447}
+                          android.support.v7.widget.AppCompatTextView{1edba97 V.ED.... ... 56,447-191,504 #7f100129 app:id/textView}
+                      android.support.design.internal.NavigationMenuItemView{8496933 VFED..C. ... 0,588-980,756}
+                        android.support.v7.widget.AppCompatCheckedTextView{5c184f0 V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{1b90b2f G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.support.design.internal.NavigationMenuItemView{fa7658f VFED..C. ... 0,756-980,924}
+                        android.support.v7.widget.AppCompatCheckedTextView{6d2001c V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{28c453c G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.support.design.internal.NavigationMenuItemView{f3ecbab VFED..C. ... 0,924-980,1092}
+                        android.support.v7.widget.AppCompatCheckedTextView{10d0208 V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{b39f2c5 G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.support.design.internal.NavigationMenuItemView{9c7787 VFED..C. ... 0,1092-980,1260}
+                        android.support.v7.widget.AppCompatCheckedTextView{87436b4 V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{902941a G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.support.design.internal.NavigationMenuItemView{3f23fd9 VFED..C. ... 0,1260-980,1428}
+                        android.support.v7.widget.AppCompatCheckedTextView{86f7d9e V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{5552b4b G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.support.design.internal.NavigationMenuItemView{43e0095 VFED..C. ... 0,1428-980,1596}
+                        android.support.v7.widget.AppCompatCheckedTextView{ad1d5aa V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{f767928 G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+                      android.widget.FrameLayout{a4b1111 V.E..... ... 0,1596-980,1628}
+                        android.view.View{54fa276 V.ED.... ... 0,28-980,32}
+                      android.support.v7.widget.AppCompatTextView{73ead4d V.ED.... ... 0,1628-980,1796}
+                      android.support.design.internal.NavigationMenuItemView{f55d149 VFED..C. ... 0,1796-980,1964}
+                        android.support.v7.widget.AppCompatCheckedTextView{4c48a4e V.ED.... ... 56,0-924,168 #7f100105 app:id/design_menu_item_text}
+                        android.view.ViewStub{b4bf641 G.E..... ... 0,0-0,0 #7f100106 app:id/design_menu_item_action_area_stub}
+        android.view.View{d0e3f92 V.ED.... ... 0,2392-1440,2560 #1020030 android:id/navigationBarBackground}
+        android.view.View{f55fd60 V.ED.... ... 0,0-1440,84 #102002f android:id/statusBarBackground}

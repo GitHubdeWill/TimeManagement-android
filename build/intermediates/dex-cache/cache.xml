@@ -3,42 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\design\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.1.0_1e609fdb446bf01948cc39395f1491a7de18b2d0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\transition\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.1.0_0eb023f5a7f28f5051598bc0872c14cf34c681b6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.0.1_0f851f3a129e83f30bdc528b1bfee623bee36764\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.0_8f5e279219749c6f758786f11c6db4c788397a50\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -57,24 +21,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f3e51e9c5233b8897f61e08a6a27bc36283c2724">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-10.0.1_0ec7dbcc86a0e13fa1a7258c11a8639cb95e422b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.github.iammert\MaterialIntroView\1.5.2\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f06fdffab770ba7c59dae676f7c4a2db0e227702">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.iammert-MaterialIntroView-1.5.2_7635b634686167e5efd6f22577b4d782ab09bc30\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -90,24 +36,6 @@
         revision="25.0.1"
         sha1="f6cf557be4dbd0282ea2388633e5378634423226">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-10.0.1_30f468b2e3bddd63a4a72619d1d8ad432356fc59\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="aee64634871d88a419d59eb743c1258a60f19700">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.1.0_04e3ea629eaa301ca08b4ef13fea92a4736bb145\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="57c2eceb8548de84509d1ebc293fedec53231f6c">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-10.0.1_859edd475dd4ea1a3b68f005b2dcd2db6e049fef\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -138,24 +66,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.0_ce912ecce85be562b49d617b29ab09e417771c57\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-10.0.1_36463878ff186b8387b2d6cc1e6be4593c942b15\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -171,24 +81,6 @@
         revision="25.0.1"
         sha1="e2185aff89caeb337b1ffc36d5e525d8318e7cfe">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-10.0.1_75ce1ac101be77204cda0a6538fba272eb7249da\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-v4-impl\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="f23ad0f8e58713ff4b55f61c0bbde3830378347c">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-v4-impl-10.0.1_a0e1dcd94bff47132b127075454b780850787117\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-10.0.1_07a0e402a78a89dc495f78af2cad99fc15935a43\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -219,15 +111,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="b955cb3a1ad6f1b6ff728ce1e0cd592c1717b440">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-10.0.1_8678acf8e3569a79c5debdc08399dbd667b912dc\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -252,24 +135,6 @@
         revision="25.0.1"
         sha1="4b9add5d2d441ee8144dbde69e6091cbb02610e9">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.ksoichiro-android-observablescrollview-1.6.0_b26600379b06f2d3c706a129fd26e1c4aec741f6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d96886efea7cc74fbb3abd0e3b51d5638fc57be0">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.0_430e06c4a411f8dc229b7d65392a0bd2211521dd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="de29a39f9260f88151b1ef453140e71c76b6c415">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-10.0.1_f7e00e7e21ddd9b50db213b1cf37478203f51ccd\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -300,24 +165,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-10.0.1_3e46858123f8c74885606fdc8ab08625bb652523\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="20654526984dc6b7be31ff1e10da3973c40ccaf3">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f1496f898b6700ade0f6ecffb450d438094ef06e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-awareness\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -336,66 +183,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.1.0_c0e8ca852fdd0de4774bcae255056fdf24f81422\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="39907d5c8f5902fffef30160ca7447c93b82405c">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-10.0.1_4ebbf4bea40b524915796d3fe07a13f6ac5c55c3\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d17da6f5e989bc9d9cfa44ea83263dad52785e45">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_aa19a34a918922765612b0142c133a77d6472c33\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="df1cb17511aabbb63264a0024949d1e42502a512">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-10.0.1_d34d6f9fc6a0f34f89500b8f4a5020957c14a82b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\will\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.1\369f9aa48a629b4e92557b37326f42dc3de796e4\MPAndroidChart-v3.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="369f9aa48a629b4e92557b37326f42dc3de796e4">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.1_216de8dda6ddc3d0d5cb2a35de8503f1cf9c28bd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="45305e6af414dab5aba6c3225081c2f15c3bdd1e">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-10.0.1_d0a1b7eaae96d13f96965f55082b09063e47c76a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="408a599ac77cd17fe8e8919326bec617b3d005bd">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-10.0.1_d8b1b0233b24338bd999e7680308dd2d7d0e62ad\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -453,15 +246,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="771267c5b0c7a5b348d3205dcfa1f871af7e0177">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-10.0.1_09ec04566a37d104980e2148553bf0be42ee27e5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\will\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
         jumboMode="true"
         optimize="true"
@@ -498,57 +282,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d0460bf07cc3657e0be518ca01c174493951c6b8">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-10.0.1_a5967b15857232900dfc7ea7d9b97c386191f2c7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="c6e1f361e9d61aece9dac39b77fcc98a337a144d">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-10.0.1_f04aefc599a68a146db87bca975cd0d456061b5b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="8308ed003522a2ee8958311afcc4cfd0470377cd">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-10.0.1_84c1cf2367925ab67bf7d825fcd206b77039d75f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.0.1_5042b0cef6240d0ea4e5a822281427a3f9bb924c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-10.0.1_2da8ee8704b6b502943219462d1dd561a1d4cd25\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-10.0.1_707797372a04a27733db3a121b207ecb6003231f\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -588,15 +327,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.github.alamkanak\android-week-view\1.2.6\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="393eb85d65baa2c3702efdf699832498f8b51bf1">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.alamkanak-android-week-view-1.2.6_08dfaeda57f622d30ca3bcf984de5b795775bc75\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -633,6 +363,285 @@
     </item>
     <item
         is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_587484bbda1c7e74a8cebbe7aa9e23a127c23484\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\design\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.1.0_1e609fdb446bf01948cc39395f1491a7de18b2d0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\transition\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.1.0_0eb023f5a7f28f5051598bc0872c14cf34c681b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-database\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-10.0.1_0f851f3a129e83f30bdc528b1bfee623bee36764\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.0_8f5e279219749c6f758786f11c6db4c788397a50\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f3e51e9c5233b8897f61e08a6a27bc36283c2724">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-10.0.1_0ec7dbcc86a0e13fa1a7258c11a8639cb95e422b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.github.iammert\MaterialIntroView\1.5.2\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f06fdffab770ba7c59dae676f7c4a2db0e227702">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.iammert-MaterialIntroView-1.5.2_7635b634686167e5efd6f22577b4d782ab09bc30\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="aee64634871d88a419d59eb743c1258a60f19700">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.1.0_04e3ea629eaa301ca08b4ef13fea92a4736bb145\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="57c2eceb8548de84509d1ebc293fedec53231f6c">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-10.0.1_859edd475dd4ea1a3b68f005b2dcd2db6e049fef\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.0_ce912ecce85be562b49d617b29ab09e417771c57\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-10.0.1_36463878ff186b8387b2d6cc1e6be4593c942b15\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-v4-impl\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f23ad0f8e58713ff4b55f61c0bbde3830378347c">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-v4-impl-10.0.1_a0e1dcd94bff47132b127075454b780850787117\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-10.0.1_07a0e402a78a89dc495f78af2cad99fc15935a43\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads-lite\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b955cb3a1ad6f1b6ff728ce1e0cd592c1717b440">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-lite-10.0.1_8678acf8e3569a79c5debdc08399dbd667b912dc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d96886efea7cc74fbb3abd0e3b51d5638fc57be0">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.0_430e06c4a411f8dc229b7d65392a0bd2211521dd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="de29a39f9260f88151b1ef453140e71c76b6c415">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-10.0.1_f7e00e7e21ddd9b50db213b1cf37478203f51ccd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-10.0.1_3e46858123f8c74885606fdc8ab08625bb652523\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="977d9a9796ffa0cd5f92f3030778cc30456d4fa6">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_f1496f898b6700ade0f6ecffb450d438094ef06e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.1.0_c0e8ca852fdd0de4774bcae255056fdf24f81422\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0030188434884f83a8ace19b997ed7c1bd62dee5">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_aa19a34a918922765612b0142c133a77d6472c33\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="df1cb17511aabbb63264a0024949d1e42502a512">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-10.0.1_d34d6f9fc6a0f34f89500b8f4a5020957c14a82b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\will\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.1\369f9aa48a629b4e92557b37326f42dc3de796e4\MPAndroidChart-v3.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="369f9aa48a629b4e92557b37326f42dc3de796e4">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.1_216de8dda6ddc3d0d5cb2a35de8503f1cf9c28bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-instantapps\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="45305e6af414dab5aba6c3225081c2f15c3bdd1e">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-instantapps-10.0.1_d0a1b7eaae96d13f96965f55082b09063e47c76a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="408a599ac77cd17fe8e8919326bec617b3d005bd">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-10.0.1_d8b1b0233b24338bd999e7680308dd2d7d0e62ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="771267c5b0c7a5b348d3205dcfa1f871af7e0177">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-10.0.1_09ec04566a37d104980e2148553bf0be42ee27e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d0460bf07cc3657e0be518ca01c174493951c6b8">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-10.0.1_a5967b15857232900dfc7ea7d9b97c386191f2c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8308ed003522a2ee8958311afcc4cfd0470377cd">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-10.0.1_84c1cf2367925ab67bf7d825fcd206b77039d75f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-10.0.1_5042b0cef6240d0ea4e5a822281427a3f9bb924c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-10.0.1_2da8ee8704b6b502943219462d1dd561a1d4cd25\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-10.0.1_707797372a04a27733db3a121b207ecb6003231f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.github.alamkanak\android-week-view\1.2.6\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="393eb85d65baa2c3702efdf699832498f8b51bf1">
+        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.alamkanak-android-week-view-1.2.6_08dfaeda57f622d30ca3bcf984de5b795775bc75\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.1.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -657,15 +666,6 @@
         revision="25.0.1"
         sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
         <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.0_a6b87de530d9a5f06d0e447f2b5cef7aa07cffb6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="D:\AndroidProjects\MengYinNotifier\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_587484bbda1c7e74a8cebbe7aa9e23a127c23484\classes.dex" />
     </item>
 
 </items>

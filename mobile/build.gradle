@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "ml.myll.mengyinnotifier"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode 1
         multiDexEnabled true
         versionName "1.0"

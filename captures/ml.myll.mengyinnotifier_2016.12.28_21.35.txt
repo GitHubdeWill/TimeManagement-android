@@ -1,0 +1,61 @@
+Applications Graphics Acceleration Info:
+Uptime: 2048077 Realtime: 2190363
+
+** Graphics info for pid 17415 [ml.myll.mengyinnotifier] **
+
+Stats since: 326964955403ns
+Total frames rendered: 5540
+Janky frames: 2688 (48.52%)
+90th percentile: 36ms
+95th percentile: 42ms
+99th percentile: 61ms
+Number Missed Vsync: 498
+Number High input latency: 375
+Number Slow UI thread: 1535
+Number Slow bitmap uploads: 19
+Number Slow issue draw commands: 1734
+
+Caches:
+Current memory usage / total memory usage (bytes):
+  TextureCache         22871232 / 25165824
+  LayerCache                  0 / 16777216 (numLayers = 0)
+  Layers total          0 (numLayers = 0)
+  RenderBufferCache           0 /  2097152
+  GradientCache           40960 /   524288
+  PathCache                1666 /  4194304
+  TessellationCache           0 /  1048576
+  TextDropShadowCache         0 /  2097152
+  PatchCache                  0 /   131072
+  FontRenderer 0 A8      524288 /   524288
+  FontRenderer 0 RGBA         0 /        0
+  FontRenderer 0 total   524288 /   524288
+Other:
+  FboCache                    0 /       16
+Total memory usage:
+  23438146 bytes, 22.35 MB
+
+Profile data in ms:
+
+	ml.myll.mengyinnotifier/ml.myll.mengyinnotifier.MainActivity/android.view.ViewRootImpl@c87bee0 (visibility=0)
+Stats since: 326964955403ns
+Total frames rendered: 5540
+Janky frames: 2688 (48.52%)
+90th percentile: 36ms
+95th percentile: 42ms
+99th percentile: 61ms
+Number Missed Vsync: 498
+Number High input latency: 375
+Number Slow UI thread: 1535
+Number Slow bitmap uploads: 19
+Number Slow issue draw commands: 1734
+
+View hierarchy:
+
+  ml.myll.mengyinnotifier/ml.myll.mengyinnotifier.MainActivity/android.view.ViewRootImpl@c87bee0
+  66 views, 65.82 kB of display lists
+
+
+Total ViewRootImpl: 1
+Total Views:        66
+Total DisplayList:  65.82 kB
+
