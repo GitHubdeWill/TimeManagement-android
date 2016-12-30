@@ -141,6 +141,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     }
 
     private void renewCurEvent (int cur){
+        CommonUtils.currEvent = cur;
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -161,6 +162,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         finish();
     }
 

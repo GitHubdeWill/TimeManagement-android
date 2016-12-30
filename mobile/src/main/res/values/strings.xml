@@ -30,4 +30,6 @@
     <string name="please_open_again">Please click Today to Refresh</string>
     <string name="AM">AM</string>
     <string name="PM">PM</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

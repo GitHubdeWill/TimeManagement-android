@@ -16,13 +16,13 @@
             android:icon="@drawable/ic_local_library_black_24px"
             android:title="@string/study" />
         <item
-            android:id="@+id/sustain"
-            android:icon="@drawable/ic_restaurant_black_24px"
-            android:title="@string/sustain" />
-        <item
             android:id="@+id/recreation"
             android:icon="@drawable/ic_beach_access_black_24px"
             android:title="@string/recreation" />
+        <item
+            android:id="@+id/sustain"
+            android:icon="@drawable/ic_restaurant_black_24px"
+            android:title="@string/sustain" />
         <item
             android:id="@+id/other"
             android:icon="@drawable/ic_local_bar_black_24px"

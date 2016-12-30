@@ -39,6 +39,9 @@ public class CommonUtils {
             ColorTemplate.VORDIPLOM_COLORS[4],
             ColorTemplate.getHoloBlue()};
 
+
+    public static int currEvent = 5;
+
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
 
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
@@ -96,7 +99,6 @@ public class CommonUtils {
                 Log.e(TAG, f0.getPath());
                 if (!f0.createNewFile()) {
                     System.out.println("File already exists");
-                    initFile(f0);
                 } else {
                     initFile(f0);
                     System.out.println("File created");
@@ -125,8 +127,9 @@ public class CommonUtils {
     private static void initFile (File f0) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(f0));
-            if (br.readLine() == null)
+            if (br.readLine() == null) {
                 System.out.println("No errors, and file empty");
+            }
             else return;
         } catch (IOException e) {
             e.printStackTrace();

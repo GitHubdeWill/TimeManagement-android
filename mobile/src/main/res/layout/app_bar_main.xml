@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/quantum_ic_refresh_white_24"
-        app:backgroundTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        app:srcCompat="@drawable/ic_autorenew_black_24px"
+        app:backgroundTint="@color/material_blue_500"
         app:fabSize="normal"
         app:elevation="10dp" />
 

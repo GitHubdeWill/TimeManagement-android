@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity
     private Point screenSize;
     private float timePercent;
     public boolean opened = false;
-    private int currEvent = 5;
 
     //Share
     ShareActionProvider mShareActionProvider;
@@ -330,6 +329,7 @@ public class MainActivity extends AppCompatActivity
 
         Intent intent = new Intent(this, WeekViewActivity.class);
         startActivity(intent);
+        onStop();
     }
 
     @Override
@@ -348,8 +348,8 @@ public class MainActivity extends AppCompatActivity
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "Read "+c);
-            if (c<6) currEvent = c;
-            Log.i(TAG, "Prev event is "+currEvent);
+            if (c<6) CommonUtils.currEvent = c;
+            Log.i(TAG, "Prev event is "+CommonUtils.currEvent);
             scanner.close();
         } catch (Exception e) {
             try {
@@ -383,6 +383,12 @@ public class MainActivity extends AppCompatActivity
         });
 
         Log.i(TAG, "OnCreate All Done!");
+    }
+
+    @Override
+    protected void onResume() {
+        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
+        super.onResume();
     }
 
     @Override
@@ -512,8 +518,8 @@ public class MainActivity extends AppCompatActivity
             toggle.syncState();
 
             navigationView.setNavigationItemSelectedListener(this);
-            navigationView.getMenu().getItem(currEvent).setChecked(true);
             case 1:
+            navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
             updateProgress();
 
 

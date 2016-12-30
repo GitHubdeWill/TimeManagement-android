@@ -23,7 +23,7 @@
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="@dimen/flexible_space_image_height"
-        android:background="@color/common_google_signin_btn_text_dark_focused" />
+        android:background="@color/black_overlay" />
 
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:id="@+id/scroll"
