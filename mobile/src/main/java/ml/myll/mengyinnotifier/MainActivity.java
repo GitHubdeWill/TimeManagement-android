@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -84,18 +86,20 @@ public class MainActivity extends AppCompatActivity
     final static int REQUEST_CODE = 8699;
     final static String FILENAME = "file";
 
-    //Tool Bar
-    Toolbar toolbar;
-
     //Views
+    private Toolbar toolbar;
+    //Scroll View related views
     private ImageView mImageView;
     private View mOverlayView;
     private ObservableScrollView mScrollView;
     private TextView mTitleView;
-    private View mFab;
-    private FloatingActionButton fab;
+    //Floating Action Buttons
+    private View yFab;
+    private FloatingActionButton bFab;
+    //Navigation Drawer
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    //Information Views
     private ProgressBar progressBar;
     private TextView time_text;
     private PieChart pChart;
@@ -104,10 +108,12 @@ public class MainActivity extends AppCompatActivity
     private int mActionBarSize;
     private int mFlexibleSpaceShowFabOffset;
     private int mFlexibleSpaceImageHeight;
-    private int mFabMargin;
-    private boolean mFabIsShown;
+    private int yFabMargin;
+    private boolean yFabIsShown;
     private Point screenSize;
+    //The time that have left
     private float timePercent;
+    //Date picker opened
     public boolean opened = false;
 
     //Share
@@ -115,9 +121,9 @@ public class MainActivity extends AppCompatActivity
 
     //Handler for date picker
     final Handler handler = new Handler();
-    Runnable mLongPressed = new Runnable() {
+    Runnable yFabLongPressed = new Runnable() {
         public void run() {
-            Log.i("", "Long press!");
+            Log.i(TAG, "yFab Long press");
             expandFAB(1);
             Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
             DialogFragment newFragment = new DatePickerFragment();
@@ -130,6 +136,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll,
                                 boolean dragging) {
+        Log.i(TAG, "onScrollChanged called");
 
         // Translate overlay and image
         float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
@@ -153,16 +160,16 @@ public class MainActivity extends AppCompatActivity
         mTitleView.setTranslationY(titleTranslationY);
 
         // Translate FAB
-        int maxFabTranslationY = mFlexibleSpaceImageHeight - mFab.getHeight() / 2;
-        float fabTranslationY = ScrollUtils.getFloat(
-                -scrollY + mFlexibleSpaceImageHeight - mFab.getHeight() / 2,
-                mActionBarSize - mFab.getHeight() / 2,
+        int maxFabTranslationY = mFlexibleSpaceImageHeight - yFab.getHeight() / 2;
+        float bFabTranslationY = ScrollUtils.getFloat(
+                -scrollY + mFlexibleSpaceImageHeight - yFab.getHeight() / 2,
+                mActionBarSize - yFab.getHeight() / 2,
                 maxFabTranslationY);
-        mFab.setTranslationX(mOverlayView.getWidth() - mFabMargin - mFab.getWidth());
-        mFab.setTranslationY(fabTranslationY);
+        yFab.setTranslationX(mOverlayView.getWidth() - yFabMargin - yFab.getWidth());
+        yFab.setTranslationY(bFabTranslationY);
 
         // Show/hide FAB
-        if (fabTranslationY < mFlexibleSpaceShowFabOffset) {
+        if (bFabTranslationY < mFlexibleSpaceShowFabOffset) {
             hideFab();
         } else {
             showFab();
@@ -170,11 +177,12 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onDownMotionEvent() {
-
+        Log.i(TAG, "onDownMotionEvent called");
     }
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        Log.i(TAG, "onUCMotionEvent called");
         if (scrollState == ScrollState.UP) {
             if (toolbarIsShown()) {
                 hideToolbar();
@@ -186,54 +194,62 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     //Show and hide Fab
     private void showFab() {
-        if (!mFabIsShown) {
-            ViewPropertyAnimator.animate(mFab).cancel();
-            ViewPropertyAnimator.animate(mFab).scaleX(1).scaleY(1).setDuration(200).start();
-            mFab.setClickable(true);
-            mFabIsShown = true;
+        Log.i(TAG, "yFab showing Fab");
+        if (!yFabIsShown) {
+            ViewPropertyAnimator.animate(yFab).cancel();
+            ViewPropertyAnimator.animate(yFab).scaleX(1).scaleY(1).setDuration(200).start();
+            yFab.setClickable(true);
+            yFab.setActivated(true);
+            yFab.setEnabled(true);
+            yFabIsShown = true;
         }
     }
 
     private void hideFab() {
-        if (mFabIsShown) {
-            ViewPropertyAnimator.animate(mFab).cancel();
-            ViewPropertyAnimator.animate(mFab).scaleX(0).scaleY(0).setDuration(200).start();
-            mFab.setClickable(false);
-            mFabIsShown = false;
+        Log.i(TAG, "yFab hiding Fab");
+        if (yFabIsShown) {
+            ViewPropertyAnimator.animate(yFab).cancel();
+            ViewPropertyAnimator.animate(yFab).scaleX(0).scaleY(0).setDuration(200).start();
+            yFab.setClickable(false);
+            yFab.setActivated(false);
+            yFab.setEnabled(false);
+            yFabIsShown = false;
         }
     }
 
     public void expandFAB(int mode) {
         if (mode == 1) {
-            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 35).setDuration(1000);
+            ValueAnimator animator = ValueAnimator.ofFloat(yFab.getScaleX(), 35).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float translationY = (float) animation.getAnimatedValue();
-                    mFab.setScaleX(translationY);
-                    mFab.setScaleY(translationY);
+                    yFab.setScaleX(translationY);
+                    yFab.setScaleY(translationY);
                 }
             });
             animator.start();
+            Log.i(TAG, "yFab expanding Fab");
         } else if (mode == 0) {
-            ValueAnimator animator = ValueAnimator.ofFloat(mFab.getScaleX(), 1).setDuration(1000);
+            ValueAnimator animator = ValueAnimator.ofFloat(yFab.getScaleX(), 1).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float translationY = (float) animation.getAnimatedValue();
-                    mFab.setScaleX(translationY);
-                    mFab.setScaleY(translationY);
+                    yFab.setScaleX(translationY);
+                    yFab.setScaleY(translationY);
                 }
             });
             animator.start();
+            Log.i(TAG, "yFab shrinking Fab");
         }
     }
 
     //Update TimeCount ProgressBar
     public void updateProgress () {
+        Log.i(TAG, "progressBar Updating Progress...");
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         int year = settings.getInt("year", 2000);
         int month = settings.getInt("month", 1);
@@ -245,7 +261,7 @@ public class MainActivity extends AppCompatActivity
                 - Calendar.getInstance().get(Calendar.MONTH)/12.0F
                 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH)/365.0F;
         progressBar.setScaleY(15f);
-        ValueAnimator animator = ValueAnimator.ofFloat(100.0F, timePercent).setDuration(5000);
+        ValueAnimator animator = ValueAnimator.ofFloat(100, timePercent).setDuration(1500);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -260,6 +276,7 @@ public class MainActivity extends AppCompatActivity
                         .replace("YYYY", minus+(Math.abs((int)(percent/1)) < 10 ? "0" : "")
                                 +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
                 );
+
                 if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
                         Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
                 else if (percent < 40) progressBar.getProgressDrawable().setColorFilter(
@@ -277,10 +294,12 @@ public class MainActivity extends AppCompatActivity
 
     //Show and hide Toolbar
     private boolean toolbarIsShown() {
+        if (toolbar.getTranslationY() == 0) Log.i(TAG, "toolBar is completely shown");
         return toolbar.getTranslationY() == 0;
     }
 
     private boolean toolbarIsHidden() {
+        if (toolbar.getTranslationY() == -toolbar.getHeight()) Log.i(TAG, "toolBar is completely hidden");
         return toolbar.getTranslationY() == -toolbar.getHeight();
     }
 
@@ -293,6 +312,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void moveToolbar(float toTranslationY) {
+        Log.i(TAG, "toolBar Moving toolBar");
         ValueAnimator animator = ValueAnimator.ofFloat(toolbar.getTranslationY(), toTranslationY).setDuration(200);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -306,6 +326,7 @@ public class MainActivity extends AppCompatActivity
 
     //Scroll back to the top
     private void scrollBack() {
+        Log.i(TAG, "scrollView scrolling back...");
         onUpOrCancelMotionEvent(ScrollState.DOWN);
         ValueAnimator animator = ValueAnimator.ofFloat(mScrollView.getCurrentScrollY(), 0).setDuration(500);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -321,25 +342,29 @@ public class MainActivity extends AppCompatActivity
     //Pie Chart
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+        Log.i(TAG, "pieChart Value selected");
         if (e == null)
             return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
+        Log.i(TAG,
+                "pieChart Value: " + e.getY() + ", index: " + h.getX()
                         + ", DataSet index: " + h.getDataSetIndex());
 
         Intent intent = new Intent(this, WeekViewActivity.class);
+        Log.i(TAG, "weekViewActivity starting...");
         startActivity(intent);
-        onStop();
+        Log.i(TAG, "calling onPause");
+        this.onPause();
     }
 
     @Override
     public void onNothingSelected() {
-        Log.i(TAG, "Nothing");
+        Log.i(TAG, "pieChart Nothing");
     }
 
     //Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -347,12 +372,13 @@ public class MainActivity extends AppCompatActivity
             FileInputStream fis = openFileInput(FILENAME);
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
-            Log.i(TAG, "Read "+c);
+            Log.i(TAG, "onCreate Read internal: "+c);
             if (c<6) CommonUtils.currEvent = c;
-            Log.i(TAG, "Prev event is "+CommonUtils.currEvent);
+            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
             scanner.close();
         } catch (Exception e) {
             try {
+                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.ITEMS[5]);
                 FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
                 fos.write((5+"").getBytes());
                 fos.flush();fos.close();
@@ -364,15 +390,16 @@ public class MainActivity extends AppCompatActivity
         //Set Toolbar as Action Bar
         this.setSupportActionBar(toolbar);
 
-        Log.i(TAG, "Getting Attributes...");
+        Log.i(TAG, "onCreate Getting Attributes...");
         setAttributes();
 
-        Log.i(TAG, "Finding Views...");
+        Log.i(TAG, "onCreate Finding Views...");
         findViews();
 
-        Log.i(TAG, "Initializing Views...");
+        Log.i(TAG, "onCreate Initializing Views...");
         initViews(0);
 
+        Log.i(TAG, "onCreate doing Intro View...");
         introView();
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
@@ -382,18 +409,28 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Log.i(TAG, "OnCreate All Done!");
+        Log.i(TAG, "onCreate All Done!");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart called, Current Event is:" + CommonUtils.ITEMS[CommonUtils.currEvent]);
+        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
     }
 
     @Override
     protected void onResume() {
-        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
         super.onResume();
+        Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.ITEMS[CommonUtils.currEvent]);
+        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
+        refresh();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+        Log.i(TAG, "onRequestPermissionsResult called");
         switch (requestCode) {
             case REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
@@ -406,13 +443,12 @@ public class MainActivity extends AppCompatActivity
                     finish();
                 }
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
+    //Helper
     private void setAttributes() {
+        Log.i(TAG, "setAttribute called");
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
         mFlexibleSpaceShowFabOffset = getResources().getDimensionPixelSize(R.dimen.flexible_space_show_fab_offset);
 
@@ -421,33 +457,35 @@ public class MainActivity extends AppCompatActivity
                 new int[] { android.R.attr.actionBarSize });
         mActionBarSize = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();
-        Log.i(TAG, "ABSize:" + mActionBarSize);
+        Log.i(TAG, "attributes ABSize:" + mActionBarSize);
 
         //Get Display Size
         Display display = getWindowManager().getDefaultDisplay();
         screenSize = new Point();
         display.getRealSize(screenSize);
+        Log.i(TAG, "attributes ScreenSize:" + screenSize.toString());
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         int years = settings.getInt("year", 1900);
         timePercent = (100 + years - Calendar.getInstance().get(Calendar.YEAR));
-
+        Log.i(TAG, "attributes getting SHARED_PREF: years "+years);
     }
 
     private void findViews () {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mImageView = (ImageView) findViewById(R.id.image);
         mOverlayView = findViewById(R.id.overlay);
+        yFab = findViewById(R.id.fab);
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mTitleView = (TextView) findViewById(R.id.title);
-        mFab = findViewById(R.id.fab);
-        fab = (FloatingActionButton) findViewById(R.id.fab2);
+        bFab = (FloatingActionButton) findViewById(R.id.fab2);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         progressBar = (ProgressBar) findViewById(R.id.timeBar);
         time_text = (TextView) findViewById(R.id.intro_time);
     }
 
+    //0 when onCreate; 1 when refresh.
     private void initViews (int mode) {
         RelativeLayout must = (RelativeLayout) findViewById(R.id.statusView);
         LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
@@ -464,47 +502,46 @@ public class MainActivity extends AppCompatActivity
             if (resourceId > 0) {
                 result += getResources().getDimensionPixelSize(resourceId);
             }
-            Log.i(TAG, "Status bar+Nav:" + result + "");
+            Log.i(TAG, "initView height of StatusBar+Nav:" + result);
             must.setMinimumHeight(screenSize.y);
             must.getLayoutParams().height = screenSize.y - result > inner.getLayoutParams().height ? screenSize.y - result : inner.getLayoutParams().height;
             must.requestLayout();
 
-            mImageView.setImageBitmap(
-                    CommonUtils.decodeSampledBitmapFromResource(getResources(),
-                            R.drawable.bg, screenSize.x, R.dimen.flexible_space_image_height));
+            mImageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),
+                    R.drawable.bg));
             mScrollView.setScrollViewCallbacks(this);
             mTitleView.setText(getTitle());
             setTitle(null);
 
-            mFab.setOnTouchListener(new View.OnTouchListener() {
+            yFab.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent event) {
                     if (opened) return false;
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        handler.postDelayed(mLongPressed, 600);
+                        handler.postDelayed(yFabLongPressed, 600);
                         expandFAB(1);
                         return true;
                     }
                     if ((event.getAction() == MotionEvent.ACTION_UP)) {
-                        handler.removeCallbacks(mLongPressed);
+                        handler.removeCallbacks(yFabLongPressed);
                         expandFAB(0);
                         return true;
                     }
                     return false;
                 }
             });
-            mFab.setClickable(false);
-            mFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
-            mFab.setScaleX(0);
-            mFab.setScaleY(0);
+            yFab.setClickable(false);
+            yFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
+            yFab.setScaleX(0);
+            yFab.setScaleY(0);
 
-            fab.setOnClickListener(new View.OnClickListener() {
+            bFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     scrollBack();
                 }
             });
-            fab.setOnLongClickListener(new View.OnLongClickListener() {
+            bFab.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     refresh();
@@ -535,16 +572,20 @@ public class MainActivity extends AppCompatActivity
 
     private void refresh () {
         initViews(1);
+        spinBFAB();
+        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
+    }
+
+    private void spinBFAB () {
         ValueAnimator animator = ValueAnimator.ofFloat(0, 360).setDuration(500);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float angle = (float) animation.getAnimatedValue();
-                fab.setRotation(angle);
+                bFab.setRotation(angle);
             }
         });
         animator.start();
-        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
     }
 
     private void introView() {
@@ -557,8 +598,8 @@ public class MainActivity extends AppCompatActivity
                 .enableFadeAnimation(true)
                 .performClick(true)
                 .setInfoText(getString(R.string.introfab))
-                .setTarget(mFab)
-                .setUsageId("mFab1")
+                .setTarget(yFab)
+                .setUsageId("yFab1")
                 .show();
         new MaterialIntroView.Builder(this)
                 .enableDotAnimation(true)
@@ -569,8 +610,8 @@ public class MainActivity extends AppCompatActivity
                 .enableFadeAnimation(true)
                 .performClick(true)
                 .setInfoText(getString(R.string.introfab2))
-                .setTarget(fab)
-                .setUsageId("mFab1")
+                .setTarget(bFab)
+                .setUsageId("bFab1")
                 .show();
     }
 
