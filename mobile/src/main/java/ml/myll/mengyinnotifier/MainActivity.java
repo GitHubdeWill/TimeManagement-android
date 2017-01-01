@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll,
                                 boolean dragging) {
-        Log.i(TAG, "onScrollChanged called");
+        Log.v(TAG, "onScrollChanged called");
 
         // Translate overlay and image
         float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
 
     //Show and hide yFab
     private void showyFab() {
-        Log.i(TAG, "yFab showing Fab");
+        Log.v(TAG, "yFab showing Fab");
         if (!yFabIsShown) {
             ViewPropertyAnimator.animate(yFab).cancel();
             ViewPropertyAnimator.animate(yFab).scaleX(1).scaleY(1).setDuration(200).start();
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void hideyFab() {
-        Log.i(TAG, "yFab hiding Fab");
+        Log.v(TAG, "yFab hiding Fab");
         if (yFabIsShown) {
             ViewPropertyAnimator.animate(yFab).cancel();
             ViewPropertyAnimator.animate(yFab).scaleX(0).scaleY(0).setDuration(200).start();

@@ -135,7 +135,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events.
-        List<WeekViewEvent> events = CommonUtils.getEvents();
+        List<WeekViewEvent> events = CommonUtils.getEvents(newYear, newMonth);
         Log.i(TAG, "Getting events, size is "+events.size());
         return events;
     }

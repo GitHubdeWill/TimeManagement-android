@@ -42,29 +42,6 @@ public class CommonUtils {
     public static int currEvent = 5;
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
     public static void createRecordIfNotCreated() {
         Log.e(TAG, "Start creating store file Dir");
         File f = new File(local_file);
@@ -179,14 +156,17 @@ public class CommonUtils {
         }
     }
 
-    public static ArrayList<WeekViewEvent> getEvents () {
+    public static ArrayList<WeekViewEvent> getEvents (int year, int month) {
         ArrayList<WeekViewEvent> ret = new ArrayList<>();
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), "/record.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Log.i(TAG, "Reading "+line);
+                if (line.split(" ").length==7 && line.split("#").length>=2) {
+//                    Log.d(TAG, "cur YYYY MM: " + Integer.parseInt(line.split(" ")[1]) + Integer.parseInt(line.split(" ")[2]));
+                    if (Integer.parseInt(line.split(" ")[1]) != year || Integer.parseInt(line.split(" ")[2]) != month-1) continue;
+                }
                 if (line.split(" ").length==7 && line.split("#").length==3) {
                     String[] lineComp = line.split(" ");
                     Calendar start = Calendar.getInstance();
