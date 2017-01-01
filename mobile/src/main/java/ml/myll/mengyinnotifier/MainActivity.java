@@ -43,6 +43,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.colorpicker.ColorPickerDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -68,6 +69,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -444,8 +446,28 @@ public class MainActivity extends AppCompatActivity
                 item.setChecked(true);
                 break;
             case R.id.nav_setting:
-                Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, SettingActivity.class);
+//                startActivity(intent);
+                int[] colorChoices = null;
+//                try {
+//                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
+//                    colorChoices = new int[fields.length];
+//                    int i = 0;
+//                    for (Field field : fields) {
+//                        String colorName = field.getName();
+//                        int colorId = field.getInt(null);
+//                        int color = getResources().getColor(colorId);
+//                        colorChoices[i++] = color;
+//                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                if (colorChoices == null) colorChoices = CommonUtils.colors;
+                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+                colorPickerDialog.initialize(
+                        R.string.color_picker, colorChoices, colorChoices[0], 1, colorChoices.length);
+                colorPickerDialog.show(getFragmentManager(), TAG);
                 ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                 return true;
             default:
@@ -466,12 +488,12 @@ public class MainActivity extends AppCompatActivity
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "onCreate Read internal: "+c);
-            if (c<CommonUtils.ITEMS.length) CommonUtils.currEvent = c;
+            if (c<CommonUtils.items.length) CommonUtils.currEvent = c;
             Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
             scanner.close();
         } catch (Exception e) {
             try {
-                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.ITEMS[5]);
+                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items[5]);
                 FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
                 fos.write((5+"").getBytes());
                 fos.flush();fos.close();
@@ -508,14 +530,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart called, Current Event is:" + CommonUtils.ITEMS[CommonUtils.currEvent]);
+        Log.i(TAG, "onStart called, Current Event is:" + CommonUtils.items[CommonUtils.currEvent]);
         navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.ITEMS[CommonUtils.currEvent]);
+        Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.items[CommonUtils.currEvent]);
         navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
         refresh();
     }
@@ -786,11 +808,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setData(PieChart mChart) {
-        int count = CommonUtils.ITEMS.length;
+        int count = CommonUtils.items.length;
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        String[] items = CommonUtils.ITEMS;
+        String[] items = CommonUtils.items;
         long[] times = CommonUtils.getTotalTime();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of

@@ -30,7 +30,7 @@ public class CommonUtils {
 
     final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
-    public static String[] ITEMS = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
+    public static String[] items = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
     public static int[] colors = {
             ColorTemplate.VORDIPLOM_COLORS[0],
             ColorTemplate.VORDIPLOM_COLORS[1],
@@ -52,7 +52,17 @@ public class CommonUtils {
         Log.e(TAG, "Start creating File");
         File f0 = new File(f.getAbsolutePath(), "/record.txt");
         if(f0.exists()) {
-            Log.i(TAG, "record.txt Already existed, Skipping");
+            Log.i(TAG, "record.txt Already existed");
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(f0));
+                if (br.readLine() == null) {
+                    Log.i(TAG, "record.txt Empty");
+                    initFile(f0);
+                }
+                else return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             try {
                 Log.e(TAG, f0.getPath());
@@ -68,19 +78,6 @@ public class CommonUtils {
             }
         }
         hasPermission = true;
-    }
-
-    public static void recreateRecord () {
-        Log.e(TAG, "Start checking store file Dir");
-        File f = new File(local_file);
-
-        Log.e(TAG, "Start creating File");
-        File f0 = new File(f.getAbsolutePath(), "/record.txt");
-        if(f0.exists()) {
-            Log.i(TAG, "record.txt existed, Deleting");
-            f0.delete();
-        }
-        createRecordIfNotCreated();
     }
 
     private static void initFile (File f0) {
@@ -175,7 +172,7 @@ public class CommonUtils {
                     end.setTimeInMillis(Long.parseLong(line.split("#")[2]));
                     WeekViewEvent weekViewEvent =
                             new WeekViewEvent(Integer.parseInt(lineComp[0]),
-                                    ITEMS[Integer.parseInt(lineComp[0])], start, end);
+                                    items[Integer.parseInt(lineComp[0])], start, end);
                     weekViewEvent.setColor(colors[Integer.parseInt(lineComp[0])]);
                     ret.add(weekViewEvent);
                 } else if (line.split(" ").length==7 && line.split("#").length==2) {
@@ -186,7 +183,7 @@ public class CommonUtils {
                     end.setTimeInMillis(System.currentTimeMillis());
                     WeekViewEvent weekViewEvent =
                             new WeekViewEvent(Integer.parseInt(lineComp[0]),
-                                    ITEMS[Integer.parseInt(lineComp[0])], start, end);
+                                    items[Integer.parseInt(lineComp[0])], start, end);
                     weekViewEvent.setColor(colors[Integer.parseInt(lineComp[0])]);
                     ret.add(weekViewEvent);
                 }

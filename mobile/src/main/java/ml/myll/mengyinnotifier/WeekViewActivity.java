@@ -51,7 +51,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "Read "+c);
-            if (c<CommonUtils.ITEMS.length) currEvent = c;
+            if (c<CommonUtils.items.length) currEvent = c;
             Log.i(TAG, "Prev event is "+currEvent);
             scanner.close();
         } catch (Exception e) {

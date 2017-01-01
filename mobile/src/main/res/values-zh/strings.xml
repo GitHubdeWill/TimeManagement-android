@@ -20,4 +20,5 @@
     <string name="please_open_again">请点击菜单的今天以刷新日历</string>
     <string name="AM">上午</string>
     <string name="PM">下午</string>
+    <string name="color_picker">选择颜色</string>
 </resources>

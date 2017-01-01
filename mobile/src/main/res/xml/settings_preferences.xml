@@ -5,15 +5,13 @@
         android:key="button_voicemail_category_key"
         android:title="VM"
         android:persistent="false">
-        <ListPreference
-            android:key="button_voicemail_provider_key"
-            android:title="VM"/>
-        <!-- opens another nested subscreen -->
+        <!--<ListPreference-->
+            <!--android:key="button_voicemail_provider_key"-->
+            <!--android:title="VM"/>-->
         <PreferenceScreen
             android:key="button_voicemail_setting_key"
             android:title="HAHAH"
             android:persistent="false">
-            ...
         </PreferenceScreen>
         <RingtonePreference
             android:key="button_voicemail_ringtone_key"
