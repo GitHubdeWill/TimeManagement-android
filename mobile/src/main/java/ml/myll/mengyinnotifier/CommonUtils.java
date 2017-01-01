@@ -30,8 +30,8 @@ public class CommonUtils {
 
     final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
-    public static final String[] ITEMS = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
-    private static final int[] colors = {
+    public static String[] ITEMS = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
+    public static int[] colors = {
             ColorTemplate.VORDIPLOM_COLORS[0],
             ColorTemplate.VORDIPLOM_COLORS[1],
             ColorTemplate.VORDIPLOM_COLORS[2],
@@ -39,26 +39,8 @@ public class CommonUtils {
             ColorTemplate.VORDIPLOM_COLORS[4],
             ColorTemplate.getHoloBlue()};
 
-
     public static int currEvent = 5;
-
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
-
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -234,4 +216,6 @@ public class CommonUtils {
         }
         return ret;
     }
+
+
 }

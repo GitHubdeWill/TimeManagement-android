@@ -82,9 +82,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
     private static final String TAG = "Main";
-    public static final String PREFS_NAME = "Settings";
-    final static int REQUEST_CODE = 8699;
-    final static String FILENAME = "file";
+    private final static int REQUEST_CODE = 8699;
+    private final static String FILENAME = "file";
 
     //Views
     private Toolbar toolbar;
@@ -106,13 +105,14 @@ public class MainActivity extends AppCompatActivity
 
     //Basic values
     private int mActionBarSize;
-    private int mFlexibleSpaceShowFabOffset;
+    private int mFlexibleSpaceShowyFabOffset;
     private int mFlexibleSpaceImageHeight;
     private int yFabMargin;
     private boolean yFabIsShown;
     private Point screenSize;
     //The time that have left
     private float timePercent;
+
     //Date picker opened
     public boolean opened = false;
 
@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity
     ShareActionProvider mShareActionProvider;
 
     //Handler for date picker
-    final Handler handler = new Handler();
-    Runnable yFabLongPressed = new Runnable() {
+    private final Handler handler = new Handler();
+    private Runnable yFabLongPressed = new Runnable() {
         public void run() {
             Log.i(TAG, "yFab Long press");
-            expandFAB(1);
+            expandyFab(1);
             Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
             DialogFragment newFragment = new DatePickerFragment();
             newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -160,19 +160,19 @@ public class MainActivity extends AppCompatActivity
         mTitleView.setTranslationY(titleTranslationY);
 
         // Translate FAB
-        int maxFabTranslationY = mFlexibleSpaceImageHeight - yFab.getHeight() / 2;
-        float bFabTranslationY = ScrollUtils.getFloat(
+        int maxyFabTranslationY = mFlexibleSpaceImageHeight - yFab.getHeight() / 2;
+        float yFabTranslationY = ScrollUtils.getFloat(
                 -scrollY + mFlexibleSpaceImageHeight - yFab.getHeight() / 2,
                 mActionBarSize - yFab.getHeight() / 2,
-                maxFabTranslationY);
+                maxyFabTranslationY);
         yFab.setTranslationX(mOverlayView.getWidth() - yFabMargin - yFab.getWidth());
-        yFab.setTranslationY(bFabTranslationY);
+        yFab.setTranslationY(yFabTranslationY);
 
         // Show/hide FAB
-        if (bFabTranslationY < mFlexibleSpaceShowFabOffset) {
-            hideFab();
+        if (yFabTranslationY < mFlexibleSpaceShowyFabOffset) {
+            hideyFab();
         } else {
-            showFab();
+            showyFab();
         }
     }
     @Override
@@ -194,8 +194,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Show and hide Fab
-    private void showFab() {
+    //Show and hide yFab
+    private void showyFab() {
         Log.i(TAG, "yFab showing Fab");
         if (!yFabIsShown) {
             ViewPropertyAnimator.animate(yFab).cancel();
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void hideFab() {
+    private void hideyFab() {
         Log.i(TAG, "yFab hiding Fab");
         if (yFabIsShown) {
             ViewPropertyAnimator.animate(yFab).cancel();
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void expandFAB(int mode) {
+    private void expandyFab(int mode) {
         if (mode == 1) {
             ValueAnimator animator = ValueAnimator.ofFloat(yFab.getScaleX(), 35).setDuration(1000);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -247,10 +247,30 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //spin bFab
+    private void spinbFab () {
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 360).setDuration(500);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float angle = (float) animation.getAnimatedValue();
+                bFab.setRotation(angle);
+            }
+        });
+        animator.start();
+    }
+
+    //Refresh Views
+    private void refresh () {
+        initViews(1);
+        spinbFab();
+        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
+    }
+
     //Update TimeCount ProgressBar
     public void updateProgress () {
         Log.i(TAG, "progressBar Updating Progress...");
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences settings = getSharedPreferences(SettingActivity.PREFS_NAME, 0);
         int year = settings.getInt("year", 2000);
         int month = settings.getInt("month", 1);
         int day = settings.getInt("day",1);
@@ -292,7 +312,7 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
-    //Show and hide Toolbar
+    //ToolBar Translation
     private boolean toolbarIsShown() {
         if (toolbar.getTranslationY() == 0) Log.i(TAG, "toolBar is completely shown");
         return toolbar.getTranslationY() == 0;
@@ -324,7 +344,7 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
-    //Scroll back to the top
+    //Scroll back to the top ScrollView
     private void scrollBack() {
         Log.i(TAG, "scrollView scrolling back...");
         onUpOrCancelMotionEvent(ScrollState.DOWN);
@@ -339,7 +359,7 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
-    //Pie Chart
+    //Pie Chart Overrides
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         Log.i(TAG, "pieChart Value selected");
@@ -361,7 +381,80 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "pieChart Nothing");
     }
 
-    //Activity
+    //Navigation Drawer Overrides
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.nav_share) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.sleep:
+                CommonUtils.newEvent(0);
+                renewCurEvent(0);
+                Log.i(TAG, "Event changed to 0");
+                item.setChecked(true);
+                break;
+            case R.id.work:
+                CommonUtils.newEvent(1);
+                renewCurEvent(1);
+                Log.i(TAG, "Event changed to 1");
+                item.setChecked(true);
+                break;
+            case R.id.study:
+                CommonUtils.newEvent(2);
+                renewCurEvent(2);
+                Log.i(TAG, "Event changed to 2");
+                item.setChecked(true);
+                break;
+            case R.id.recreation:
+                CommonUtils.newEvent(3);
+                renewCurEvent(3);
+                Log.i(TAG, "Event changed to 3");
+                item.setChecked(true);
+                break;
+            case R.id.sustain:
+                CommonUtils.newEvent(4);
+                renewCurEvent(4);
+                Log.i(TAG, "Event changed to 4");
+                item.setChecked(true);
+                break;
+            case R.id.other:
+                CommonUtils.newEvent(5);
+                renewCurEvent(5);
+                Log.i(TAG, "Event changed to 5");
+                item.setChecked(true);
+                break;
+            case R.id.nav_setting:
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                return true;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    //Activity overRides
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate called");
@@ -373,7 +466,7 @@ public class MainActivity extends AppCompatActivity
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "onCreate Read internal: "+c);
-            if (c<6) CommonUtils.currEvent = c;
+            if (c<CommonUtils.ITEMS.length) CommonUtils.currEvent = c;
             Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
             scanner.close();
         } catch (Exception e) {
@@ -428,6 +521,33 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        scrollBack();
+
+        MenuItem shareItem = menu.findItem(R.id.nav_share);
+        mShareActionProvider =
+                (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "我在使用萌音时间管理系统耶~你也来试试吧！");
+        sendIntent.setType("text/plain");
+        setShareIntent(sendIntent);
+        return true;
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         Log.i(TAG, "onRequestPermissionsResult called");
@@ -446,11 +566,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Helper
+
+    //Helper methods
+
     private void setAttributes() {
         Log.i(TAG, "setAttribute called");
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
-        mFlexibleSpaceShowFabOffset = getResources().getDimensionPixelSize(R.dimen.flexible_space_show_fab_offset);
+        mFlexibleSpaceShowyFabOffset = getResources().getDimensionPixelSize(R.dimen.flexible_space_show_fab_offset);
 
         //Get Action Bar Size...
         final TypedArray styledAttributes = this.getTheme().obtainStyledAttributes(
@@ -465,7 +587,7 @@ public class MainActivity extends AppCompatActivity
         display.getRealSize(screenSize);
         Log.i(TAG, "attributes ScreenSize:" + screenSize.toString());
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences settings = getSharedPreferences(SettingActivity.PREFS_NAME, 0);
         int years = settings.getInt("year", 1900);
         timePercent = (100 + years - Calendar.getInstance().get(Calendar.YEAR));
         Log.i(TAG, "attributes getting SHARED_PREF: years "+years);
@@ -519,12 +641,12 @@ public class MainActivity extends AppCompatActivity
                     if (opened) return false;
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         handler.postDelayed(yFabLongPressed, 600);
-                        expandFAB(1);
+                        expandyFab(1);
                         return true;
                     }
                     if ((event.getAction() == MotionEvent.ACTION_UP)) {
                         handler.removeCallbacks(yFabLongPressed);
-                        expandFAB(0);
+                        expandyFab(0);
                         return true;
                     }
                     return false;
@@ -568,24 +690,6 @@ public class MainActivity extends AppCompatActivity
             }
             if(pChart != null)initChart(pChart);
         }
-    }
-
-    private void refresh () {
-        initViews(1);
-        spinBFAB();
-        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
-    }
-
-    private void spinBFAB () {
-        ValueAnimator animator = ValueAnimator.ofFloat(0, 360).setDuration(500);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float angle = (float) animation.getAnimatedValue();
-                bFab.setRotation(angle);
-            }
-        });
-        animator.start();
     }
 
     private void introView() {
@@ -682,7 +786,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setData(PieChart mChart) {
-        int count = 6;
+        int count = CommonUtils.ITEMS.length;
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -706,22 +810,8 @@ public class MainActivity extends AppCompatActivity
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        for (int c : CommonUtils.colors)
             colors.add(c);
-//
-//        for (int c : ColorTemplate.JOYFUL_COLORS)
-//            colors.add(c);
-
-//        for (int c : ColorTemplate.COLORFUL_COLORS)
-//            colors.add(c);
-
-//        for (int c : ColorTemplate.LIBERTY_COLORS)
-//            colors.add(c);
-//
-//        for (int c : ColorTemplate.PASTEL_COLORS)
-//            colors.add(c);
-//
-        colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
@@ -738,7 +828,7 @@ public class MainActivity extends AppCompatActivity
         mChart.invalidate();
     }
 
-    //Date Picker
+    //Date Picker inner class
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -749,21 +839,21 @@ public class MainActivity extends AppCompatActivity
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
             MainActivity a = (MainActivity)getActivity();
-            a.expandFAB(1);
+            a.expandyFab(1);
 
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, 2000, month, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences preferences = getActivity().getSharedPreferences(SettingActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("year", year);
             editor.putInt("month", month);
             editor.putInt("day", day);
             editor.apply();
             MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.expandFAB(0);
+            mainActivity.expandyFab(0);
             mainActivity.opened=false;
             mainActivity.updateProgress();
         }
@@ -773,109 +863,8 @@ public class MainActivity extends AppCompatActivity
             super.onCancel(dialog);
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.opened=false;
-            mainActivity.expandFAB(0);
+            mainActivity.expandyFab(0);
         }
-    }
-
-    /**
-     * Override Back Pressed to close the drawer if opened
-     */
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        scrollBack();
-
-        MenuItem shareItem = menu.findItem(R.id.nav_share);
-        mShareActionProvider =
-                (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "我在使用萌音时间管理系统耶~你也来试试吧！");
-        sendIntent.setType("text/plain");
-        setShareIntent(sendIntent);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
-            return true;
-        } if (id == R.id.nav_share) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch (id) {
-        case R.id.sleep:
-            CommonUtils.newEvent(0);
-            renewCurEvent(0);
-            Log.i(TAG, "Event changed to 0");
-            item.setChecked(true);
-            break;
-        case R.id.work:
-            CommonUtils.newEvent(1);
-            renewCurEvent(1);
-            Log.i(TAG, "Event changed to 1");
-            item.setChecked(true);
-            break;
-        case R.id.study:
-            CommonUtils.newEvent(2);
-            renewCurEvent(2);
-            Log.i(TAG, "Event changed to 2");
-            item.setChecked(true);
-            break;
-        case R.id.recreation:
-            CommonUtils.newEvent(3);
-            renewCurEvent(3);
-            Log.i(TAG, "Event changed to 3");
-            item.setChecked(true);
-            break;
-        case R.id.sustain:
-            CommonUtils.newEvent(4);
-            renewCurEvent(4);
-            Log.i(TAG, "Event changed to 4");
-            item.setChecked(true);
-            break;
-        case R.id.other:
-            CommonUtils.newEvent(5);
-            renewCurEvent(5);
-            Log.i(TAG, "Event changed to 5");
-            item.setChecked(true);
-            break;
-        case R.id.nav_setting:
-            Intent intent = new Intent(this, SettingActivity.class);
-            startActivity(intent);
-            ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
-            return true;
-        default:
-            break;
-        }
-        return true;
     }
 
     private void renewCurEvent (int cur){
@@ -893,6 +882,7 @@ public class MainActivity extends AppCompatActivity
         } catch (IOException e){
             e.printStackTrace();
         }
+        CommonUtils.currEvent = cur;
     }
 
     private void setShareIntent(Intent shareIntent) {

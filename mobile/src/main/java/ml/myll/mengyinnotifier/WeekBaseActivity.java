@@ -152,8 +152,7 @@ public abstract class WeekBaseActivity extends AppCompatActivity
     }
 
     protected String getEventTitle(Calendar time) {
-        String[] items = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
-        return items[time.get(Calendar.HOUR_OF_DAY)%6];
+        return "Undefined";
     }
 
     @Override

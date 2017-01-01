@@ -44,14 +44,14 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         //Set Toolbar as Action Bar
         this.setSupportActionBar((Toolbar)findViewById(R.id.toolbar2));
 
-        ((Toolbar)findViewById(R.id.toolbar2)).setBackgroundColor(getResources().getColor(R.color.black_overlay));
+        (findViewById(R.id.toolbar2)).setBackgroundColor(getResources().getColor(R.color.black_overlay));
 
         try{
             FileInputStream fis = openFileInput(FILENAME);
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "Read "+c);
-            if (c<6) currEvent = c;
+            if (c<CommonUtils.ITEMS.length) currEvent = c;
             Log.i(TAG, "Prev event is "+currEvent);
             scanner.close();
         } catch (Exception e) {
