@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-lo-rLA\\values-lo-rLA.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 94,
+                    "endOffset": 195
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-lo-rLA\\values-lo-rLA.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 94,
+                        "endOffset": 195
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 200,
+                    "endColumn": 122,
+                    "endOffset": 318
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-lo-rLA\\values-lo-rLA.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 200,
+                        "endColumn": 122,
+                        "endOffset": 318
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 323,
+                    "endColumn": 137,
+                    "endOffset": 456
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-lo-rLA\\values-lo-rLA.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 323,
+                        "endColumn": 137,
+                        "endOffset": 456
+                    }
+                }
+            }
+        ]
+    }
+]

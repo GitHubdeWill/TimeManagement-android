@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ml-rIN\\values-ml-rIN.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 110,
+                    "endOffset": 211
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-ml-rIN\\values-ml-rIN.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 110,
+                        "endOffset": 211
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 216,
+                    "endColumn": 126,
+                    "endOffset": 338
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-ml-rIN\\values-ml-rIN.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 216,
+                        "endColumn": 126,
+                        "endOffset": 338
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 343,
+                    "endColumn": 149,
+                    "endOffset": 488
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-ml-rIN\\values-ml-rIN.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 343,
+                        "endColumn": 149,
+                        "endOffset": 488
+                    }
+                }
+            }
+        ]
+    }
+]

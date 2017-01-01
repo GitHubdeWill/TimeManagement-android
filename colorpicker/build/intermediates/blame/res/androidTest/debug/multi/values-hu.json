@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-hu\\values-hu.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 100,
+                    "endOffset": 201
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-hu\\values-hu.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 100,
+                        "endOffset": 201
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 206,
+                    "endColumn": 125,
+                    "endOffset": 327
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-hu\\values-hu.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 206,
+                        "endColumn": 125,
+                        "endOffset": 327
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 332,
+                    "endColumn": 146,
+                    "endOffset": 474
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-hu\\values-hu.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 332,
+                        "endColumn": 146,
+                        "endOffset": 474
+                    }
+                }
+            }
+        ]
+    }
+]

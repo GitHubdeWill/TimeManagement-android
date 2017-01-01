@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-my-rMM\\values-my-rMM.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 101,
+                    "endOffset": 202
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-my-rMM\\values-my-rMM.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 101,
+                        "endOffset": 202
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 207,
+                    "endColumn": 126,
+                    "endOffset": 329
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-my-rMM\\values-my-rMM.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 207,
+                        "endColumn": 126,
+                        "endOffset": 329
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 334,
+                    "endColumn": 147,
+                    "endOffset": 477
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-my-rMM\\values-my-rMM.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 334,
+                        "endColumn": 147,
+                        "endOffset": 477
+                    }
+                }
+            }
+        ]
+    }
+]

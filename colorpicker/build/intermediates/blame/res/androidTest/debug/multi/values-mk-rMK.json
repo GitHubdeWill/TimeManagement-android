@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-mk-rMK\\values-mk-rMK.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 98,
+                    "endOffset": 199
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-mk-rMK\\values-mk-rMK.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 98,
+                        "endOffset": 199
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 204,
+                    "endColumn": 124,
+                    "endOffset": 324
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-mk-rMK\\values-mk-rMK.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 204,
+                        "endColumn": 124,
+                        "endOffset": 324
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 329,
+                    "endColumn": 143,
+                    "endOffset": 468
+                },
+                "from": {
+                    "file": "D:\\AndroidProjects\\MengYinNotifier\\colorpicker\\build\\intermediates\\bundles\\debug\\res\\values-mk-rMK\\values-mk-rMK.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 329,
+                        "endColumn": 143,
+                        "endOffset": 468
+                    }
+                }
+            }
+        ]
+    }
+]
