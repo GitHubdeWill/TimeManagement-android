@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.android.colorpicker.ColorPickerDialog;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -78,10 +79,64 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         // The week view
         mWeekView.setMonthChangeListener(this);
     }
+//
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//        switch (id) {
+//            case R.id.sleep:
+//                CommonUtils.newEvent(0);
+//                renewCurEvent(0);
+//                Log.i(TAG, "Event changed to 0");
+//                item.setChecked(true);
+//                break;
+//            case R.id.work:
+//                CommonUtils.newEvent(1);
+//                renewCurEvent(1);
+//                Log.i(TAG, "Event changed to 1");
+//                item.setChecked(true);
+//                break;
+//            case R.id.study:
+//                CommonUtils.newEvent(2);
+//                renewCurEvent(2);
+//                Log.i(TAG, "Event changed to 2");
+//                item.setChecked(true);
+//                break;
+//            case R.id.recreation:
+//                CommonUtils.newEvent(3);
+//                renewCurEvent(3);
+//                Log.i(TAG, "Event changed to 3");
+//                item.setChecked(true);
+//                break;
+//            case R.id.sustain:
+//                CommonUtils.newEvent(4);
+//                renewCurEvent(4);
+//                Log.i(TAG, "Event changed to 4");
+//                item.setChecked(true);
+//                break;
+//            case R.id.other:
+//                CommonUtils.newEvent(5);
+//                renewCurEvent(5);
+//                Log.i(TAG, "Event changed to 5");
+//                item.setChecked(true);
+//                break;
+//            case R.id.nav_setting:
+//                Intent intent = new Intent(this, SettingActivity.class);
+//                startActivity(intent);
+//                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+//                return true;
+//            default:
+//                break;
+//        }
+//        mWeekView.refreshDrawableState();
+//        return true;
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        if (item.isChecked()) return true;
         int id = item.getItemId();
         switch (id) {
             case R.id.sleep:
@@ -121,14 +176,33 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
                 item.setChecked(true);
                 break;
             case R.id.nav_setting:
-                Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, SettingActivity.class);
+//                startActivity(intent);
+                int[] colorChoices = null;
+//                try {
+//                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
+//                    colorChoices = new int[fields.length];
+//                    int i = 0;
+//                    for (Field field : fields) {
+//                        String colorName = field.getName();
+//                        int colorId = field.getInt(null);
+//                        int color = getResources().getColor(colorId);
+//                        colorChoices[i++] = color;
+//                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                if (colorChoices == null) colorChoices = CommonUtils.colors;
+                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+                colorPickerDialog.initialize(
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+                colorPickerDialog.show(getFragmentManager(), TAG);
                 ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                 return true;
             default:
                 break;
         }
-        mWeekView.refreshDrawableState();
         return true;
     }
 

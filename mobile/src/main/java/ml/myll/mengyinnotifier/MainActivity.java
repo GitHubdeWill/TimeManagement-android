@@ -407,6 +407,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        if (item.isChecked()) return true;
         int id = item.getItemId();
         switch (id) {
             case R.id.sleep:
@@ -466,7 +467,7 @@ public class MainActivity extends AppCompatActivity
                 if (colorChoices == null) colorChoices = CommonUtils.colors;
                 ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
                 colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 1, colorChoices.length);
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
                 colorPickerDialog.show(getFragmentManager(), TAG);
                 ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
                 return true;
