@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -62,14 +61,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -409,47 +403,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         if (item.isChecked()) return true;
         int id = item.getItemId();
-        switch (id) {
-            case R.id.sleep:
-                CommonUtils.newEvent(0);
-                renewCurEvent(0);
-                Log.i(TAG, "Event changed to 0");
-                item.setChecked(true);
-                break;
-            case R.id.work:
-                CommonUtils.newEvent(1);
-                renewCurEvent(1);
-                Log.i(TAG, "Event changed to 1");
-                item.setChecked(true);
-                break;
-            case R.id.study:
-                CommonUtils.newEvent(2);
-                renewCurEvent(2);
-                Log.i(TAG, "Event changed to 2");
-                item.setChecked(true);
-                break;
-            case R.id.recreation:
-                CommonUtils.newEvent(3);
-                renewCurEvent(3);
-                Log.i(TAG, "Event changed to 3");
-                item.setChecked(true);
-                break;
-            case R.id.sustain:
-                CommonUtils.newEvent(4);
-                renewCurEvent(4);
-                Log.i(TAG, "Event changed to 4");
-                item.setChecked(true);
-                break;
-            case R.id.other:
-                CommonUtils.newEvent(5);
-                renewCurEvent(5);
-                Log.i(TAG, "Event changed to 5");
-                item.setChecked(true);
-                break;
-            case R.id.nav_setting:
+
+        if(R.id.nav_setting == id) {
 //                Intent intent = new Intent(this, SettingActivity.class);
 //                startActivity(intent);
-                int[] colorChoices = null;
+            int[] colorChoices = null;
 //                try {
 //                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
 //                    colorChoices = new int[fields.length];
@@ -464,15 +422,22 @@ public class MainActivity extends AppCompatActivity
 //                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-                if (colorChoices == null) colorChoices = CommonUtils.colors;
-                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-                colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
-                colorPickerDialog.show(getFragmentManager(), TAG);
-                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
-                return true;
-            default:
-                break;
+            if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
+            ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+            colorPickerDialog.initialize(
+                    R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+            colorPickerDialog.show(getFragmentManager(), TAG);
+            ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+        for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
+            if (id == CommonUtils.drawerItemsIds.get(i)) {
+                CommonUtils.newEvent(i);
+                renewCurEvent(i);
+                Log.i(TAG, "Event changed to " + i);
+                item.setChecked(true);
+            }
         }
         return true;
     }
@@ -484,24 +449,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try{
-            FileInputStream fis = openFileInput(FILENAME);
-            Scanner scanner = new Scanner(fis);
-            int c = scanner.nextInt();
-            Log.i(TAG, "onCreate Read internal: "+c);
-            if (c<CommonUtils.items.length) CommonUtils.currEvent = c;
-            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
-            scanner.close();
-        } catch (Exception e) {
-            try {
-                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items[5]);
-                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                fos.write((5+"").getBytes());
-                fos.flush();fos.close();
-            } catch (IOException e1) {
-                e.printStackTrace();
-            }
-        }
+        firstCheck();
 
         //Set Toolbar as Action Bar
         this.setSupportActionBar(toolbar);
@@ -531,15 +479,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart called, Current Event is:" + CommonUtils.items[CommonUtils.currEvent]);
-        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
+        Log.i(TAG, "onStart called");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.items[CommonUtils.currEvent]);
-        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
+        Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.items.get(CommonUtils.currEvent).getName());
         refresh();
     }
 
@@ -636,82 +582,83 @@ public class MainActivity extends AppCompatActivity
         LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
         switch (mode) {
             case 0:
-            this.setSupportActionBar(toolbar);
+                this.setSupportActionBar(toolbar);
 
-            int result = 0;
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = getResources().getDimensionPixelSize(resourceId);
-            }
-            resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result += getResources().getDimensionPixelSize(resourceId);
-            }
-            Log.i(TAG, "initView height of StatusBar+Nav:" + result);
-            must.setMinimumHeight(screenSize.y);
-            must.getLayoutParams().height = screenSize.y - result > inner.getLayoutParams().height ? screenSize.y - result : inner.getLayoutParams().height;
-            must.requestLayout();
+                int result = 0;
+                int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+                if (resourceId > 0) {
+                    result = getResources().getDimensionPixelSize(resourceId);
+                }
+                resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+                if (resourceId > 0) {
+                    result += getResources().getDimensionPixelSize(resourceId);
+                }
+                Log.i(TAG, "initView height of StatusBar+Nav:" + result);
+                must.setMinimumHeight(screenSize.y);
+                must.getLayoutParams().height = screenSize.y - result > inner.getLayoutParams().height ? screenSize.y - result : inner.getLayoutParams().height;
+                must.requestLayout();
 
-            mImageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.bg));
-            mScrollView.setScrollViewCallbacks(this);
-            mTitleView.setText(getTitle());
-            setTitle(null);
+                mImageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),
+                        R.drawable.bg));
+                mScrollView.setScrollViewCallbacks(this);
+                mTitleView.setText(getTitle());
+                setTitle(null);
 
-            yFab.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent event) {
-                    if (opened) return false;
-                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        handler.postDelayed(yFabLongPressed, 600);
-                        expandyFab(1);
+                yFab.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent event) {
+                        if (opened) return false;
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            handler.postDelayed(yFabLongPressed, 600);
+                            expandyFab(1);
+                            return true;
+                        }
+                        if ((event.getAction() == MotionEvent.ACTION_UP)) {
+                            handler.removeCallbacks(yFabLongPressed);
+                            expandyFab(0);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                yFab.setClickable(false);
+                yFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
+                yFab.setScaleX(0);
+                yFab.setScaleY(0);
+
+                bFab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        scrollBack();
+                    }
+                });
+                bFab.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        refresh();
                         return true;
                     }
-                    if ((event.getAction() == MotionEvent.ACTION_UP)) {
-                        handler.removeCallbacks(yFabLongPressed);
-                        expandyFab(0);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            yFab.setClickable(false);
-            yFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
-            yFab.setScaleX(0);
-            yFab.setScaleY(0);
+                });
 
-            bFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    scrollBack();
-                }
-            });
-            bFab.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    refresh();
-                    return true;
-                }
-            });
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.addDrawerListener(toggle);
+                toggle.syncState();
 
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-
-            navigationView.setNavigationItemSelectedListener(this);
+                navigationView.setNavigationItemSelectedListener(this);
+                navigationView.inflateMenu(R.menu.activity_main_drawer);
             case 1:
-            navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
-            updateProgress();
 
+                navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
+                updateProgress();
 
-            if (mode == 0) {
-                pChart = new PieChart(this);
-                inner.addView(pChart);
-                pChart.getLayoutParams().height = screenSize.y * 3 / 4;
-                pChart.requestLayout();
-            }
-            if(pChart != null)initChart(pChart);
+                if (mode == 0) {
+                    pChart = new PieChart(this);
+                    inner.addView(pChart);
+                    pChart.getLayoutParams().height = screenSize.y * 3 / 4;
+                    pChart.requestLayout();
+                }
+                if(pChart != null)initChart(pChart);
         }
     }
 
@@ -809,11 +756,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setData(PieChart mChart) {
-        int count = CommonUtils.items.length;
+        int count = CommonUtils.items.size();
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        String[] items = CommonUtils.items;
+        String[] items = CommonUtils.getNamesFromItems();
         long[] times = CommonUtils.getTotalTime();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
@@ -833,7 +780,7 @@ public class MainActivity extends AppCompatActivity
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : CommonUtils.colors)
+        for (int c : CommonUtils.getColorsFromItems())
             colors.add(c);
 
         dataSet.setColors(colors);
@@ -890,6 +837,34 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void updateEventSharedPref (int curEvent) {
+        SharedPreferences preferences = getSharedPreferences(SettingActivity.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("curEvent", curEvent);
+        editor.apply();
+    }
+
+    private void firstCheck () {
+        try{
+            FileInputStream fis = openFileInput(FILENAME);
+            Scanner scanner = new Scanner(fis);
+            int c = scanner.nextInt();
+            Log.i(TAG, "onCreate Read internal: "+c);
+            if (c<CommonUtils.items.size()) CommonUtils.currEvent = c;
+            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
+            scanner.close();
+        } catch (Exception e) {
+            try {
+                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items.get(5).getName());
+                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write((5+"").getBytes());
+                fos.flush();fos.close();
+            } catch (IOException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void renewCurEvent (int cur){
         FileOutputStream fos = null;
         try {
@@ -912,5 +887,20 @@ public class MainActivity extends AppCompatActivity
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
         }
+    }
+
+    private void addNewCategory (String name, int color) {
+        //Write new Category to Record
+
+        //Renew Information in CommonUtils
+
+        //Update local views
+        addItemToDrawer(name);
+        refresh();
+    }
+
+    private void addItemToDrawer (String name) {
+        final Menu menu = navigationView.getMenu();
+        menu.add(name);
     }
 }

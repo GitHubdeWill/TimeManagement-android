@@ -21,6 +21,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by William on 2016/11/26.
@@ -28,19 +30,54 @@ import java.util.Calendar;
 
 public class CommonUtils {
 
-    final static String TAG = "COM_UTIL";
+    private final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
-    public static String[] items = {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
-    public static int[] colors = {
-            ColorTemplate.VORDIPLOM_COLORS[0],
-            ColorTemplate.VORDIPLOM_COLORS[1],
-            ColorTemplate.VORDIPLOM_COLORS[2],
-            ColorTemplate.VORDIPLOM_COLORS[3],
-            ColorTemplate.VORDIPLOM_COLORS[4],
-            ColorTemplate.getHoloBlue()};
+    public static List<MEvent> items = new ArrayList<>();
+
+    public static List<Integer> drawerItemsIds = new ArrayList<>();
 
     public static int currEvent = 5;
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
+
+    public static void initItems(){
+        //Basic
+        String[] evs= {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
+        int[] colors = {
+                ColorTemplate.VORDIPLOM_COLORS[0],
+                ColorTemplate.VORDIPLOM_COLORS[1],
+                ColorTemplate.VORDIPLOM_COLORS[2],
+                ColorTemplate.VORDIPLOM_COLORS[3],
+                ColorTemplate.VORDIPLOM_COLORS[4],
+                ColorTemplate.getHoloBlue()};
+        for(int i = 0; i < evs.length; i++) {
+            items.add(new MEvent(evs[i], colors[i]));
+        }
+        drawerItemsIds.add(R.id.sleep);
+        drawerItemsIds.add(R.id.work);
+        drawerItemsIds.add(R.id.study);
+        drawerItemsIds.add(R.id.recreation);
+        drawerItemsIds.add(R.id.sustain);
+        drawerItemsIds.add(R.id.other);
+
+        //Customized
+
+    }
+
+    public static int[] getColorsFromItems(){
+        int[] c = new int[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            c[i] = items.get(i).getColor();
+        }
+        return c;
+    }
+
+    public static String[] getNamesFromItems(){
+        String[] c = new String[items.size()];
+        for (int i = 0; i < items.size(); i++) {
+            c[i] = items.get(i).getName();
+        }
+        return c;
+    }
 
     public static void createRecordIfNotCreated() {
         Log.e(TAG, "Start creating store file Dir");
@@ -172,8 +209,8 @@ public class CommonUtils {
                     end.setTimeInMillis(Long.parseLong(line.split("#")[2]));
                     WeekViewEvent weekViewEvent =
                             new WeekViewEvent(Integer.parseInt(lineComp[0]),
-                                    items[Integer.parseInt(lineComp[0])], start, end);
-                    weekViewEvent.setColor(colors[Integer.parseInt(lineComp[0])]);
+                                    items.get(Integer.parseInt(lineComp[0])).getName(), start, end);
+                    weekViewEvent.setColor(getColorsFromItems()[Integer.parseInt(lineComp[0])]);
                     ret.add(weekViewEvent);
                 } else if (line.split(" ").length==7 && line.split("#").length==2) {
                     String[] lineComp = line.split(" ");
@@ -183,8 +220,8 @@ public class CommonUtils {
                     end.setTimeInMillis(System.currentTimeMillis());
                     WeekViewEvent weekViewEvent =
                             new WeekViewEvent(Integer.parseInt(lineComp[0]),
-                                    items[Integer.parseInt(lineComp[0])], start, end);
-                    weekViewEvent.setColor(colors[Integer.parseInt(lineComp[0])]);
+                                    items.get(Integer.parseInt(lineComp[0])).getName(), start, end);
+                    weekViewEvent.setColor(getColorsFromItems()[Integer.parseInt(lineComp[0])]);
                     ret.add(weekViewEvent);
                 }
             }

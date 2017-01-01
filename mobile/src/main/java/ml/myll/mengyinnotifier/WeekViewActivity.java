@@ -52,7 +52,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
             Scanner scanner = new Scanner(fis);
             int c = scanner.nextInt();
             Log.i(TAG, "Read "+c);
-            if (c<CommonUtils.items.length) currEvent = c;
+            if (c<CommonUtils.items.size()) currEvent = c;
             Log.i(TAG, "Prev event is "+currEvent);
             scanner.close();
         } catch (Exception e) {
@@ -138,47 +138,11 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         // Handle navigation view item clicks here.
         if (item.isChecked()) return true;
         int id = item.getItemId();
-        switch (id) {
-            case R.id.sleep:
-                CommonUtils.newEvent(0);
-                renewCurEvent(0);
-                Log.i(TAG, "Event changed to 0");
-                item.setChecked(true);
-                break;
-            case R.id.work:
-                CommonUtils.newEvent(1);
-                renewCurEvent(1);
-                Log.i(TAG, "Event changed to 1");
-                item.setChecked(true);
-                break;
-            case R.id.study:
-                CommonUtils.newEvent(2);
-                renewCurEvent(2);
-                Log.i(TAG, "Event changed to 2");
-                item.setChecked(true);
-                break;
-            case R.id.recreation:
-                CommonUtils.newEvent(3);
-                renewCurEvent(3);
-                Log.i(TAG, "Event changed to 3");
-                item.setChecked(true);
-                break;
-            case R.id.sustain:
-                CommonUtils.newEvent(4);
-                renewCurEvent(4);
-                Log.i(TAG, "Event changed to 4");
-                item.setChecked(true);
-                break;
-            case R.id.other:
-                CommonUtils.newEvent(5);
-                renewCurEvent(5);
-                Log.i(TAG, "Event changed to 5");
-                item.setChecked(true);
-                break;
-            case R.id.nav_setting:
+
+        if(R.id.nav_setting == id) {
 //                Intent intent = new Intent(this, SettingActivity.class);
 //                startActivity(intent);
-                int[] colorChoices = null;
+            int[] colorChoices = null;
 //                try {
 //                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
 //                    colorChoices = new int[fields.length];
@@ -193,15 +157,22 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 //                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-                if (colorChoices == null) colorChoices = CommonUtils.colors;
-                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-                colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
-                colorPickerDialog.show(getFragmentManager(), TAG);
-                ((DrawerLayout)findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
-                return true;
-            default:
-                break;
+            if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
+            ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+            colorPickerDialog.initialize(
+                    R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+            colorPickerDialog.show(getFragmentManager(), TAG);
+            ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+        for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
+            if (id == CommonUtils.drawerItemsIds.get(i)) {
+                CommonUtils.newEvent(i);
+                renewCurEvent(i);
+                Log.i(TAG, "Event changed to " + i);
+                item.setChecked(true);
+            }
         }
         return true;
     }
@@ -236,7 +207,6 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         finish();
     }
 
