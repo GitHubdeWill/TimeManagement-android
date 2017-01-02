@@ -48,7 +48,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/text"
                 android:orientation="vertical"
-                android:layout_weight="4.54">
+                android:layout_weight="4.54"
+                android:id="@+id/back_layout">
 
                 <TextView
                     android:id="@+id/intro_time"

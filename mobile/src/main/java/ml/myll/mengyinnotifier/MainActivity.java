@@ -13,6 +13,7 @@ import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -277,7 +278,7 @@ public class MainActivity extends AppCompatActivity
                 - Calendar.getInstance().get(Calendar.MONTH)/12.0F
                 - Calendar.getInstance().get(Calendar.DAY_OF_MONTH)/365.0F;
         progressBar.setScaleY(15f);
-        ValueAnimator animator = ValueAnimator.ofFloat(100, timePercent).setDuration(1500);
+        ValueAnimator animator = ValueAnimator.ofFloat(100, timePercent).setDuration(3000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -293,16 +294,28 @@ public class MainActivity extends AppCompatActivity
                                 +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
                 );
 
-                if (percent < 20) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 0, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 40) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 127, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 60) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(255, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent < 80) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(127, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
-                else if (percent <= 100) progressBar.getProgressDrawable().setColorFilter(
-                        Color.rgb(0, 255, 0), android.graphics.PorterDuff.Mode.SRC_IN);
+                progressBar.getProgressDrawable().setColorFilter(
+                            Color.rgb(0,0,0), PorterDuff.Mode.SRC_IN);
+                if (percent<0){
+//                    progressBar.getProgressDrawable().setColorFilter(
+//                            Color.rgb(255,0,0), PorterDuff.Mode.SRC_IN);
+                    (findViewById(R.id.back_layout)).setBackgroundColor(
+                            Color.rgb(255,0,0));
+                } else if (percent>100){
+//                    progressBar.getProgressDrawable().setColorFilter(
+//                            Color.rgb(0,255,0), PorterDuff.Mode.SRC_IN);
+                    (findViewById(R.id.back_layout)).setBackgroundColor(
+                            Color.rgb(0,255,0));
+                } else {
+//                    progressBar.getProgressDrawable().setColorFilter(
+//                            Color.rgb(percent <= 50 ? 255 : (int) (255 * (1 - (percent - 50) / 50.0)),
+//                                    percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
+//                                    0), PorterDuff.Mode.SRC_IN);
+                    (findViewById(R.id.back_layout)).setBackgroundColor(
+                            Color.rgb(percent <= 50 ? 255 : (int) (255 * (1 - (percent - 50) / 50.0)),
+                            percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
+                            0));
+                }
             }
         });
         animator.start();
