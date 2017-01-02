@@ -21,6 +21,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
+        if (CommonUtils.items.size()<6) CommonUtils.initItems();
         int i = (int) intent.getExtras().get("event");
         if (CommonUtils.currEvent == i) return;
         CommonUtils.newEvent(i);
