@@ -38,8 +38,12 @@ public class CommonUtils {
 
     public static int currEvent = 5;
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
+    public static String eventRecordFile = "/record.txt";
 
     public static void initItems(){
+        //Clear All Items
+        items = new ArrayList<>();
+        drawerItemsIds = new ArrayList<>();
         //Basic
         String[] evs= {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
         int[] colors = {
@@ -87,7 +91,7 @@ public class CommonUtils {
         }
 
         Log.e(TAG, "Start creating File");
-        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         if(f0.exists()) {
             Log.i(TAG, "record.txt Already existed");
             try {
@@ -131,13 +135,13 @@ public class CommonUtils {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
-            out.print(eventRecord(5));
+            out.print(getEventString(5));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String eventRecord (int event) {
+    public static String getEventString (int event) {
         return event + " " + Calendar.getInstance().get(Calendar.YEAR)+ " "
                 + Calendar.getInstance().get(Calendar.MONTH)+ " "
                 + Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+ " "
@@ -149,7 +153,7 @@ public class CommonUtils {
     public static long[] getTotalTime (){
         long[] record = {0,0,0,0,0,0};
         File f = new File(local_file);
-        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -173,7 +177,7 @@ public class CommonUtils {
         File f = new File(local_file);
 
         Log.e(TAG, "Start writing File");
-        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         if(f0.exists()) {
             Log.i(TAG, "record.txt existed, starting...");
             try(FileWriter fw = new FileWriter(f0, true);
@@ -181,19 +185,20 @@ public class CommonUtils {
                 PrintWriter out = new PrintWriter(bw))
             {
                 out.println("#"+System.currentTimeMillis());
-                out.print(CommonUtils.eventRecord(event));
+                out.print(getEventString(event));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             Log.e(TAG, "File not existed");
         }
+        currEvent = event;
     }
 
     public static ArrayList<WeekViewEvent> getEvents (int year, int month) {
         ArrayList<WeekViewEvent> ret = new ArrayList<>();
         File f = new File(local_file);
-        File f0 = new File(f.getAbsolutePath(), "/record.txt");
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
             String line;
             while ((line = br.readLine()) != null) {

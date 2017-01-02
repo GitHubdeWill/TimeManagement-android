@@ -35,6 +35,15 @@
             android:label="@string/title_activity_week_view"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="action1"/>
+                <category android:name="category1" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

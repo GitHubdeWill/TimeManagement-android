@@ -35,8 +35,6 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 
     final static String FILENAME = "file";
 
-    int currEvent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,23 +45,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 
         (findViewById(R.id.toolbar2)).setBackgroundColor(getResources().getColor(R.color.black_overlay));
 
-        try{
-            FileInputStream fis = openFileInput(FILENAME);
-            Scanner scanner = new Scanner(fis);
-            int c = scanner.nextInt();
-            Log.i(TAG, "Read "+c);
-            if (c<CommonUtils.items.size()) currEvent = c;
-            Log.i(TAG, "Prev event is "+currEvent);
-            scanner.close();
-        } catch (Exception e) {
-            try {
-                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                fos.write((0+"").getBytes());
-                fos.flush();fos.close();
-            } catch (IOException e1) {
-                e.printStackTrace();
-            }
-        }
+        firstCheck();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -73,7 +55,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(currEvent).setChecked(true);
+        navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
 
         mWeekView = ((WeekView)findViewById(R.id.weekView));
         // The week view
@@ -185,6 +167,29 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         return events;
     }
 
+    //Check internal FILE and renew CommonUtil.curEvent to that value. Default 5
+    private void firstCheck () {
+        try{
+            FileInputStream fis = openFileInput(FILENAME);
+            Scanner scanner = new Scanner(fis);
+            int c = scanner.nextInt();
+            Log.i(TAG, "onCreate Read internal: "+c);
+            if (c<CommonUtils.items.size()) CommonUtils.currEvent = c;
+            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
+            scanner.close();
+        } catch (Exception e) {
+            try {
+                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items.get(5).getName());
+                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                fos.write((5+"").getBytes());
+                fos.flush();fos.close();
+            } catch (IOException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Update internal FILE and renew CommonUtil.curEvent to <cur>.
     private void renewCurEvent (int cur){
         CommonUtils.currEvent = cur;
         FileOutputStream fos = null;

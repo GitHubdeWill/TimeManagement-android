@@ -2,6 +2,8 @@ package ml.myll.mengyinnotifier;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -80,6 +83,9 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "Main";
     private final static int REQUEST_CODE = 8699;
     private final static String FILENAME = "file";
+
+    private static int notificationId = 86998699;
+
 
     //Views
     private Toolbar toolbar;
@@ -256,13 +262,6 @@ public class MainActivity extends AppCompatActivity
         animator.start();
     }
 
-    //Refresh Views
-    private void refresh () {
-        initViews(1);
-        spinbFab();
-        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
-    }
-
     //Update TimeCount ProgressBar
     public void updateProgress () {
         Log.i(TAG, "progressBar Updating Progress...");
@@ -338,6 +337,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
         animator.start();
+    }
+
+    //Refresh Views
+    private void refresh () {
+        initViews(1);
+        spinbFab();
+        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
     }
 
     //Scroll back to the top ScrollView
@@ -473,6 +479,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        updateNotification();
+
         Log.i(TAG, "onCreate All Done!");
     }
 
@@ -537,7 +545,7 @@ public class MainActivity extends AppCompatActivity
 
 
     //Helper methods
-
+    //Called when onCreate to set all attributes
     private void setAttributes() {
         Log.i(TAG, "setAttribute called");
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
@@ -562,6 +570,7 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "attributes getting SHARED_PREF: years "+years);
     }
 
+    //Called when onCreate find all views corresponding to variables
     private void findViews () {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mImageView = (ImageView) findViewById(R.id.image);
@@ -640,6 +649,11 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
 
+                pChart = new PieChart(this);
+                inner.addView(pChart);
+                pChart.getLayoutParams().height = screenSize.y * 3 / 4;
+                pChart.requestLayout();
+
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
                 drawer.addDrawerListener(toggle);
@@ -652,16 +666,11 @@ public class MainActivity extends AppCompatActivity
                 navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
                 updateProgress();
 
-                if (mode == 0) {
-                    pChart = new PieChart(this);
-                    inner.addView(pChart);
-                    pChart.getLayoutParams().height = screenSize.y * 3 / 4;
-                    pChart.requestLayout();
-                }
                 if(pChart != null)initChart(pChart);
         }
     }
 
+    //Show intro view
     private void introView() {
         new MaterialIntroView.Builder(this)
                 .enableDotAnimation(false)
@@ -756,19 +765,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setData(PieChart mChart) {
-        int count = CommonUtils.items.size();
-
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         String[] items = CommonUtils.getNamesFromItems();
         long[] times = CommonUtils.getTotalTime();
 
+//        Log.e(TAG, "sizes: "+CommonUtils.items.size()+" "+items.length+" "+times.length);
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < count ; i++) {
+        for (int i = 0; i < items.length ; i++) {
             PieEntry ent = new PieEntry((float)times[i], items[i]);
             entries.add(ent);
-
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
@@ -837,6 +844,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //Update the "curEvent" shared pref to new int
     private void updateEventSharedPref (int curEvent) {
         SharedPreferences preferences = getSharedPreferences(SettingActivity.PREFS_NAME, 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -844,6 +852,7 @@ public class MainActivity extends AppCompatActivity
         editor.apply();
     }
 
+    //Check internal FILE and renew CommonUtil.curEvent to that value. Default 5
     private void firstCheck () {
         try{
             FileInputStream fis = openFileInput(FILENAME);
@@ -865,7 +874,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //Update internal FILE and renew CommonUtil.curEvent to <cur>.
     private void renewCurEvent (int cur){
+        CommonUtils.currEvent = cur;
+        updateNotification();
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -880,9 +892,10 @@ public class MainActivity extends AppCompatActivity
         } catch (IOException e){
             e.printStackTrace();
         }
-        CommonUtils.currEvent = cur;
+
     }
 
+    //Setting share Intent for sharing
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
@@ -902,5 +915,40 @@ public class MainActivity extends AppCompatActivity
     private void addItemToDrawer (String name) {
         final Menu menu = navigationView.getMenu();
         menu.add(name);
+    }
+
+    private void updateNotification () {
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// Sets an ID for the notification, so it can be updated
+        int notifyID = notificationId;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("MY Time")
+                .setContentText("Expand to check Time")
+                .setSmallIcon(R.drawable.scaledicon);
+// Start of a loop that processes data and then notifies the user
+        NotificationCompat.InboxStyle inboxStyle =
+                new NotificationCompat.InboxStyle();
+        String[] events = CommonUtils.getNamesFromItems();
+// Sets a title for the Inbox in expanded layout
+        inboxStyle.setBigContentTitle("Time spending details:");
+// Moves events into the expanded layout
+        for (int i=0; i < events.length; i++) {
+            PendingIntent pendingIntent;
+            Intent intent = new Intent();
+            intent.setClass(this, NotificationReceiver.class);
+            intent.putExtra("event", i);
+            intent.setAction("action1");
+            intent.addCategory("category1");
+            pendingIntent =  PendingIntent.getBroadcast(this, i, intent, 0);
+            NotificationCompat.Action action = new NotificationCompat.Action(R.color.lime, events[i], pendingIntent);
+            mBuilder.addAction(action);
+            inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+" Hours"));
+        }
+// Moves the expanded layout object into the notification object.
+        mBuilder.setStyle(inboxStyle);
+        mNotificationManager.notify(
+                notifyID,
+                mBuilder.build());
     }
 }
