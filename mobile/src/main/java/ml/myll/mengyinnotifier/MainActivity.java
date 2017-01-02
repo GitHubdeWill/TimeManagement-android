@@ -71,7 +71,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
@@ -664,6 +663,7 @@ public class MainActivity extends AppCompatActivity
                 navigationView.setNavigationItemSelectedListener(this);
                 navigationView.inflateMenu(R.menu.activity_main_drawer);
             case 1:
+                updateNotification();
 
                 navigationView.getMenu().getItem(CommonUtils.currEvent).setChecked(true);
                 updateProgress();

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         int i = (int) intent.getExtras().get("event");
+        if (CommonUtils.currEvent == i) return;
         CommonUtils.newEvent(i);
         CommonUtils.currEvent = i;
         FileOutputStream fos = null;
@@ -38,5 +40,6 @@ public class NotificationReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
         Log.i(TAG, "Event changed to " + i);
+        Toast.makeText(context, "Event changed to "+CommonUtils.getNamesFromItems()[i], Toast.LENGTH_SHORT).show();
     }
 }
