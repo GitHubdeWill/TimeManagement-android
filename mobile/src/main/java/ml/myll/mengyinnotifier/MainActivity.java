@@ -68,8 +68,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
@@ -941,8 +943,10 @@ public class MainActivity extends AppCompatActivity
             intent.setAction("action1");
             intent.addCategory("category1");
             pendingIntent =  PendingIntent.getBroadcast(this, i, intent, 0);
-            NotificationCompat.Action action = new NotificationCompat.Action(R.color.lime, events[i], pendingIntent);
-            mBuilder.addAction(action);
+            if (Arrays.asList(CommonUtils.shortcuts).contains(i)) {
+                NotificationCompat.Action action = new NotificationCompat.Action(R.color.lime, events[i], pendingIntent);
+                mBuilder.addAction(action);
+            }
             inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+" Hours"));
         }
 // Moves the expanded layout object into the notification object.

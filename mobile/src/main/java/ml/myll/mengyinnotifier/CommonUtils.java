@@ -33,6 +33,7 @@ public class CommonUtils {
     private final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
     public static List<MEvent> items = new ArrayList<>();
+    public static Integer[] shortcuts= {0,1,3};
 
     public static List<Integer> drawerItemsIds = new ArrayList<>();
 
