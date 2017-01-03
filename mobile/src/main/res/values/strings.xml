@@ -31,4 +31,6 @@
     <string name="AM">AM</string>
     <string name="PM">PM</string>
     <string name="color_picker">Color Picker</string>
+    <string name="add_more">Add More</string>
+    <string name="nav_advance">Advance</string>
 </resources>

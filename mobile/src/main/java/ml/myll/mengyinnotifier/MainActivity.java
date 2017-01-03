@@ -294,27 +294,27 @@ public class MainActivity extends AppCompatActivity
                                 +(Math.abs((int)(percent/1)) < 100 ? "0" : "") + Math.abs((int)(percent)))
                 );
 
-                progressBar.getProgressDrawable().setColorFilter(
-                            Color.rgb(0,0,0), PorterDuff.Mode.SRC_IN);
+                (findViewById(R.id.back_layout)).setBackgroundColor(
+                        Color.rgb(235,235,235));
                 if (percent<0){
-//                    progressBar.getProgressDrawable().setColorFilter(
-//                            Color.rgb(255,0,0), PorterDuff.Mode.SRC_IN);
-                    (findViewById(R.id.back_layout)).setBackgroundColor(
-                            Color.rgb(255,0,0));
+                    progressBar.getProgressDrawable().setColorFilter(
+                            Color.rgb(255,0,0), PorterDuff.Mode.SRC_IN);
+//                    (findViewById(R.id.back_layout)).setBackgroundColor(
+//                            Color.rgb(255,0,0));
                 } else if (percent>100){
-//                    progressBar.getProgressDrawable().setColorFilter(
-//                            Color.rgb(0,255,0), PorterDuff.Mode.SRC_IN);
-                    (findViewById(R.id.back_layout)).setBackgroundColor(
-                            Color.rgb(0,255,0));
+                    progressBar.getProgressDrawable().setColorFilter(
+                            Color.rgb(0,255,0), PorterDuff.Mode.SRC_IN);
+//                    (findViewById(R.id.back_layout)).setBackgroundColor(
+//                            Color.rgb(0,255,0));
                 } else {
-//                    progressBar.getProgressDrawable().setColorFilter(
-//                            Color.rgb(percent <= 50 ? 255 : (int) (255 * (1 - (percent - 50) / 50.0)),
-//                                    percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
-//                                    0), PorterDuff.Mode.SRC_IN);
-                    (findViewById(R.id.back_layout)).setBackgroundColor(
+                    progressBar.getProgressDrawable().setColorFilter(
                             Color.rgb(percent <= 50 ? 255 : (int) (255 * (1 - (percent - 50) / 50.0)),
-                            percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
-                            0));
+                                    percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
+                                    0), PorterDuff.Mode.SRC_IN);
+//                    (findViewById(R.id.back_layout)).setBackgroundColor(
+//                            Color.rgb(percent <= 50 ? 255 : (int) (255 * (1 - (percent - 50) / 50.0)),
+//                            percent >= 50 ? 255 : (int) (255 * (percent / 50.0)),
+//                            0));
                 }
             }
         });
@@ -889,9 +889,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Update internal FILE and renew CommonUtil.curEvent to <cur>.
+    //Update internal FILE
     private void renewCurEvent (int cur){
-        CommonUtils.currEvent = cur;
         updateNotification();
         FileOutputStream fos = null;
         try {
@@ -940,7 +939,8 @@ public class MainActivity extends AppCompatActivity
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("MY Time")
                 .setContentText("Expand to check Time")
-                .setSmallIcon(R.drawable.scaledicon);
+                .setSmallIcon(R.drawable.scaledicon)
+                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, AboutUsActivity.class), 0));
 // Start of a loop that processes data and then notifies the user
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();

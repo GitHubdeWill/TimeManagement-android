@@ -25,15 +25,21 @@ public class CommonUtils {
 
     private final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
+
+    //Store events, Ids
     public static List<MEvent> items = new ArrayList<>();
+    public static List<Integer> drawerItemsIds = new ArrayList<>();
+    //Notification shortcuts
     public static Integer[] shortcuts= {0,1,3};
 
-    public static List<Integer> drawerItemsIds = new ArrayList<>();
-
+    //curEvent
     public static int currEvent = 5;
+
+    //Files
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
     public static String eventRecordFile = "/record.txt";
 
+    //Set default color and events and drawerItems
     public static void initItems(){
         //Clear All Items
         items = new ArrayList<>();
@@ -59,8 +65,29 @@ public class CommonUtils {
 
         //Customized
 
+        //Set currEvent
+        currEvent = getCurrEventFromExternal();
+        Log.i(TAG, "Current event: "+currEvent);
     }
 
+    public static int getCurrEventFromExternal() {
+        try {
+            String sCurrentLine, last = "";
+
+            BufferedReader br = new BufferedReader(new FileReader(new File(new File(local_file).getAbsolutePath(), eventRecordFile)));
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                last = sCurrentLine;
+            }
+            br.close();
+            return Integer.parseInt(last.split(" ")[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    //return array of colors
     public static int[] getColorsFromItems(){
         int[] c = new int[items.size()];
         for (int i = 0; i < items.size(); i++) {
@@ -69,6 +96,7 @@ public class CommonUtils {
         return c;
     }
 
+    //return array of event names
     public static String[] getNamesFromItems(){
         String[] c = new String[items.size()];
         for (int i = 0; i < items.size(); i++) {
@@ -77,6 +105,7 @@ public class CommonUtils {
         return c;
     }
 
+    //Check, create records.txt and <initFile>
     public static void createRecordIfNotCreated() {
         Log.e(TAG, "Start creating store file Dir");
         File f = new File(local_file);
@@ -91,8 +120,8 @@ public class CommonUtils {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f0));
                 if (br.readLine() == null) {
-                    Log.i(TAG, "record.txt Empty");
                     initFile(f0);
+                    Log.i(TAG, "record.txt Empty");
                 }
                 else return;
             } catch (IOException e) {
@@ -115,6 +144,12 @@ public class CommonUtils {
         hasPermission = true;
     }
 
+    /**
+     *
+     * @param f0 external file
+     *      check if empty
+     *      write event 5 to file
+     */
     private static void initFile (File f0) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(f0));
@@ -135,6 +170,7 @@ public class CommonUtils {
         }
     }
 
+    //return storing standard string of the event. w/o finish last event
     public static String getEventString (int event) {
         return event + " " + Calendar.getInstance().get(Calendar.YEAR)+ " "
                 + Calendar.getInstance().get(Calendar.MONTH)+ " "
@@ -144,6 +180,7 @@ public class CommonUtils {
                 + System.currentTimeMillis();
     }
 
+    //return array of total time in items
     public static long[] getTotalTime (){
         long[] record = {0,0,0,0,0,0};
         File f = new File(local_file);
@@ -166,6 +203,7 @@ public class CommonUtils {
         return record;
     }
 
+    //Create a new event, write to external file and update <currEvent>
     public static void newEvent (int event) {
         Log.e(TAG, "Start checking file Dir");
         File f = new File(local_file);
@@ -189,6 +227,7 @@ public class CommonUtils {
         currEvent = event;
     }
 
+    //get all events in the year and month specified
     public static ArrayList<WeekViewEvent> getEvents (int year, int month) {
         ArrayList<WeekViewEvent> ret = new ArrayList<>();
         File f = new File(local_file);

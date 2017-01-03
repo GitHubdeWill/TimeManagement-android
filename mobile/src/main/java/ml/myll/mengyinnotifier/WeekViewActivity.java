@@ -186,9 +186,8 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         }
     }
 
-    //Update internal FILE and renew CommonUtil.curEvent to <cur>.
+    //Update internal FILE
     private void renewCurEvent (int cur){
-        CommonUtils.currEvent = cur;
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);

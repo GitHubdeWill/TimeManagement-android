@@ -21,4 +21,6 @@
     <string name="AM">上午</string>
     <string name="PM">下午</string>
     <string name="color_picker">选择颜色</string>
+    <string name="add_more">添加事件</string>
+    <string name="nav_advance">高级</string>
 </resources>

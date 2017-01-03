@@ -31,6 +31,11 @@
 
     <item android:title="Advance">
         <menu>
+
+            <item
+                android:id="@+id/add_item"
+                android:icon="@android:drawable/ic_menu_add"
+                android:title="@string/add_more" />
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"
