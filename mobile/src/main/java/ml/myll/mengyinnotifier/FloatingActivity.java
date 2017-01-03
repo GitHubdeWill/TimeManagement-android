@@ -26,7 +26,7 @@ public class FloatingActivity extends FloatingBaseActivity {
         // You can easily set the alpha and the dim behind the window from here
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.alpha = .9f;    // lower than one makes it more transparent
-        params.dimAmount = .5f;  // set it higher if you want to dim behind the window
+        params.dimAmount = .0f;  // set it higher if you want to dim behind the window
         getWindow().setAttributes(params);
 
         // Gets the display size so that you can set the window to a percent of that

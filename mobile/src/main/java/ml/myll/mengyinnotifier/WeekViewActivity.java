@@ -166,42 +166,15 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 
     //Check internal FILE and renew CommonUtil.curEvent to that value. Default 5
     private void firstCheck () {
-        try{
-            FileInputStream fis = openFileInput(FILENAME);
-            Scanner scanner = new Scanner(fis);
-            int c = scanner.nextInt();
-            Log.i(TAG, "onCreate Read internal: "+c);
-            if (c<CommonUtils.items.size()) CommonUtils.currEvent = c;
-            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
-            scanner.close();
-        } catch (Exception e) {
-            try {
-                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items.get(5).getName());
-                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                fos.write((5+"").getBytes());
-                fos.flush();fos.close();
-            } catch (IOException e1) {
-                e.printStackTrace();
-            }
-        }
+        Log.i(TAG, "onCreate Read External:");
+        int ev = CommonUtils.getCurrEventFromExternal();
+        if (ev == -1) CommonUtils.createRecordIfNotCreated();
+        CommonUtils.currEvent = CommonUtils.getCurrEventFromExternal();
+        Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
     }
 
     //Update internal FILE
     private void renewCurEvent (int cur){
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (fos == null) return;
-        try {
-            fos.write((cur + "").getBytes());
-            fos.flush();
-            fos.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
         Toast.makeText(this, getString(R.string.please_open_again), Toast.LENGTH_LONG).show();
     }
 

@@ -26,6 +26,8 @@ public class FloatingBaseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (CommonUtils.getNamesFromItems().length<6)CommonUtils.initItems();
+
         context = this;
 
         // If the user is in the PopupMainActivity function, the setUpWindow function would be called from that class
@@ -36,11 +38,14 @@ public class FloatingBaseActivity extends Activity {
         setContentView(R.layout.activity_floating);
         ListView listView = (ListView)findViewById(R.id.event_list);
 
+        setTitle("Now "+CommonUtils.getNamesFromItems()[CommonUtils.currEvent]);
+
         String[] values = CommonUtils.getNamesFromItems();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -48,8 +53,17 @@ public class FloatingBaseActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 CommonUtils.newEvent(position);
-                finish();
                 Toast.makeText(getApplicationContext(), "Event Changed to "+CommonUtils.getNamesFromItems()[position], Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), AboutUsActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
             }
         });
         // Again, this will call either the function from this class or the PopupMainActivity one,

@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
     private static final String TAG = "Main";
     private final static int REQUEST_CODE = 8699;
-    private final static String FILENAME = "file";
 
     public static int notificationId = 86998699;
+    public static boolean isRunning = false;
 
 
     //Views
@@ -464,6 +464,7 @@ public class MainActivity extends AppCompatActivity
                 CommonUtils.newEvent(i);
                 renewCurEvent(i);
                 Log.i(TAG, "Event changed to " + i);
+                Toast.makeText(this, "Event changed to " + i, Toast.LENGTH_SHORT).show();
                 item.setChecked(true);
             }
         }
@@ -509,17 +510,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        isRunning = true;
         Log.i(TAG, "onStart called");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.items.get(CommonUtils.currEvent).getName());
         refresh();
     }
 
+    @Override
+    protected void onStop() {
+        Log.i(TAG, "OnStop Called, Launching Service");
+        super.onStop();
+        isRunning = false;
+        Intent intent = new Intent(getApplicationContext(), MovementCheckService.class);
+        startService(intent);
+    }
 
     @Override
     public void onBackPressed() {
@@ -879,44 +888,16 @@ public class MainActivity extends AppCompatActivity
 
     //Check internal FILE and renew CommonUtil.curEvent to that value. Default 5
     private void firstCheck () {
-        try{
-            FileInputStream fis = openFileInput(FILENAME);
-            Scanner scanner = new Scanner(fis);
-            int c = scanner.nextInt();
-            Log.i(TAG, "onCreate Read internal: "+c);
-            if (c<CommonUtils.items.size()) CommonUtils.currEvent = c;
-            Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
-            scanner.close();
-        } catch (Exception e) {
-            try {
-                Log.i(TAG, "onCreate File not found, creating event 5 "+CommonUtils.items.get(5).getName());
-                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                fos.write((5+"").getBytes());
-                fos.flush();fos.close();
-            } catch (IOException e1) {
-                e.printStackTrace();
-            }
-        }
+        Log.i(TAG, "onCreate Read External:");
+        int ev = CommonUtils.getCurrEventFromExternal();
+        if (ev == -1) CommonUtils.createRecordIfNotCreated();
+        CommonUtils.currEvent = CommonUtils.getCurrEventFromExternal();
+        Log.i(TAG, "onCreate Prev event is: "+CommonUtils.currEvent);
     }
 
     //Update internal FILE
     private void renewCurEvent (int cur){
         updateNotification();
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (fos == null) return;
-        try {
-            fos.write((cur + "").getBytes());
-            fos.flush();
-            fos.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
     }
 
     //Setting share Intent for sharing

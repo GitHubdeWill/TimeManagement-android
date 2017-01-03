@@ -36,7 +36,6 @@
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowFrame">@null</item>
-        <item name="android:windowAnimationStyle">@style/PopupAnimation</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:backgroundDimEnabled">false</item>
 

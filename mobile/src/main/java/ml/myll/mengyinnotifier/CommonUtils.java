@@ -23,7 +23,6 @@ import java.util.List;
  */
 
 public class CommonUtils {
-
     private final static String TAG = "COM_UTIL";
     public static boolean hasPermission = false;
 
@@ -73,7 +72,7 @@ public class CommonUtils {
 
     public static int getCurrEventFromExternal() {
         try {
-            String sCurrentLine, last = "";
+            String sCurrentLine, last = null;
 
             BufferedReader br = new BufferedReader(new FileReader(new File(new File(local_file).getAbsolutePath(), eventRecordFile)));
 
@@ -81,6 +80,7 @@ public class CommonUtils {
                 last = sCurrentLine;
             }
             br.close();
+            if (last == null) return -1;
             return Integer.parseInt(last.split(" ")[0]);
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,6 +206,7 @@ public class CommonUtils {
 
     //Create a new event, write to external file and update <currEvent>
     public static void newEvent (int event) {
+        if (currEvent == event) return;
         Log.e(TAG, "Creating new event "+event);
         File f = new File(local_file);
 
