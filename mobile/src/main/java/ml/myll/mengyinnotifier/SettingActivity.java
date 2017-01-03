@@ -1,5 +1,6 @@
 package ml.myll.mengyinnotifier;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -68,6 +69,10 @@ public class SettingActivity extends PreferenceActivity {
                                 CommonUtils.shortcuts[i] = Integer.parseInt(selected[i]);
                             }
                             updateNotification();
+                        } else if (key.equals("notification_dismiss")){
+                            boolean d = prefs.getBoolean(key, true);
+                            CommonUtils.stickyNotification = d;
+                            updateNotification();
                         }
                     }
                 };
@@ -109,6 +114,7 @@ public class SettingActivity extends PreferenceActivity {
         }
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
+        mBuilder.setOngoing(CommonUtils.stickyNotification);
         mNotificationManager.notify(
                 notifyID,
                 mBuilder.build());

@@ -19,11 +19,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36227d96-2f2f-4624-9874-0b33fdfb7519" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/FloatingActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/FloatingBaseActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/res/anim/activity_slide_down.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/res/anim/activity_slide_up.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/activity_floating.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.2/taskArtifacts/taskArtifacts.bin" />
@@ -32,13 +27,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/layout/about_us.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/layout/about_us.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" />
     </list>
     <ignored path="MengYinNotifier.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,11 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="CommonUtils.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommonUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+            <state relative-caret-position="399">
+              <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
               <folding>
                 <element signature="docComment;class#CommonUtils#0" expanded="false" />
                 <element signature="method#getColorsFromItems#0;class#CommonUtils#0" expanded="false" />
@@ -92,21 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="37" column="30" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1523">
-              <caret line="942" column="38" selection-start-line="942" selection-start-column="38" selection-end-line="942" selection-end-column="38" />
+            <state relative-caret-position="250">
+              <caret line="977" column="38" selection-start-line="977" selection-start-column="38" selection-end-line="978" selection-end-column="60" />
               <folding>
                 <element signature="method#onScrollChanged#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onUpOrCancelMotionEvent#0;class#MainActivity#0" expanded="false" />
@@ -115,9 +97,9 @@
                 <element signature="method#expandyFab#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#spinbFab#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#updateProgress#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#12312#12386#0" expanded="false" />
-                <element signature="e#12622#12696#0" expanded="false" />
-                <element signature="e#13101#13175#0" expanded="false" />
+                <element signature="e#12345#12419#0" expanded="false" />
+                <element signature="e#12655#12729#0" expanded="false" />
+                <element signature="e#13134#13208#0" expanded="false" />
                 <element signature="method#toolbarIsShown#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#toolbarIsHidden#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#moveToolbar#0;class#MainActivity#0" expanded="false" />
@@ -125,10 +107,10 @@
                 <element signature="method#scrollBack#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onValueSelected#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#16251#16309#0" expanded="false" />
+                <element signature="e#16284#16342#0" expanded="false" />
                 <element signature="method#onNavigationItemSelected#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#17084#17158#0" expanded="false" />
-                <element signature="e#17239#17262#0" expanded="false" />
+                <element signature="e#17117#17191#0" expanded="false" />
+                <element signature="e#17272#17295#0" expanded="false" />
                 <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onStart#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onResume#0;class#MainActivity#0" expanded="false" />
@@ -140,11 +122,11 @@
                 <element signature="method#initViews#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#introView#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#initChart#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#29610#29634#0" expanded="false" />
-                <element signature="e#29867#29934#0" expanded="false" />
+                <element signature="e#29643#29667#0" expanded="false" />
+                <element signature="e#29900#29967#0" expanded="false" />
                 <element signature="method#generateCenterSpannableText#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#setData#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#31356#31447#0" expanded="false" />
+                <element signature="e#31389#31480#0" expanded="false" />
                 <element signature="class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onCreateDialog#0;class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#onDateSet#0;class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
@@ -154,23 +136,35 @@
                 <element signature="method#renewCurEvent#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#setShareIntent#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#addNewCategory#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#36186#36216#0" expanded="false" />
+                <element signature="e#36219#36249#0" expanded="false" />
                 <element signature="method#addItemToDrawer#0;class#MainActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SettingActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
+            <state relative-caret-position="250">
+              <caret line="115" column="38" selection-start-line="115" selection-start-column="38" selection-end-line="115" selection-end-column="38" />
               <folding>
                 <element signature="docComment;class#SettingActivity#0" expanded="false" />
-                <element signature="method#updateNotification#0;class#SettingActivity#0" expanded="false" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings_preferences.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="45" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
@@ -3770,22 +3764,22 @@
         <option value="$PROJECT_DIR$/mobile/src/main/res/menu/activity_main_drawer.xml" />
         <option value="$PROJECT_DIR$/mobile/build.gradle" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values/arrays.xml" />
-        <option value="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values/activity_slide_up.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values/activity_slide_down.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/layout/activity_floating.xml" />
-        <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/FloatingActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/AboutUsActivity.java" />
-        <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/layout/about_us.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/FloatingBaseActivity.java" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/anim/activity_slide_up.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/res/anim/activity_slide_down.xml" />
+        <option value="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" />
         <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java" />
+        <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java" />
+        <option value="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" />
       </list>
     </option>
   </component>
@@ -4476,36 +4470,36 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java</url>
-          <line>862</line>
+          <line>863</line>
           <properties class="ml.myll.mengyinnotifier.MainActivity.DatePickerFragment" method="onCancel" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java</url>
-          <line>106</line>
+          <line>109</line>
           <properties class="ml.myll.mengyinnotifier.CommonUtils" method="createRecordIfNotCreated" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java</url>
-          <line>207</line>
+          <line>208</line>
           <properties class="ml.myll.mengyinnotifier.MainActivity" method="showyFab" />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java</url>
-          <line>273</line>
+          <line>274</line>
           <properties class="ml.myll.mengyinnotifier.MainActivity" method="updateProgress" />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java</url>
-          <line>558</line>
+          <line>559</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java</url>
-          <line>509</line>
+          <line>510</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
@@ -4816,17 +4810,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="1" column="77" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="501">
@@ -4851,17 +4834,6 @@
         <state relative-caret-position="304">
           <caret line="16" column="77" selection-start-line="16" selection-start-column="77" selection-end-line="16" selection-end-column="77" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
-          <folding>
-            <element signature="docComment;class#SettingActivity#0" expanded="false" />
-            <element signature="method#updateNotification#0;class#SettingActivity#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4934,10 +4906,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="docComment;class#CommonUtils#0" expanded="false" />
+            <element signature="method#getColorsFromItems#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#getNamesFromItems#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#createRecordIfNotCreated#0;class#CommonUtils#0" expanded="false" />
+            <element signature="docComment;method#initFile#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#initFile#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#getEventString#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#getTotalTime#0;class#CommonUtils#0" expanded="false" />
+            <element signature="method#getEvents#0;class#CommonUtils#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1523">
-          <caret line="942" column="38" selection-start-line="942" selection-start-column="38" selection-end-line="942" selection-end-column="38" />
+        <state relative-caret-position="250">
+          <caret line="977" column="38" selection-start-line="977" selection-start-column="38" selection-end-line="978" selection-end-column="60" />
           <folding>
             <element signature="method#onScrollChanged#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onUpOrCancelMotionEvent#0;class#MainActivity#0" expanded="false" />
@@ -4946,9 +4947,9 @@
             <element signature="method#expandyFab#0;class#MainActivity#0" expanded="false" />
             <element signature="method#spinbFab#0;class#MainActivity#0" expanded="false" />
             <element signature="method#updateProgress#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#12312#12386#0" expanded="false" />
-            <element signature="e#12622#12696#0" expanded="false" />
-            <element signature="e#13101#13175#0" expanded="false" />
+            <element signature="e#12345#12419#0" expanded="false" />
+            <element signature="e#12655#12729#0" expanded="false" />
+            <element signature="e#13134#13208#0" expanded="false" />
             <element signature="method#toolbarIsShown#0;class#MainActivity#0" expanded="false" />
             <element signature="method#toolbarIsHidden#0;class#MainActivity#0" expanded="false" />
             <element signature="method#moveToolbar#0;class#MainActivity#0" expanded="false" />
@@ -4956,10 +4957,10 @@
             <element signature="method#scrollBack#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onValueSelected#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#16251#16309#0" expanded="false" />
+            <element signature="e#16284#16342#0" expanded="false" />
             <element signature="method#onNavigationItemSelected#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#17084#17158#0" expanded="false" />
-            <element signature="e#17239#17262#0" expanded="false" />
+            <element signature="e#17117#17191#0" expanded="false" />
+            <element signature="e#17272#17295#0" expanded="false" />
             <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onStart#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onResume#0;class#MainActivity#0" expanded="false" />
@@ -4971,11 +4972,11 @@
             <element signature="method#initViews#0;class#MainActivity#0" expanded="false" />
             <element signature="method#introView#0;class#MainActivity#0" expanded="false" />
             <element signature="method#initChart#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#29610#29634#0" expanded="false" />
-            <element signature="e#29867#29934#0" expanded="false" />
+            <element signature="e#29643#29667#0" expanded="false" />
+            <element signature="e#29900#29967#0" expanded="false" />
             <element signature="method#generateCenterSpannableText#0;class#MainActivity#0" expanded="false" />
             <element signature="method#setData#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#31356#31447#0" expanded="false" />
+            <element signature="e#31389#31480#0" expanded="false" />
             <element signature="class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onCreateDialog#0;class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
             <element signature="method#onDateSet#0;class#DatePickerFragment#0;class#MainActivity#0" expanded="false" />
@@ -4985,26 +4986,18 @@
             <element signature="method#renewCurEvent#0;class#MainActivity#0" expanded="false" />
             <element signature="method#setShareIntent#0;class#MainActivity#0" expanded="false" />
             <element signature="method#addNewCategory#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#36186#36216#0" expanded="false" />
+            <element signature="e#36219#36249#0" expanded="false" />
             <element signature="method#addItemToDrawer#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java">
+    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+        <state relative-caret-position="250">
+          <caret line="115" column="38" selection-start-line="115" selection-start-column="38" selection-end-line="115" selection-end-column="38" />
           <folding>
-            <element signature="docComment;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getColorsFromItems#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getNamesFromItems#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#createRecordIfNotCreated#0;class#CommonUtils#0" expanded="false" />
-            <element signature="docComment;method#initFile#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#initFile#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getEventString#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getTotalTime#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getEvents#0;class#CommonUtils#0" expanded="false" />
+            <element signature="docComment;class#SettingActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -2,6 +2,7 @@ package ml.myll.mengyinnotifier;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -975,6 +976,7 @@ public class MainActivity extends AppCompatActivity
         }
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
+        mBuilder.setOngoing(CommonUtils.stickyNotification);
         mNotificationManager.notify(
                 notifyID,
                 mBuilder.build());

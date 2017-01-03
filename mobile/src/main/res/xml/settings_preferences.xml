@@ -5,9 +5,9 @@
         android:key="sync_category">
 
         <CheckBoxPreference
-            android:key="perform_sync"
-            android:summary="Enable or disable data sync"
-            android:title="Enable Auto Sync"
+            android:key="notification_dismiss"
+            android:summary="Enable or disable Sticky Notification"
+            android:title="Enable Sticky Notification"
             android:defaultValue="true"/>
 
         <MultiSelectListPreference

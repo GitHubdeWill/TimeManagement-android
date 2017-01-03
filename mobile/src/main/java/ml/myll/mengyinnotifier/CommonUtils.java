@@ -36,6 +36,9 @@ public class CommonUtils {
     //curEvent
     public static int currEvent = 5;
 
+    //Noti
+    public static boolean stickyNotification = true;
+
     //Files
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
     public static String eventRecordFile = "/record.txt";
