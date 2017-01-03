@@ -13,13 +13,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.yalantis.starwars.TilesFrameLayout;
+import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
+import com.yalantis.starwars.render.StarWarsTiles;
+
 /**
  * Created by will on 12/26/2016.
  */
 
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsActivity extends AppCompatActivity implements TilesFrameLayoutListener{
 
     final static int REQUEST_CODE = 8699;
+
+    TilesFrameLayout mTilesFrameLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +40,30 @@ public class AboutUsActivity extends AppCompatActivity {
 
         decorView.setSystemUiVisibility(uiOptions);
         setContentView(R.layout.about_us);
+
+        mTilesFrameLayout = (TilesFrameLayout) findViewById(R.id.tiles_frame_layout);
+        mTilesFrameLayout.setOnAnimationFinishedListener(this);
         CommonUtils.initItems();
         requestPermission();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTilesFrameLayout.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mTilesFrameLayout.onPause();
+    }
+
+    @Override
+    public void onAnimationFinished() {
+        Intent homeIntent = new Intent(AboutUsActivity.this, MainActivity.class);
+        startActivity(homeIntent);
+        finish();
     }
 
     @Override
@@ -101,11 +129,9 @@ public class AboutUsActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent homeIntent = new Intent(AboutUsActivity.this, MainActivity.class);
-                    startActivity(homeIntent);
-                    finish();
+                    mTilesFrameLayout.startAnimation();
                 }
-            }, 1500);
+            }, 1200);
         }
     }
 }

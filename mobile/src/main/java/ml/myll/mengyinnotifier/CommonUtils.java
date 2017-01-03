@@ -1,5 +1,6 @@
 package ml.myll.mengyinnotifier;
 
+import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
 
@@ -47,12 +48,9 @@ public class CommonUtils {
         //Basic
         String[] evs= {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
         int[] colors = {
-                ColorTemplate.VORDIPLOM_COLORS[0],
-                ColorTemplate.VORDIPLOM_COLORS[1],
-                ColorTemplate.VORDIPLOM_COLORS[2],
-                ColorTemplate.VORDIPLOM_COLORS[3],
-                ColorTemplate.VORDIPLOM_COLORS[4],
-                ColorTemplate.getHoloBlue()};
+                Color.rgb(192, 255, 140), Color.rgb(255, 247, 140),
+                Color.rgb(255, 208, 140), Color.rgb(140, 234, 255),
+                Color.rgb(255, 140, 157), Color.rgb(51, 181, 229)};
         for(int i = 0; i < evs.length; i++) {
             items.add(new MEvent(evs[i], colors[i]));
         }

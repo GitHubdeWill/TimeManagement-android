@@ -4,37 +4,45 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <com.yalantis.starwars.TilesFrameLayout
+        android:id="@+id/tiles_frame_layout"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/bg2"
-            android:id="@+id/imageView2"
-            android:scaleType="fitXY" />
-
-        <LinearLayout
-            android:orientation="vertical"
+        app:sw_animationDuration="1000"
+        app:sw_numberOfTilesX="60">
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="201dp"
-                app:srcCompat="@drawable/icon"
-                android:id="@+id/imageView3" />
-
-            <TextView
-                android:text="@string/intro"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textColor="@color/text"
-                android:gravity="bottom" />
-        </LinearLayout>
+                app:srcCompat="@drawable/bg2"
+                android:id="@+id/imageView2"
+                android:scaleType="fitXY" />
 
-    </FrameLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="201dp"
+                    app:srcCompat="@drawable/icon"
+                    android:id="@+id/imageView3" />
+
+                <TextView
+                    android:text="@string/intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:textColor="@color/text"
+                    android:gravity="bottom" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </com.yalantis.starwars.TilesFrameLayout>
 
 </LinearLayout>

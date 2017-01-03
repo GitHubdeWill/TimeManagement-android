@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- opens a subscreen of settings -->
-    <PreferenceScreen
-        android:key="button_voicemail_category_key"
-        android:title="VM"
-        android:persistent="false">
-        <!--<ListPreference-->
-            <!--android:key="button_voicemail_provider_key"-->
-            <!--android:title="VM"/>-->
-        <PreferenceScreen
-            android:key="button_voicemail_setting_key"
-            android:title="HAHAH"
-            android:persistent="false">
-        </PreferenceScreen>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Sync Information"
+        android:key="sync_category">
+
+        <CheckBoxPreference
+            android:key="perform_sync"
+            android:summary="Enable or disable data sync"
+            android:title="Enable Auto Sync"
+            android:defaultValue="true"/>
+
+        <MultiSelectListPreference
+            android:defaultValue="@array/EventDefault"
+            android:entries="@array/EventName"
+            android:entryValues="@array/EventNum"
+            android:key="shortcut_events"
+            android:summary="Set Notification Shortcuts"
+            android:title="Notification Shortcuts(Max 3)" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Personal Informations"
+        android:key="personal_category">
+
+        <EditTextPreference
+            android:key="full_name"
+            android:title="Name"
+            android:summary="Enter Your Complete Name"
+            android:dialogTitle="Your Name"
+            android:dialogMessage="Enter Your Complete Name"
+            android:defaultValue=""
+            android:inputType="textCapWords"/>
+
+        <EditTextPreference
+            android:key="email_address"
+            android:title="Email Address"
+            android:summary="Enter Your Email Address"
+            android:dialogTitle="Enter Your Email Address"
+            android:dialogMessage="Enter Your Email Address"
+            android:defaultValue=""
+            android:inputType="textEmailAddress"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="Customisations"
+        android:key="custom_category">
+
         <RingtonePreference
-            android:key="button_voicemail_ringtone_key"
-            android:title="TITLE"
-            android:ringtoneType="notification"/>
-    </PreferenceScreen>
+            android:key="notification_ringtone"
+            android:title="Notification Ringtone"
+            android:summary="Customise Notification Ringtone for you"
+            android:dialogTitle="Notification Ringtone"
+            android:dialogMessage="Customise Notification Ringtone for you"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -17,6 +17,8 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.MultiSelectListPreference;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -72,13 +74,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Scanner;
+import java.util.Set;
 
+import co.mobiwise.materialintro.prefs.PreferencesManager;
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ObservableScrollViewCallbacks, OnChartValueSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        ObservableScrollViewCallbacks,
+        OnChartValueSelectedListener{
 
 
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity
     private final static int REQUEST_CODE = 8699;
     private final static String FILENAME = "file";
 
-    private static int notificationId = 86998699;
+    public static int notificationId = 86998699;
 
 
     //Views
@@ -295,7 +301,7 @@ public class MainActivity extends AppCompatActivity
                 );
 
                 (findViewById(R.id.back_layout)).setBackgroundColor(
-                        Color.rgb(235,235,235));
+                        Color.rgb(220,220,220));
                 if (percent<0){
                     progressBar.getProgressDrawable().setColorFilter(
                             Color.rgb(255,0,0), PorterDuff.Mode.SRC_IN);
@@ -357,6 +363,7 @@ public class MainActivity extends AppCompatActivity
     private void refresh () {
         initViews(1);
         spinbFab();
+        updateNotification();
         Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
     }
 
@@ -507,9 +514,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
         Log.i(TAG, "onResume called, Current Event is:" + CommonUtils.items.get(CommonUtils.currEvent).getName());
         refresh();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -931,7 +940,7 @@ public class MainActivity extends AppCompatActivity
         menu.add(name);
     }
 
-    private void updateNotification () {
+    public void updateNotification () {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // Sets an ID for the notification, so it can be updated
