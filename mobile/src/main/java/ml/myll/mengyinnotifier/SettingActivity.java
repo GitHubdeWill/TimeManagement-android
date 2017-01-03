@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -47,6 +48,7 @@ public class SettingActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
@@ -77,11 +79,13 @@ public class SettingActivity extends PreferenceActivity {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // Sets an ID for the notification, so it can be updated
         int notifyID = MainActivity.notificationId;
+        Intent window = new Intent(getApplicationContext(), FloatingActivity.class);
+        window.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("MY Time")
                 .setContentText("Expand to check Time")
                 .setSmallIcon(R.drawable.scaledicon)
-                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, AboutUsActivity.class), 0));
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, window, 0));
 // Start of a loop that processes data and then notifies the user
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();

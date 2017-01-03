@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ml.myll.mengyinnotifier">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -40,10 +41,21 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="action1"/>
+                <action android:name="action1" />
+
                 <category android:name="category1" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".FloatingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FloatingWindow.Popup"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+            android:clearTaskOnLaunch="true"
+            android:exported="true"
+            tools:ignore="ExportedActivity" />
     </application>
 
 </manifest>

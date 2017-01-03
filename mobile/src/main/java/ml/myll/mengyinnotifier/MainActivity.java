@@ -944,12 +944,14 @@ public class MainActivity extends AppCompatActivity
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // Sets an ID for the notification, so it can be updated
-        int notifyID = notificationId;
+        int notifyID = MainActivity.notificationId;
+        Intent window = new Intent(getApplicationContext(), FloatingActivity.class);
+        window.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("MY Time")
                 .setContentText("Expand to check Time")
                 .setSmallIcon(R.drawable.scaledicon)
-                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, AboutUsActivity.class), 0));
+                .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, window, 0));
 // Start of a loop that processes data and then notifies the user
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();

@@ -203,7 +203,7 @@ public class CommonUtils {
 
     //Create a new event, write to external file and update <currEvent>
     public static void newEvent (int event) {
-        Log.e(TAG, "Start checking file Dir");
+        Log.e(TAG, "Creating new event "+event);
         File f = new File(local_file);
 
         Log.e(TAG, "Start writing File");
