@@ -52,6 +52,11 @@ public class MovementCheckService extends Service implements SensorEventListener
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Switched to Background", Toast.LENGTH_SHORT).show();
+        sensorManager=(SensorManager)getSystemService(SENSOR_SERVICE);
+        boolean success = sensorManager.registerListener(this,
+                sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        Log.i(TAG, sensorManager.toString()+" "+success);
+        startingTime = System.currentTimeMillis();
         return super.onStartCommand(intent, flags, startId);
     }
 

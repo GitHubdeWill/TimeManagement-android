@@ -787,7 +787,7 @@ public class MainActivity extends AppCompatActivity
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("萌音嘹亮\n时间管理分析系统");
+        SpannableString s = new SpannableString("OOOO\n时间管理分析系统");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 4, 0);
         s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 4, s.length() - 4, 0);

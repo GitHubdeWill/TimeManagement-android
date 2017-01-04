@@ -39,7 +39,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2"
                     android:textColor="@color/text"
-                    android:gravity="bottom" />
+                    android:gravity="bottom|center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
             </LinearLayout>
 
         </FrameLayout>
