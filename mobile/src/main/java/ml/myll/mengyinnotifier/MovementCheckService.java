@@ -49,6 +49,12 @@ public class MovementCheckService extends Service implements SensorEventListener
         startingTime = System.currentTimeMillis();
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this, "Switched to Background", Toast.LENGTH_SHORT).show();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -123,7 +129,7 @@ public class MovementCheckService extends Service implements SensorEventListener
                         .setContentTitle("Event changed due to inactivity")
                         .setContentText("Event changed to "+CommonUtils.getNamesFromItems()[event])
                         .setContentIntent(PendingIntent.getActivity(this, 1, new Intent(this, AboutUsActivity.class), 0));
-        int mNotificationId = 8699001;
+        int mNotificationId = 8699000+event;
         NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());

@@ -526,7 +526,7 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "OnStop Called, Launching Service");
         super.onStop();
         isRunning = false;
-        Intent intent = new Intent(getApplicationContext(), MovementCheckService.class);
+        Intent intent = new Intent(this, MovementCheckService.class);
         startService(intent);
     }
 
