@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by William on 2016/11/26.
+ * Created by William on 2016/11/026.
  */
 
 public class CommonUtils {
@@ -50,9 +50,9 @@ public class CommonUtils {
         //Basic
         String[] evs= {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
         int[] colors = {
-                Color.rgb(192, 255, 140), Color.rgb(255, 247, 140),
-                Color.rgb(255, 208, 140), Color.rgb(140, 234, 255),
-                Color.rgb(255, 140, 157), Color.rgb(51, 181, 229)};
+                Color.rgb(192/5*4, 255/5*4, 140/5*4), Color.rgb(255/5*4, 247/5*4, 140/5*4),
+                Color.rgb(255/5*4, 208/5*4, 140/5*4), Color.rgb(140/5*4, 234/5*4, 255/5*4),
+                Color.rgb(255/5*4, 140/5*4, 157/5*4), Color.rgb(51/5*4, 181/5*4, 229/5*4)};
         for(int i = 0; i < evs.length; i++) {
             items.add(new MEvent(evs[i], colors[i]));
         }

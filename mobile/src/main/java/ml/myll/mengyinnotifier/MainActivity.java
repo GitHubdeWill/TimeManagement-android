@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.MultiSelectListPreference;
@@ -50,6 +51,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.colorpicker.ColorPickerDialog;
+import com.android.colorpicker.ColorPickerSwatch;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -362,6 +364,10 @@ public class MainActivity extends AppCompatActivity
 
     //Refresh Views
     private void refresh () {
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+            getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+        }
         initViews(1);
         spinbFab();
         updateNotification();
@@ -433,9 +439,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if(R.id.nav_setting == id) {
+            if (Build.VERSION.SDK_INT >= 21) {
 //                Intent intent = new Intent(this, SettingActivity.class);
 //                startActivity(intent);
-            int[] colorChoices = null;
+                int[] colorChoices = null;
 //                try {
 //                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
 //                    colorChoices = new int[fields.length];
@@ -450,13 +457,26 @@ public class MainActivity extends AppCompatActivity
 //                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-            if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
-            ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-            colorPickerDialog.initialize(
-                    R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
-            colorPickerDialog.show(getFragmentManager(), TAG);
-            ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
+                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+                colorPickerDialog.initialize(
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int color) {
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            getWindow().setStatusBarColor(color);
+                            getWindow().setNavigationBarColor(color);
+                        }
+                    }
+                });
+                colorPickerDialog.show(getFragmentManager(), TAG);
+                ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+            } else Toast.makeText(this, "4.4 or lower Not Supported", Toast.LENGTH_SHORT).show();
             return true;
+        }
+        if(R.id.add_item == id) {
+            Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
         }
 
         for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
@@ -464,11 +484,15 @@ public class MainActivity extends AppCompatActivity
                 CommonUtils.newEvent(i);
                 renewCurEvent(i);
                 Log.i(TAG, "Event changed to " + i);
-                Toast.makeText(this, "Event changed to " + i, Toast.LENGTH_SHORT).show();
                 item.setChecked(true);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+                    getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+                }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     //Activity overRides
@@ -476,6 +500,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate called");
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
         setContentView(R.layout.activity_main);
 
         firstCheck();
@@ -787,7 +813,7 @@ public class MainActivity extends AppCompatActivity
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("OOOO\n时间管理分析系统");
+        SpannableString s = new SpannableString("O萌音O\n时间管理分析系统");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 4, 0);
         s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 4, s.length() - 4, 0);

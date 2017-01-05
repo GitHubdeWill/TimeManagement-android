@@ -29,6 +29,8 @@ public class AboutUsActivity extends AppCompatActivity implements TilesFrameLayo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -45,6 +47,7 @@ public class AboutUsActivity extends AppCompatActivity implements TilesFrameLayo
         mTilesFrameLayout.setOnAnimationFinishedListener(this);
         CommonUtils.initItems();
         requestPermission();
+
     }
 
     @Override

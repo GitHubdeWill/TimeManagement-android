@@ -30,7 +30,6 @@ public class SettingActivity extends PreferenceActivity {
 
     private static final String TAG = "Setting";
     public static final String PREFS_NAME = "Settings";
-    public static final String SHORTCUT = "Settings";
 
 
     SharedPreferences.OnSharedPreferenceChangeListener listener;
@@ -40,6 +39,8 @@ public class SettingActivity extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                    CommonUtils.local_file));
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.settings_preferences);
         }

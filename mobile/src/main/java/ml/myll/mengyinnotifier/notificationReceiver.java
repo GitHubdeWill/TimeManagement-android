@@ -15,6 +15,8 @@ public class NotificationReceiver extends BroadcastReceiver {
     private final static String FILENAME = "file";
 
     public NotificationReceiver() {
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
     }
 
     @Override

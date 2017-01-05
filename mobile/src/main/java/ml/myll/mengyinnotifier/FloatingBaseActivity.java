@@ -25,6 +25,8 @@ public class FloatingBaseActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
 
         if (CommonUtils.getNamesFromItems().length<6)CommonUtils.initItems();
 
@@ -69,6 +71,7 @@ public class FloatingBaseActivity extends Activity {
         // Again, this will call either the function from this class or the PopupMainActivity one,
         // depending on where the user is
         setUpButton();
+
     }
 
     public void setUpWindow() {

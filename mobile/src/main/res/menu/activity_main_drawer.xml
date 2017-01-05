@@ -39,7 +39,7 @@
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="@string/action_settings" />
+                android:title="Change Color" />
         </menu>
     </item>
 

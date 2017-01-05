@@ -1,6 +1,7 @@
 package ml.myll.mengyinnotifier;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,11 +12,13 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.android.colorpicker.ColorPickerDialog;
+import com.android.colorpicker.ColorPickerSwatch;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +38,8 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
         setContentView(R.layout.activity_week_view_nav);
 
         //Set Toolbar as Action Bar
@@ -112,6 +117,16 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 //        return true;
 //    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+            getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -119,9 +134,10 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         int id = item.getItemId();
 
         if(R.id.nav_setting == id) {
+            if (Build.VERSION.SDK_INT >= 21) {
 //                Intent intent = new Intent(this, SettingActivity.class);
 //                startActivity(intent);
-            int[] colorChoices = null;
+                int[] colorChoices = null;
 //                try {
 //                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
 //                    colorChoices = new int[fields.length];
@@ -136,13 +152,26 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 //                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
-            if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
-            ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-            colorPickerDialog.initialize(
-                    R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
-            colorPickerDialog.show(getFragmentManager(), TAG);
-            ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+                if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
+                ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+                colorPickerDialog.initialize(
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int color) {
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            getWindow().setStatusBarColor(color);
+                            getWindow().setNavigationBarColor(color);
+                        }
+                    }
+                });
+                colorPickerDialog.show(getFragmentManager(), TAG);
+                ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawer(GravityCompat.START);
+            } else Toast.makeText(this, "4.4 or lower Not Supported", Toast.LENGTH_SHORT).show();
             return true;
+        }
+        if(R.id.add_item == id) {
+            Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
         }
 
         for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
@@ -151,9 +180,14 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
                 renewCurEvent(i);
                 Log.i(TAG, "Event changed to " + i);
                 item.setChecked(true);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+                    getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
+                }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     @Override

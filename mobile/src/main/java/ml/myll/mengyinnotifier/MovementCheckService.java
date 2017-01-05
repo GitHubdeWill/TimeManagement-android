@@ -42,11 +42,14 @@ public class MovementCheckService extends Service implements SensorEventListener
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
+        Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
+                CommonUtils.local_file));
         sensorManager=(SensorManager)getSystemService(SENSOR_SERVICE);
         boolean success = sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         Log.i(TAG, sensorManager.toString()+" "+success);
         startingTime = System.currentTimeMillis();
+
     }
 
     @Override
@@ -97,9 +100,11 @@ public class MovementCheckService extends Service implements SensorEventListener
 
             if (!passed && timePassed > OTHER_LIMIT){
                 passed = true;
-                CommonUtils.newEvent(5);
-                sendNotification(5);
-                Toast.makeText(this, "No motion detected, switched to other.", Toast.LENGTH_SHORT).show();
+                if (CommonUtils.getCurrEventFromExternal() != 0) {
+                    CommonUtils.newEvent(5);
+                    sendNotification(5);
+                    Toast.makeText(this, "No motion detected, switched to other.", Toast.LENGTH_SHORT).show();
+                }
             }
             if (timePassed > SLEEP_LIMIT){
                 passed = false;
