@@ -2,7 +2,6 @@ package ml.myll.mengyinnotifier;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,8 +18,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.MultiSelectListPreference;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -52,6 +49,7 @@ import android.widget.Toast;
 
 import com.android.colorpicker.ColorPickerDialog;
 import com.android.colorpicker.ColorPickerSwatch;
+import com.github.clans.fab.FloatingActionMenu;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -70,16 +68,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Scanner;
-import java.util.Set;
 
-import co.mobiwise.materialintro.prefs.PreferencesManager;
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.view.MaterialIntroView;
@@ -107,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mTitleView;
     //Floating Action Buttons
     private View yFab;
-    private FloatingActionButton bFab;
+    private FloatingActionMenu bFab;
     //Navigation Drawer
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -267,7 +259,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float angle = (float) animation.getAnimatedValue();
-                bFab.setRotation(angle);
+                bFab.getMenuIconView().setRotation(angle);
             }
         });
         animator.start();
@@ -304,7 +296,7 @@ public class MainActivity extends AppCompatActivity
                 );
 
                 (findViewById(R.id.back_layout)).setBackgroundColor(
-                        Color.rgb(220,220,220));
+                        Color.rgb(236,240,241));
                 if (percent<0){
                     progressBar.getProgressDrawable().setColorFilter(
                             Color.rgb(255,0,0), PorterDuff.Mode.SRC_IN);
@@ -364,7 +356,7 @@ public class MainActivity extends AppCompatActivity
 
     //Refresh Views
     private void refresh () {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21 && CommonUtils.colorDynamic) {
             getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
             getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
         }
@@ -398,12 +390,9 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG,
                 "pieChart Value: " + e.getY() + ", index: " + h.getX()
                         + ", DataSet index: " + h.getDataSetIndex());
-
-        Intent intent = new Intent(this, WeekViewActivity.class);
-        Log.i(TAG, "weekViewActivity starting...");
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("index", (int)h.getX());
         startActivity(intent);
-        Log.i(TAG, "calling onPause");
-        this.onPause();
     }
 
     @Override
@@ -485,10 +474,11 @@ public class MainActivity extends AppCompatActivity
                 renewCurEvent(i);
                 Log.i(TAG, "Event changed to " + i);
                 item.setChecked(true);
-                if (Build.VERSION.SDK_INT >= 21) {
+                if (Build.VERSION.SDK_INT >= 21 && CommonUtils.colorDynamic) {
                     getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
                     getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
                 }
+                refresh();
                 return true;
             }
         }
@@ -503,6 +493,8 @@ public class MainActivity extends AppCompatActivity
         Thread.setDefaultUncaughtExceptionHandler(new MExceptionHandler(
                 CommonUtils.local_file));
         setContentView(R.layout.activity_main);
+
+        CommonUtils.initItems();
 
         firstCheck();
 
@@ -637,7 +629,7 @@ public class MainActivity extends AppCompatActivity
         yFab = findViewById(R.id.fab);
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mTitleView = (TextView) findViewById(R.id.title);
-        bFab = (FloatingActionButton) findViewById(R.id.fab2);
+        bFab = (FloatingActionMenu) findViewById(R.id.fab2);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         progressBar = (ProgressBar) findViewById(R.id.timeBar);
@@ -694,17 +686,29 @@ public class MainActivity extends AppCompatActivity
                 yFab.setScaleX(0);
                 yFab.setScaleY(0);
 
-                bFab.setOnClickListener(new View.OnClickListener() {
+                (findViewById(R.id.manage)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        scrollBack();
+                        Intent intent = new Intent(getApplicationContext(), WeekViewActivity.class);
+                        Log.i(TAG, "weekViewActivity starting...");
+                        startActivity(intent);
+                        Log.i(TAG, "calling onPause");
+                        onPause();
                     }
                 });
-                bFab.setOnLongClickListener(new View.OnLongClickListener() {
+                (findViewById(R.id.refresh)).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public boolean onLongClick(View view) {
+                    public void onClick(View view) {
+                        Log.i(TAG, "calling refresh...");
                         refresh();
-                        return true;
+                    }
+                });
+                (findViewById(R.id.scroll_back)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), WeekViewActivity.class);
+                        Log.i(TAG, "Scrolling back...");
+                        scrollBack();
                     }
                 });
 
@@ -769,7 +773,7 @@ public class MainActivity extends AppCompatActivity
         mChart.setCenterText(generateCenterSpannableText());
 
         mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColor(R.color.primary);
+        mChart.setHoleColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
 
         mChart.setTransparentCircleColor(Color.WHITE);
         mChart.setTransparentCircleAlpha(110);
@@ -813,9 +817,9 @@ public class MainActivity extends AppCompatActivity
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("O萌音O\n时间管理分析系统");
+        SpannableString s = new SpannableString(">" + CommonUtils.getNamesFromItems()[CommonUtils.currEvent]+"中" +"\n时间管理分析系统");
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 4, 0);
-        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, 0);
+        s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 4, 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), 4, s.length() - 4, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 4, s.length() - 4, 0);
         s.setSpan(new RelativeSizeSpan(.8f), 4, s.length() - 4, 0);

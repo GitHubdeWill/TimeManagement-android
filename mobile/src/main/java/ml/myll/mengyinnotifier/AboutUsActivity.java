@@ -2,6 +2,7 @@ package ml.myll.mengyinnotifier;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class AboutUsActivity extends AppCompatActivity implements TilesFrameLayo
         setContentView(R.layout.about_us);
 
         mTilesFrameLayout = (TilesFrameLayout) findViewById(R.id.tiles_frame_layout);
+        mTilesFrameLayout.setBackgroundColor(Color.rgb(0,0,0));
         mTilesFrameLayout.setOnAnimationFinishedListener(this);
         CommonUtils.initItems();
         requestPermission();

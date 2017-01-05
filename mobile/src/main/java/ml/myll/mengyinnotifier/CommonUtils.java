@@ -35,8 +35,10 @@ public class CommonUtils {
     //curEvent
     public static int currEvent = 5;
 
-    //Noti
+    //Notification
     public static boolean stickyNotification = true;
+    public static boolean colorDynamic = true;
+    public static int days = 7;
 
     //Files
     public static String local_file = Environment.getExternalStorageDirectory().getAbsolutePath()+"/MYLLTIME";
@@ -50,11 +52,11 @@ public class CommonUtils {
         //Basic
         String[] evs= {"睡觉", "工作", "学习", "娱乐", "生活", "其他"};
         int[] colors = {
-                Color.rgb(192/5*4, 255/5*4, 140/5*4), Color.rgb(255/5*4, 247/5*4, 140/5*4),
-                Color.rgb(255/5*4, 208/5*4, 140/5*4), Color.rgb(140/5*4, 234/5*4, 255/5*4),
-                Color.rgb(255/5*4, 140/5*4, 157/5*4), Color.rgb(51/5*4, 181/5*4, 229/5*4)};
+                R.color.md_deep_purple_300, R.color.md_red_300, R.color.md_orange_500,
+                R.color.md_yellow_600, R.color.md_light_green_300, R.color.md_light_blue_200
+        };
         for(int i = 0; i < evs.length; i++) {
-            items.add(new MEvent(evs[i], colors[i]));
+            items.add(new MEvent(evs[i], MyllApplication.getAppContext().getResources().getColor(colors[i])));
         }
         drawerItemsIds.add(R.id.sleep);
         drawerItemsIds.add(R.id.work);
@@ -271,5 +273,56 @@ public class CommonUtils {
         return ret;
     }
 
+    public static long[] getTimeWeek () {
+        long[] record = {0,0,0,0,0,0};
+        long weekInMillis = 7*24*3600*1000;
+        File f = new File(local_file);
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
+        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==2 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < weekInMillis)
+                    record[Integer.parseInt(line.charAt(0)+"")] +=
+                            System.currentTimeMillis() -
+                                    Long.parseLong(line.split("#")[1]);
+                if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==3 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < weekInMillis)
+                    record[Integer.parseInt(line.charAt(0)+"")] +=
+                            Long.parseLong(line.split("#")[2]) -
+                                    Long.parseLong(line.split("#")[1]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return record;
+    }
+
+    public static long[] getEventTimeDays (int event, int days) {
+        long[] record = new long[days+1];
+        long daysInMillis = 86400000L*days;
+        File f = new File(local_file);
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
+        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==2 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < daysInMillis)
+                    record[days-(int)((System.currentTimeMillis() - Long.parseLong(line.split("#")[1])) /
+                            (3600*1000*24))] +=
+                            System.currentTimeMillis() -
+                                    Long.parseLong(line.split("#")[1]);
+                if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==3 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < daysInMillis)
+                    record[days-(int)((System.currentTimeMillis() - Long.parseLong(line.split("#")[2])) /
+                            (3600*1000*24))] +=
+                            Long.parseLong(line.split("#")[2]) -
+                                    Long.parseLong(line.split("#")[1]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return record;
+    }
 
 }

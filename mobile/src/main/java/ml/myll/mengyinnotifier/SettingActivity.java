@@ -74,6 +74,15 @@ public class SettingActivity extends PreferenceActivity {
                             boolean d = prefs.getBoolean(key, true);
                             CommonUtils.stickyNotification = d;
                             updateNotification();
+                        } else if (key.equals("color_change")){
+                            boolean d = prefs.getBoolean(key, true);
+                            CommonUtils.colorDynamic = d;
+                            updateNotification();
+                        } else if (key.equals("linechartdays")){
+                            int days = prefs.getInt(key, 7);
+                            if (days < 7)
+                                CommonUtils.days = 7;
+                            CommonUtils.days = days;
                         }
                     }
                 };

@@ -121,7 +121,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     protected void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21 && CommonUtils.colorDynamic) {
             getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
             getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
         }
@@ -180,7 +180,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
                 renewCurEvent(i);
                 Log.i(TAG, "Event changed to " + i);
                 item.setChecked(true);
-                if (Build.VERSION.SDK_INT >= 21) {
+                if (Build.VERSION.SDK_INT >= 21 && CommonUtils.colorDynamic) {
                     getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
                     getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
                 }

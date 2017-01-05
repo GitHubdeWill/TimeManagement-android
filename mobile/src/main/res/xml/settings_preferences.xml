@@ -10,13 +10,28 @@
             android:title="Enable Sticky Notification"
             android:defaultValue="true"/>
 
+        <CheckBoxPreference
+            android:key="color_change"
+            android:summary="Enable or disable Dynamically changing color"
+            android:title="Enable Color Changing"
+            android:defaultValue="true"/>
+
         <MultiSelectListPreference
             android:defaultValue="@array/EventDefault"
             android:entries="@array/EventName"
             android:entryValues="@array/EventNum"
             android:key="shortcut_events"
             android:summary="Set Notification Shortcuts"
-            android:title="Notification Shortcuts(Max 3)" />
+            android:title="Notification Shortcuts (Max 3)" />
+
+        <EditTextPreference
+            android:key="linechartdays"
+            android:title="Days shownw"
+            android:summary="Days shown in Line Chart Statistics"
+            android:dialogTitle="Days"
+            android:dialogMessage="Enter Days (7-30)"
+            android:defaultValue="7"
+            android:inputType="numberSigned"/>
 
     </PreferenceCategory>
 
