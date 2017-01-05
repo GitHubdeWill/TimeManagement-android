@@ -1,6 +1,7 @@
 package ml.myll.mengyinnotifier;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Environment;
 import android.util.Log;
 
@@ -273,21 +274,21 @@ public class CommonUtils {
         return ret;
     }
 
-    public static long[] getTimeWeek () {
+    public static long[] getTimeDays (int days) {
         long[] record = {0,0,0,0,0,0};
-        long weekInMillis = 7*24*3600*1000;
+        long daysInMillis = days*24*3600*1000;
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==2 &&
-                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < weekInMillis)
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < daysInMillis)
                     record[Integer.parseInt(line.charAt(0)+"")] +=
                             System.currentTimeMillis() -
                                     Long.parseLong(line.split("#")[1]);
                 if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==3 &&
-                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < weekInMillis)
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < daysInMillis)
                     record[Integer.parseInt(line.charAt(0)+"")] +=
                             Long.parseLong(line.split("#")[2]) -
                                     Long.parseLong(line.split("#")[1]);
@@ -323,6 +324,33 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return record;
+    }
+
+    public static ArrayList<Point> getTimeNSize (int event, int days) {
+        ArrayList<Point> list = new ArrayList<>();
+        long daysInMillis = 86400000L*days;
+        File f = new File(local_file);
+        File f0 = new File(f.getAbsolutePath(), eventRecordFile);
+        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==2 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < daysInMillis)
+                    list.add(new Point((int)((System.currentTimeMillis()%(3600000*24)/3600000 +
+                            Long.parseLong(line.split("#")[1])%(3600000*24)/3600000)/2),
+
+                            (int)((System.currentTimeMillis() - Long.parseLong(line.split("#")[1]))
+                                    /3600000F)));
+                if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==3 &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < daysInMillis)
+                    list.add(new Point((int)((Long.parseLong(line.split("#")[2])%(3600000*24)/3600000 +
+                            Long.parseLong(line.split("#")[1])%(3600000*24)/3600000)/2),
+                            (int)((Long.parseLong(line.split("#")[2]) - Long.parseLong(line.split("#")[1]))/3600000F)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

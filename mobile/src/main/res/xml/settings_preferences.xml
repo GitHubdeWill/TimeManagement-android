@@ -26,7 +26,7 @@
 
         <EditTextPreference
             android:key="linechartdays"
-            android:title="Days shownw"
+            android:title="Days shown"
             android:summary="Days shown in Line Chart Statistics"
             android:dialogTitle="Days"
             android:dialogMessage="Enter Days (7-30)"

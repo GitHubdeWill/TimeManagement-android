@@ -308,45 +308,60 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
 
             ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
             ArrayList<RadarEntry> entries2 = new ArrayList<RadarEntry>();
+            ArrayList<RadarEntry> entries3 = new ArrayList<RadarEntry>();
 
             // NOTE: The order of the entries when being added to the entries array determines their position around the center of
             // the chart.
             long[] time = CommonUtils.getTotalTime();
-            long[] weekTime = CommonUtils.getTimeWeek();
-            int scale = 0;
+            long[] weekTime = CommonUtils.getTimeDays(7);
+            long[] dayTime = CommonUtils.getTimeDays(1);
+            int scaletw = 0;
             for (int i = 0; i < cnt; i++) {
-                scale += (int)(time[i]/weekTime[i]);
+                scaletw += (int)(time[i]/weekTime[i]);
             }
-            scale /= 6;
+            scaletw /= 6;
             for (int i = 0; i < cnt; i++) {
-                float val1 = (float) (time[i]/scale);
+                float val1 = (float) (time[i]/scaletw);
                 entries1.add(new RadarEntry(val1));
 
                 float val2 = (float) weekTime[i];
                 entries2.add(new RadarEntry(val2));
+
+                float val3 = (float) dayTime[i]*7;
+                entries3.add(new RadarEntry(val3));
             }
 
-            RadarDataSet set1 = new RadarDataSet(entries1, "This Week");
-            set1.setColor(Color.rgb(103, 110, 129));
-            set1.setFillColor(Color.rgb(103, 110, 129));
+            RadarDataSet set1 = new RadarDataSet(entries1, "Total (Scaled)");
+            set1.setColor(Color.rgb(121, 162, 175));
+            set1.setFillColor(Color.rgb(121, 162, 175));
             set1.setDrawFilled(true);
             set1.setFillAlpha(180);
             set1.setLineWidth(2f);
             set1.setDrawHighlightCircleEnabled(true);
             set1.setDrawHighlightIndicators(false);
 
-            RadarDataSet set2 = new RadarDataSet(entries2, "Total(Scaled)");
-            set2.setColor(Color.rgb(121, 162, 175));
-            set2.setFillColor(Color.rgb(121, 162, 175));
+            RadarDataSet set2 = new RadarDataSet(entries2, "Week (Scaled)");
+            set2.setColor(Color.rgb(103, 110, 129));
+            set2.setFillColor(Color.rgb(103, 110, 129));
             set2.setDrawFilled(true);
             set2.setFillAlpha(180);
             set2.setLineWidth(2f);
             set2.setDrawHighlightCircleEnabled(true);
             set2.setDrawHighlightIndicators(false);
 
+            RadarDataSet set3 = new RadarDataSet(entries3, "Day(Scaled)");
+            set3.setColor(Color.rgb(80, 90, 100));
+            set3.setFillColor(Color.rgb(80, 90, 100));
+            set3.setDrawFilled(true);
+            set3.setFillAlpha(180);
+            set3.setLineWidth(2f);
+            set3.setDrawHighlightCircleEnabled(true);
+            set3.setDrawHighlightIndicators(false);
+
             ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
             sets.add(set1);
             sets.add(set2);
+            sets.add(set3);
 
             RadarData data = new RadarData(sets);
             data.setValueTextSize(8f);
@@ -391,8 +406,8 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
             l.setDrawInside(false);
 
             YAxis yl = mChart.getAxisLeft();
-            yl.setSpaceTop(30f);
-            yl.setSpaceBottom(30f);
+            yl.setSpaceTop(10f);
+            yl.setSpaceBottom(10f);
             yl.setDrawZeroLine(false);
 
             mChart.getAxisRight().setEnabled(false);
@@ -406,55 +421,34 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
         }
 
         private static void setBubbleData (BubbleChart mChart) {
-            int count = 50;
-            int range = 10;
+            int count = CommonUtils.days;
 
-            ArrayList<BubbleEntry> yVals1 = new ArrayList<BubbleEntry>();
-            ArrayList<BubbleEntry> yVals2 = new ArrayList<BubbleEntry>();
-            ArrayList<BubbleEntry> yVals3 = new ArrayList<BubbleEntry>();
+            ArrayList<ArrayList<BubbleEntry>> yVals = new ArrayList<>();
+            for (int k = 0; k < CommonUtils.getNamesFromItems().length; k++) {
+                yVals.add(new ArrayList<BubbleEntry>());
+                ArrayList<Point> list = CommonUtils.getTimeNSize(k, count);
+                for (int i = 0; i < list.size(); i++) {
+                    float val = (float) (list.get(i).x);
+                    float size = (float) (list.get(i).y);
 
-            for (int i = 0; i < count; i++) {
-                float val = (float) (Math.random() * range);
-                float size = (float) (Math.random() * range);
-
-                yVals1.add(new BubbleEntry(i, val, size));
-            }
-
-            for (int i = 0; i < count; i++) {
-                float val = (float) (Math.random() * range);
-                float size = (float) (Math.random() * range);
-
-                yVals2.add(new BubbleEntry(i, val, size));
-            }
-
-            for (int i = 0; i < count; i++) {
-                float val = (float) (Math.random() * range);
-                float size = (float) (Math.random() * range);
-
-                yVals3.add(new BubbleEntry(i, val, size));
+                    yVals.get(k).add(new BubbleEntry(i, val, size*20));
+                }
             }
 
             // create a dataset and give it a type
-            BubbleDataSet set1 = new BubbleDataSet(yVals1, "DS 1");
-            set1.setColor(ColorTemplate.COLORFUL_COLORS[0], 130);
-            set1.setDrawValues(true);
-            BubbleDataSet set2 = new BubbleDataSet(yVals2, "DS 2");
-            set2.setColor(ColorTemplate.COLORFUL_COLORS[1], 130);
-            set2.setDrawValues(true);
-            BubbleDataSet set3 = new BubbleDataSet(yVals3, "DS 3");
-            set3.setColor(ColorTemplate.COLORFUL_COLORS[2], 130);
-            set3.setDrawValues(true);
-
-            ArrayList<IBubbleDataSet> dataSets = new ArrayList<IBubbleDataSet>();
-            dataSets.add(set1); // add the datasets
-            dataSets.add(set2);
-            dataSets.add(set3);
+            ArrayList<IBubbleDataSet> dataSets = new ArrayList<>();
+            for (int i = 0; i <CommonUtils.getNamesFromItems().length; i++) {
+                BubbleDataSet set = new BubbleDataSet(yVals.get(i), CommonUtils.getNamesFromItems()[i]);
+                set.setColor(CommonUtils.getColorsFromItems()[i], 130);
+                set.setDrawValues(true);
+                dataSets.add(set);
+            }
 
             // create a data object with the datasets
             BubbleData data = new BubbleData(dataSets);
             data.setDrawValues(false);
             data.setValueTextSize(8f);
-            data.setValueTextColor(Color.WHITE);
+            data.setValueTextColor(Color.BLACK);
             data.setHighlightCircleWidth(1.5f);
 
             mChart.setData(data);
