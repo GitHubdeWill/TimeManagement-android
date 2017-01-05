@@ -79,7 +79,8 @@ public class SettingActivity extends PreferenceActivity {
                             CommonUtils.colorDynamic = d;
                             updateNotification();
                         } else if (key.equals("linechartdays")){
-                            int days = prefs.getInt(key, 7);
+                            String str = prefs.getString(key, "7");
+                            int days = Integer.parseInt(str);
                             if (days < 7)
                                 CommonUtils.days = 7;
                             CommonUtils.days = days;
