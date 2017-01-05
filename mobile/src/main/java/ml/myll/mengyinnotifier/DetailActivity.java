@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -421,29 +422,34 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
         }
 
         private static void setBubbleData (BubbleChart mChart) {
-            int count = CommonUtils.days;
 
-            ArrayList<ArrayList<BubbleEntry>> yVals = new ArrayList<>();
+            ArrayList<ArrayList<BubbleEntry>> yVals = new ArrayList<>(CommonUtils.getNamesFromItems().length);
             for (int k = 0; k < CommonUtils.getNamesFromItems().length; k++) {
                 yVals.add(new ArrayList<BubbleEntry>());
-                ArrayList<Point> list = CommonUtils.getTimeNSize(k, count);
-                for (int i = 0; i < list.size(); i++) {
-                    float val = (float) (list.get(i).x);
-                    float size = (float) (list.get(i).y);
+                for (int i = 1; i <= CommonUtils.days; i++) {
+                    ArrayList<Point> list = CommonUtils.getTimeNSize(k, i);
+                    if (list.isEmpty()) continue;
+                    for (int j = 0; j < list.size(); j++) {
+                        float val = (float) (list.get(j).x);
+                        float size = (float) (list.get(j).y);
 
-                    yVals.get(k).add(new BubbleEntry(i, val, size*20));
+                        yVals.get(k).add(new BubbleEntry(i, val, size));
+                    }
                 }
             }
 
+            Log.i("DA", "Here");
             // create a dataset and give it a type
             ArrayList<IBubbleDataSet> dataSets = new ArrayList<>();
             for (int i = 0; i <CommonUtils.getNamesFromItems().length; i++) {
+                if(yVals.size()-1 < i || yVals.get(i) == null || yVals.get(i).isEmpty())continue;
                 BubbleDataSet set = new BubbleDataSet(yVals.get(i), CommonUtils.getNamesFromItems()[i]);
                 set.setColor(CommonUtils.getColorsFromItems()[i], 130);
                 set.setDrawValues(true);
                 dataSets.add(set);
             }
 
+            Log.i("DA", "Here");
             // create a data object with the datasets
             BubbleData data = new BubbleData(dataSets);
             data.setDrawValues(false);

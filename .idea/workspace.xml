@@ -25,7 +25,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java" line="221" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java" line="222" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36227d96-2f2f-4624-9874-0b33fdfb7519" name="Default" comment="">
@@ -36,11 +36,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.2/tasks/_mobile_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" afterPath="$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" afterPath="$PROJECT_DIR$/mobile/src/main/res/xml/settings_preferences.xml" />
     </list>
     <ignored path="MengYinNotifier.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,55 +71,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="DetailActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="342" column="53" selection-start-line="342" selection-start-column="53" selection-end-line="342" selection-end-column="53" />
-              <folding>
-                <element signature="docComment;field#mSectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-                <element signature="docComment;field#mViewPager#0;class#DetailActivity#0" expanded="false" />
-                <element signature="e#3715#3786#0" expanded="false" />
-                <element signature="method#onResume#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#onPause#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#setUpWindow#0;class#DetailActivity#0" expanded="false" />
-                <element signature="e#5613#5638#0" expanded="false" />
-                <element signature="method#onCreateOptionsMenu#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#onOptionsItemSelected#0;class#DetailActivity#0" expanded="false" />
-                <element signature="e#6907#6965#0" expanded="false" />
-                <element signature="docComment;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="docComment;field#ARG_SECTION_NUMBER#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="docComment;method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#onCreateView#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="e#10306#10378#0" expanded="false" />
-                <element signature="class#11018:11333" expanded="false" />
-                <element signature="method#getFormattedValue#0;class#11018:11333" expanded="false" />
-                <element signature="e#12525#12537#0" expanded="true" />
-                <element signature="e#12554#12672#0" expanded="false" />
-                <element signature="method#getBubbleChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="class#15280:15535" expanded="false" />
-                <element signature="method#onValueSelected#0;class#15280:15535" expanded="false" />
-                <element signature="method#onNothingSelected#0;class#15280:15535" expanded="false" />
-                <element signature="method#setBubbleData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#getLineChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#setLineData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-                <element signature="docComment;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-                <element signature="class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#getItem#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-                <element signature="e#22122#22190#0" expanded="false" />
-                <element signature="method#getCount#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-                <element signature="method#getPageTitle#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CommonUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="276" column="48" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+            <state relative-caret-position="419">
+              <caret line="348" column="89" selection-start-line="348" selection-start-column="89" selection-end-line="348" selection-end-column="89" />
               <folding>
                 <element signature="docComment;class#CommonUtils#0" expanded="false" />
                 <element signature="method#initItems#0;class#CommonUtils#0" expanded="false" />
@@ -138,7 +91,6 @@
                 <element signature="method#getEvents#0;class#CommonUtils#0" expanded="false" />
                 <element signature="method#getTimeDays#0;class#CommonUtils#0" expanded="false" />
                 <element signature="method#getEventTimeDays#0;class#CommonUtils#0" expanded="false" />
-                <element signature="method#getTimeNSize#0;class#CommonUtils#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -147,7 +99,7 @@
       <file leaf-file-name="SettingActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
+            <state relative-caret-position="913">
               <caret line="76" column="83" selection-start-line="76" selection-start-column="83" selection-end-line="76" selection-end-column="83" />
               <folding>
                 <element signature="docComment;class#SettingActivity#0" expanded="false" />
@@ -251,6 +203,51 @@
                 <element signature="e#37721#37751#0" expanded="false" />
                 <element signature="method#addItemToDrawer#0;class#MainActivity#0" expanded="false" />
                 <element signature="method#updateNotification#0;class#MainActivity#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DetailActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="433" column="56" selection-start-line="433" selection-start-column="56" selection-end-line="433" selection-end-column="56" />
+              <folding>
+                <element signature="docComment;field#mSectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
+                <element signature="docComment;field#mViewPager#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#3740#3811#0" expanded="false" />
+                <element signature="method#onResume#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#onPause#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#setUpWindow#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#5638#5663#0" expanded="false" />
+                <element signature="method#onCreateOptionsMenu#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#onOptionsItemSelected#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#6932#6990#0" expanded="false" />
+                <element signature="docComment;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="docComment;field#ARG_SECTION_NUMBER#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="docComment;method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#onCreateView#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#getRadarChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#10331#10403#0" expanded="false" />
+                <element signature="class#11043:11358" expanded="false" />
+                <element signature="method#getFormattedValue#0;class#11043:11358" expanded="false" />
+                <element signature="method#setRadarData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#12550#12562#0" expanded="true" />
+                <element signature="e#12579#12697#0" expanded="false" />
+                <element signature="method#getBubbleChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="class#15305:15560" expanded="false" />
+                <element signature="method#onValueSelected#0;class#15305:15560" expanded="false" />
+                <element signature="method#onNothingSelected#0;class#15305:15560" expanded="false" />
+                <element signature="method#getLineChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#setLineData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+                <element signature="docComment;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
+                <element signature="class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#getItem#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
+                <element signature="e#22454#22522#0" expanded="false" />
+                <element signature="method#getCount#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
+                <element signature="method#getPageTitle#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -4949,10 +4946,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="913">
+          <caret line="76" column="83" selection-start-line="76" selection-start-column="83" selection-end-line="76" selection-end-column="83" />
+          <folding>
+            <element signature="docComment;class#SettingActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/CommonUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="276" column="48" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
+        <state relative-caret-position="419">
+          <caret line="348" column="89" selection-start-line="348" selection-start-column="89" selection-end-line="348" selection-end-column="89" />
           <folding>
             <element signature="docComment;class#CommonUtils#0" expanded="false" />
             <element signature="method#initItems#0;class#CommonUtils#0" expanded="false" />
@@ -4968,57 +4975,47 @@
             <element signature="method#getEvents#0;class#CommonUtils#0" expanded="false" />
             <element signature="method#getTimeDays#0;class#CommonUtils#0" expanded="false" />
             <element signature="method#getEventTimeDays#0;class#CommonUtils#0" expanded="false" />
-            <element signature="method#getTimeNSize#0;class#CommonUtils#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="76" column="83" selection-start-line="76" selection-start-column="83" selection-end-line="76" selection-end-column="83" />
-          <folding>
-            <element signature="docComment;class#SettingActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/ml/myll/mengyinnotifier/DetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="342" column="53" selection-start-line="342" selection-start-column="53" selection-end-line="342" selection-end-column="53" />
+        <state relative-caret-position="215">
+          <caret line="433" column="56" selection-start-line="433" selection-start-column="56" selection-end-line="433" selection-end-column="56" />
           <folding>
             <element signature="docComment;field#mSectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
             <element signature="docComment;field#mViewPager#0;class#DetailActivity#0" expanded="false" />
-            <element signature="e#3715#3786#0" expanded="false" />
+            <element signature="e#3740#3811#0" expanded="false" />
             <element signature="method#onResume#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#onPause#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#setUpWindow#0;class#DetailActivity#0" expanded="false" />
-            <element signature="e#5613#5638#0" expanded="false" />
+            <element signature="e#5638#5663#0" expanded="false" />
             <element signature="method#onCreateOptionsMenu#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#onOptionsItemSelected#0;class#DetailActivity#0" expanded="false" />
-            <element signature="e#6907#6965#0" expanded="false" />
+            <element signature="e#6932#6990#0" expanded="false" />
             <element signature="docComment;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="docComment;field#ARG_SECTION_NUMBER#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="docComment;method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#newInstance#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#onCreateView#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-            <element signature="e#10306#10378#0" expanded="false" />
-            <element signature="class#11018:11333" expanded="false" />
-            <element signature="method#getFormattedValue#0;class#11018:11333" expanded="false" />
-            <element signature="e#12525#12537#0" expanded="true" />
-            <element signature="e#12554#12672#0" expanded="false" />
+            <element signature="method#getRadarChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+            <element signature="e#10331#10403#0" expanded="false" />
+            <element signature="class#11043:11358" expanded="false" />
+            <element signature="method#getFormattedValue#0;class#11043:11358" expanded="false" />
+            <element signature="method#setRadarData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+            <element signature="e#12550#12562#0" expanded="true" />
+            <element signature="e#12579#12697#0" expanded="false" />
             <element signature="method#getBubbleChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
-            <element signature="class#15280:15535" expanded="false" />
-            <element signature="method#onValueSelected#0;class#15280:15535" expanded="false" />
-            <element signature="method#onNothingSelected#0;class#15280:15535" expanded="false" />
-            <element signature="method#setBubbleData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
+            <element signature="class#15305:15560" expanded="false" />
+            <element signature="method#onValueSelected#0;class#15305:15560" expanded="false" />
+            <element signature="method#onNothingSelected#0;class#15305:15560" expanded="false" />
             <element signature="method#getLineChart#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#setLineData#0;class#PlaceholderFragment#0;class#DetailActivity#0" expanded="false" />
             <element signature="docComment;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
             <element signature="class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#getItem#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
-            <element signature="e#22122#22190#0" expanded="false" />
+            <element signature="e#22454#22522#0" expanded="false" />
             <element signature="method#getCount#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
             <element signature="method#getPageTitle#0;class#SectionsPagerAdapter#0;class#DetailActivity#0" expanded="false" />
           </folding>

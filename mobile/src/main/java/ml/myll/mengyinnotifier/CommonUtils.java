@@ -326,23 +326,27 @@ public class CommonUtils {
         return record;
     }
 
-    public static ArrayList<Point> getTimeNSize (int event, int days) {
+    public static ArrayList<Point> getTimeNSize (int event, int day) {
+        if (day <= 0) return new ArrayList<>();
         ArrayList<Point> list = new ArrayList<>();
-        long daysInMillis = 86400000L*days;
+        long sDaysInMillis = 86400000L*day;
+        long eDaysInMillis = 86400000L*(day-1);
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==2 &&
-                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < daysInMillis)
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) > eDaysInMillis &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < sDaysInMillis)
                     list.add(new Point((int)((System.currentTimeMillis()%(3600000*24)/3600000 +
                             Long.parseLong(line.split("#")[1])%(3600000*24)/3600000)/2),
 
                             (int)((System.currentTimeMillis() - Long.parseLong(line.split("#")[1]))
                                     /3600000F)));
                 if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==3 &&
-                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) < daysInMillis)
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[2]) > eDaysInMillis &&
+                        System.currentTimeMillis() - Long.parseLong(line.split("#")[1]) < sDaysInMillis)
                     list.add(new Point((int)((Long.parseLong(line.split("#")[2])%(3600000*24)/3600000 +
                             Long.parseLong(line.split("#")[1])%(3600000*24)/3600000)/2),
                             (int)((Long.parseLong(line.split("#")[2]) - Long.parseLong(line.split("#")[1]))/3600000F)));
