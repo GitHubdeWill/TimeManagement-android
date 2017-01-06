@@ -81,12 +81,15 @@ public class CommonUtils {
                 last = sCurrentLine;
             }
             br.close();
-            if (last == null) return -1;
+            if (last == null) {
+                createRecordIfNotCreated();
+                return 5;
+            }
             return Integer.parseInt(last.split(" ")[0]);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -1;
+        return currEvent;
     }
 
     //return array of colors
@@ -164,10 +167,9 @@ public class CommonUtils {
         }
         try
         {
-            FileWriter fw = new FileWriter(f0, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-            out.print(getEventString(5));
+            PrintWriter ou = new PrintWriter(new BufferedWriter(new FileWriter(f0, true)));
+            ou.print(getEventString(5));
+            ou.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -218,11 +220,11 @@ public class CommonUtils {
             Log.i(TAG, "record.txt existed, starting...");
             try
             {
-                FileWriter fw = new FileWriter(f0, true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter out = new PrintWriter(bw);
-                out.println("#"+System.currentTimeMillis());
-                out.print(getEventString(event));
+                PrintWriter ou = new PrintWriter(new BufferedWriter(new FileWriter(f0, true)));
+                ou.println("#"+System.currentTimeMillis());
+                ou.print(getEventString(event));
+                ou.close();
+                Log.i(TAG, "written " + getEventString(event));
             } catch (IOException e) {
                 e.printStackTrace();
             }

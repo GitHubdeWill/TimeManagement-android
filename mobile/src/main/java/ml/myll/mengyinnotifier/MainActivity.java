@@ -75,6 +75,8 @@ import java.util.Calendar;
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.view.MaterialIntroView;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         public void run() {
             Log.i(TAG, "yFab Long press");
             expandyFab(1);
-            Toast.makeText(MainActivity.this, "Please set your Birthday", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "设置你的生日", Toast.LENGTH_LONG).show();
             DialogFragment newFragment = new DatePickerFragment();
             newFragment.show(getSupportFragmentManager(), "datePicker");
             opened=true;
@@ -320,6 +322,48 @@ public class MainActivity extends AppCompatActivity
             }
         });
         animator.start();
+
+        //Health
+        ValueAnimator animator2 = ValueAnimator.ofInt(100, getHealthPoints()).setDuration(3000);
+        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int percent  = (int) animation.getAnimatedValue();
+                mTitleView.setText("健康指数>>" + percent);
+                if (percent<30){
+                    mTitleView.setTextColor(
+                            Color.rgb(255,0,0));
+                } else if (percent>100){
+                    mTitleView.setTextColor(
+                            Color.rgb(0,255,0));
+                } else {
+                    mTitleView.setTextColor(
+                            Color.rgb(percent <= 65 ? 255 : (int) (255 * (1 - (percent - 65) / 35.0)),
+                                    percent >= 65 ? 255 : (int) (255 * ((percent - 30) / 35.0)),
+                                    0));
+                }
+            }
+        });
+        animator2.start();
+    }
+
+    private int getHealthPoints () {
+        int points = 100;
+        long[] times = CommonUtils.getTotalTime();
+        float totalTime = 0;
+        for(long l : times)
+           totalTime += l;
+
+        //8 hours of sleep
+        points -= (int) (30*(Math.abs(0.33F-times[0]/totalTime)/0.33F));
+        //2 hours of recreation
+        points -= (int) (15*(Math.abs(0.0833F-times[3]/totalTime)/0.0833F));
+        //8 hours of work
+        points -= (int) (25*(Math.abs(0.33F-(times[1]+times[2])/totalTime)/0.33F));
+        //8 hours of not work
+        points -= (int) (30*(Math.abs(0.33F-(times[3]+times[4]+times[5])/totalTime)/0.33F));
+
+        return points;
     }
 
     //ToolBar Translation
@@ -363,7 +407,7 @@ public class MainActivity extends AppCompatActivity
         initViews(1);
         spinbFab();
         updateNotification();
-        Toast.makeText(this, "Refreshed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.refresh_suc), Toast.LENGTH_LONG).show();
     }
 
     //Scroll back to the top ScrollView
@@ -448,7 +492,7 @@ public class MainActivity extends AppCompatActivity
                 if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
                 ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
                 colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 6, colorChoices.length);
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
                 colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
@@ -643,6 +687,17 @@ public class MainActivity extends AppCompatActivity
 
     //0 when onCreate; 1 when refresh.
     private void initViews (int mode) {
+        mTitleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "健康小贴士：\n" +
+                        "为保证高健康指数，请尽量做到>>>\n" +
+                        "1.保证八小时睡眠\n" +
+                        "2.保证八小时的学习工作时间\n" +
+                        "3.保证两小时的娱乐时间\n" +
+                        "4.保证八小时的学习工作以外时间", Toast.LENGTH_LONG).show();
+            }
+        });
         RelativeLayout must = (RelativeLayout) findViewById(R.id.statusView);
         LinearLayout inner = (LinearLayout) findViewById(R.id.mustL);
         switch (mode) {
@@ -743,30 +798,23 @@ public class MainActivity extends AppCompatActivity
 
     //Show intro view
     private void introView() {
-        new MaterialIntroView.Builder(this)
-                .enableDotAnimation(false)
-                .enableIcon(false)
-                .setFocusGravity(FocusGravity.CENTER)
-                .setFocusType(Focus.ALL)
-                .setDelayMillis(500)
-                .enableFadeAnimation(true)
-                .performClick(true)
-                .setInfoText(getString(R.string.introfab))
-                .setTarget(yFab)
-                .setUsageId("yFab1")
-                .show();
-        new MaterialIntroView.Builder(this)
-                .enableDotAnimation(true)
-                .enableIcon(false)
-                .setFocusGravity(FocusGravity.CENTER)
-                .setFocusType(Focus.ALL)
-                .setDelayMillis(500)
-                .enableFadeAnimation(true)
-                .performClick(true)
-                .setInfoText(getString(R.string.introfab2))
-                .setTarget(bFab.getMenuIconView())
-                .setUsageId("bFab1")
-                .show();
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "MShow");
+
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(yFab,
+                getString(R.string.introfab), "我知道了");
+
+        sequence.addSequenceItem(bFab.getMenuIconView(),
+                getString(R.string.introfab2), "我又知道了");
+
+        sequence.addSequenceItem(toolbar,
+                "点击左边按钮或划出菜单设置你在做什么，当然，在通知栏也能做到。", "我再次知道了");
+
+        sequence.start();
     }
 
     //Setup Chart
@@ -992,7 +1040,8 @@ public class MainActivity extends AppCompatActivity
             }
             inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+"小时"));
         }
-        inboxStyle.addLine("\n快捷切换：");
+        inboxStyle.addLine("---------");
+        inboxStyle.addLine("快捷切换：");
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
         mBuilder.setOngoing(CommonUtils.stickyNotification);

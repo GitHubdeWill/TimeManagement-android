@@ -115,6 +115,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
     @Override
     protected void onResume() {
         super.onResume();
+//        (findViewById(R.id.header_nav)).setBackgroundColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
         if (Build.VERSION.SDK_INT >= 21 && CommonUtils.colorDynamic) {
             getWindow().setStatusBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
             getWindow().setNavigationBarColor(CommonUtils.getColorsFromItems()[CommonUtils.currEvent]);
@@ -148,7 +149,7 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
                 if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
                 ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
                 colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 6, colorChoices.length);
+                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
                 colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {

@@ -118,7 +118,8 @@ public class SettingActivity extends PreferenceActivity {
             }
             inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+"小时"));
         }
-        inboxStyle.addLine("\n快捷切换：");
+        inboxStyle.addLine("---------");
+        inboxStyle.addLine("快捷切换：");
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
         mBuilder.setOngoing(CommonUtils.stickyNotification);
