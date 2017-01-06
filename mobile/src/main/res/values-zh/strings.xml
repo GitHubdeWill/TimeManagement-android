@@ -16,11 +16,18 @@
     <string name="study">学习</string>
     <string name="sustain">生活</string>
     <string name="work">工作</string>
-    <string name="introfab2">单击返回顶部，长按刷新内容</string>
+    <string name="introfab2">更多功能</string>
     <string name="please_open_again">请点击菜单的今天以刷新日历</string>
     <string name="AM">上午</string>
     <string name="PM">下午</string>
     <string name="color_picker">选择颜色</string>
     <string name="add_more">添加事件</string>
     <string name="nav_advance">高级</string>
+    <string name="title_activity_detail">详细统计</string>
+    <string name="color_settings">选择颜色</string>
+    <string name="action_month_view">一月</string>
+    <string name="refresh_suc">刷新成功！</string>
+    <string name="time_spending">时间分配详细：</string>
+    <string name="click_to_open">点击选择事件</string>
+    <string name="advance_nav">高级</string>
 </resources>

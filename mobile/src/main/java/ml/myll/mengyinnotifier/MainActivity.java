@@ -18,7 +18,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NotificationCompat;
@@ -68,6 +67,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -429,27 +429,26 @@ public class MainActivity extends AppCompatActivity
 
         if(R.id.nav_setting == id) {
             if (Build.VERSION.SDK_INT >= 21) {
-//                Intent intent = new Intent(this, SettingActivity.class);
-//                startActivity(intent);
                 int[] colorChoices = null;
-//                try {
-//                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
-//                    colorChoices = new int[fields.length];
-//                    int i = 0;
-//                    for (Field field : fields) {
-//                        String colorName = field.getName();
-//                        int colorId = field.getInt(null);
-//                        int color = getResources().getColor(colorId);
-//                        colorChoices[i++] = color;
-//                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
+                    colorChoices = new int[fields.length];
+                    int i = 0;
+                    for (Field field : fields) {
+                        String colorName = field.getName();
+                        if (colorName.charAt(0) != 'm' || colorName.charAt(1) != 'd') continue;
+                        int colorId = field.getInt(null);
+                        int color = getResources().getColor(colorId);
+                        colorChoices[i++] = color;
+                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
                 ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
                 colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+                        R.string.color_picker, colorChoices, colorChoices[0], 6, colorChoices.length);
                 colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
@@ -466,6 +465,11 @@ public class MainActivity extends AppCompatActivity
         }
         if(R.id.add_item == id) {
             Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
+        }
+        if(R.id.nav_settings == id) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            onPause();
         }
 
         for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
@@ -612,7 +616,8 @@ public class MainActivity extends AppCompatActivity
         //Get Display Size
         Display display = getWindowManager().getDefaultDisplay();
         screenSize = new Point();
-        display.getRealSize(screenSize);
+        if (Build.VERSION.SDK_INT > 17)display.getRealSize(screenSize);
+        else display.getSize(screenSize);
         Log.i(TAG, "attributes ScreenSize:" + screenSize.toString());
 
         SharedPreferences settings = getSharedPreferences(SettingActivity.PREFS_NAME, 0);
@@ -689,6 +694,7 @@ public class MainActivity extends AppCompatActivity
                 (findViewById(R.id.manage)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        bFab.close(true);
                         Intent intent = new Intent(getApplicationContext(), WeekViewActivity.class);
                         Log.i(TAG, "weekViewActivity starting...");
                         startActivity(intent);
@@ -699,6 +705,7 @@ public class MainActivity extends AppCompatActivity
                 (findViewById(R.id.refresh)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        bFab.close(true);
                         Log.i(TAG, "calling refresh...");
                         refresh();
                     }
@@ -706,7 +713,7 @@ public class MainActivity extends AppCompatActivity
                 (findViewById(R.id.scroll_back)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), WeekViewActivity.class);
+                        bFab.close(true);
                         Log.i(TAG, "Scrolling back...");
                         scrollBack();
                     }
@@ -757,7 +764,7 @@ public class MainActivity extends AppCompatActivity
                 .enableFadeAnimation(true)
                 .performClick(true)
                 .setInfoText(getString(R.string.introfab2))
-                .setTarget(bFab)
+                .setTarget(bFab.getMenuIconView())
                 .setUsageId("bFab1")
                 .show();
     }
@@ -960,8 +967,8 @@ public class MainActivity extends AppCompatActivity
         Intent window = new Intent(getApplicationContext(), FloatingActivity.class);
         window.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("MY Time")
-                .setContentText("Expand to check Time")
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.click_to_open))
                 .setSmallIcon(R.drawable.scaledicon)
                 .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, window, 0));
 // Start of a loop that processes data and then notifies the user
@@ -969,7 +976,7 @@ public class MainActivity extends AppCompatActivity
                 new NotificationCompat.InboxStyle();
         String[] events = CommonUtils.getNamesFromItems();
 // Sets a title for the Inbox in expanded layout
-        inboxStyle.setBigContentTitle("Time spending details:");
+        inboxStyle.setBigContentTitle(getString(R.string.time_spending));
 // Moves events into the expanded layout
         for (int i=0; i < events.length; i++) {
             PendingIntent pendingIntent;
@@ -983,8 +990,9 @@ public class MainActivity extends AppCompatActivity
                 NotificationCompat.Action action = new NotificationCompat.Action(R.color.lime, events[i], pendingIntent);
                 mBuilder.addAction(action);
             }
-            inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+" Hours"));
+            inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+"小时"));
         }
+        inboxStyle.addLine("\n快捷切换：");
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
         mBuilder.setOngoing(CommonUtils.stickyNotification);

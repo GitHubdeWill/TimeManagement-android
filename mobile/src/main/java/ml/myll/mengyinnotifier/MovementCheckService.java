@@ -1,10 +1,8 @@
 package ml.myll.mengyinnotifier;
 
-import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,8 +13,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class MovementCheckService extends Service implements SensorEventListener {
     final static String TAG = "MovNotification";
@@ -100,16 +96,20 @@ public class MovementCheckService extends Service implements SensorEventListener
 
             if (!passed && timePassed > OTHER_LIMIT){
                 passed = true;
-                if (CommonUtils.getCurrEventFromExternal() != 0) {
+                if (CommonUtils.getCurrEventFromExternal() != 0 && CommonUtils.getCurrEventFromExternal() != 5) {
                     CommonUtils.newEvent(5);
                     sendNotification(5);
                     Toast.makeText(this, "No motion detected, switched to other.", Toast.LENGTH_SHORT).show();
                 }
             }
             if (timePassed > SLEEP_LIMIT){
+
                 passed = false;
-                CommonUtils.newEvent(0);
-                sendNotification(0);
+
+                if (CommonUtils.getCurrEventFromExternal() != 0) {
+                    CommonUtils.newEvent(0);
+                    sendNotification(0);
+                }
                 onDestroy();
             }
 

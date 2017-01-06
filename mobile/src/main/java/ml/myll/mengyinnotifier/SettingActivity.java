@@ -1,26 +1,20 @@
 package ml.myll.mengyinnotifier;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.MultiSelectListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
-import android.view.WindowManager;
 
 import java.util.Arrays;
 import java.util.Set;
-
-import co.mobiwise.materialintro.prefs.PreferencesManager;
 
 /**
  * Created by William on 2016/11/26.
@@ -81,7 +75,10 @@ public class SettingActivity extends PreferenceActivity {
                             int days = Integer.parseInt(str);
                             if (days < 7)
                                 CommonUtils.days = 7;
-                            CommonUtils.days = days;
+                            else if (days > 100)
+                                CommonUtils.days = 100;
+                            else
+                                CommonUtils.days = days;
                         }
                     }
                 };
@@ -96,8 +93,8 @@ public class SettingActivity extends PreferenceActivity {
         Intent window = new Intent(getApplicationContext(), FloatingActivity.class);
         window.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setContentTitle("MY Time")
-                .setContentText("Expand to check Time")
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.click_to_open))
                 .setSmallIcon(R.drawable.scaledicon)
                 .setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, window, 0));
 // Start of a loop that processes data and then notifies the user
@@ -105,7 +102,7 @@ public class SettingActivity extends PreferenceActivity {
                 new NotificationCompat.InboxStyle();
         String[] events = CommonUtils.getNamesFromItems();
 // Sets a title for the Inbox in expanded layout
-        inboxStyle.setBigContentTitle("Time spending details:");
+        inboxStyle.setBigContentTitle(getString(R.string.time_spending));
 // Moves events into the expanded layout
         for (int i=0; i < events.length; i++) {
             PendingIntent pendingIntent;
@@ -119,8 +116,9 @@ public class SettingActivity extends PreferenceActivity {
                 NotificationCompat.Action action = new NotificationCompat.Action(R.color.lime, events[i], pendingIntent);
                 mBuilder.addAction(action);
             }
-            inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+" Hours"));
+            inboxStyle.addLine(events[i]+": "+(CommonUtils.getTotalTime()[i]/1000/3600+"小时"));
         }
+        inboxStyle.addLine("\n快捷切换：");
 // Moves the expanded layout object into the notification object.
         mBuilder.setStyle(inboxStyle);
         mBuilder.setOngoing(CommonUtils.stickyNotification);

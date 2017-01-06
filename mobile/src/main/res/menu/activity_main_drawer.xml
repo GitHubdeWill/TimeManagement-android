@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
@@ -29,7 +28,7 @@
             android:title="@string/other" />
     </group>
 
-    <item android:title="Advance">
+    <item android:title="@string/advance_nav">
         <menu>
 
             <item
@@ -39,7 +38,12 @@
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Change Color" />
+                android:title="@string/color_settings" />
+
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="@string/action_settings" />
         </menu>
     </item>
 

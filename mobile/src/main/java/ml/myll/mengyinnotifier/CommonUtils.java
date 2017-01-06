@@ -1,12 +1,10 @@
 package ml.myll.mengyinnotifier;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Environment;
 import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -164,10 +162,11 @@ public class CommonUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try(FileWriter fw = new FileWriter(f0, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw))
+        try
         {
+            FileWriter fw = new FileWriter(f0, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
             out.print(getEventString(5));
         } catch (IOException e) {
             e.printStackTrace();
@@ -189,7 +188,7 @@ public class CommonUtils {
         long[] record = {0,0,0,0,0,0};
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
-        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+        try  {             BufferedReader br = new BufferedReader(new FileReader(f0));
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==2)
@@ -217,10 +216,11 @@ public class CommonUtils {
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
         if(f0.exists()) {
             Log.i(TAG, "record.txt existed, starting...");
-            try(FileWriter fw = new FileWriter(f0, true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter out = new PrintWriter(bw))
+            try
             {
+                FileWriter fw = new FileWriter(f0, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter out = new PrintWriter(bw);
                 out.println("#"+System.currentTimeMillis());
                 out.print(getEventString(event));
             } catch (IOException e) {
@@ -237,7 +237,7 @@ public class CommonUtils {
         ArrayList<WeekViewEvent> ret = new ArrayList<>();
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
-        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+        try  {             BufferedReader br = new BufferedReader(new FileReader(f0));
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.split(" ").length==7 && line.split("#").length>=2) {
@@ -279,7 +279,7 @@ public class CommonUtils {
         long daysInMillis = days*24*3600*1000;
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
-        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+        try  {             BufferedReader br = new BufferedReader(new FileReader(f0));
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") < 6 && line.split("#").length==2 &&
@@ -304,7 +304,8 @@ public class CommonUtils {
         long daysInMillis = 86400000L*days;
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
-        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+        try  {
+            BufferedReader br = new BufferedReader(new FileReader(f0));
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==2 &&
@@ -333,7 +334,7 @@ public class CommonUtils {
         long eDaysInMillis = 86400000L*(day-1);
         File f = new File(local_file);
         File f0 = new File(f.getAbsolutePath(), eventRecordFile);
-        try (BufferedReader br = new BufferedReader(new FileReader(f0))) {
+        try  {             BufferedReader br = new BufferedReader(new FileReader(f0));
             String line;
             while ((line = br.readLine()) != null) {
                 if (Integer.parseInt(line.charAt(0)+"") == event && line.split("#").length==2 &&

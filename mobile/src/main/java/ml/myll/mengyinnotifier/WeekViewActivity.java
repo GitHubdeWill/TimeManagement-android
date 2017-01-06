@@ -1,6 +1,6 @@
 package ml.myll.mengyinnotifier;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,7 +12,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
@@ -20,11 +19,8 @@ import com.alamkanak.weekview.WeekViewEvent;
 import com.android.colorpicker.ColorPickerDialog;
 import com.android.colorpicker.ColorPickerSwatch;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -32,8 +28,6 @@ import java.util.Scanner;
  */
 public class WeekViewActivity extends WeekBaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     final static String TAG = "WVA";
-
-    final static String FILENAME = "file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,27 +129,26 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
 
         if(R.id.nav_setting == id) {
             if (Build.VERSION.SDK_INT >= 21) {
-//                Intent intent = new Intent(this, SettingActivity.class);
-//                startActivity(intent);
                 int[] colorChoices = null;
-//                try {
-//                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
-//                    colorChoices = new int[fields.length];
-//                    int i = 0;
-//                    for (Field field : fields) {
-//                        String colorName = field.getName();
-//                        int colorId = field.getInt(null);
-//                        int color = getResources().getColor(colorId);
-//                        colorChoices[i++] = color;
-//                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    Field[] fields = Class.forName(getPackageName() + ".R$color").getDeclaredFields();
+                    colorChoices = new int[fields.length];
+                    int i = 0;
+                    for (Field field : fields) {
+                        String colorName = field.getName();
+                        if (colorName.charAt(0) != 'm' || colorName.charAt(1) != 'd') continue;
+                        int colorId = field.getInt(null);
+                        int color = getResources().getColor(colorId);
+                        colorChoices[i++] = color;
+                        Log.i(TAG, "Added " + colorName + " => " + colorId + " => " + color);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (colorChoices == null) colorChoices = CommonUtils.getColorsFromItems();
                 ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
                 colorPickerDialog.initialize(
-                        R.string.color_picker, colorChoices, colorChoices[0], 3, colorChoices.length);
+                        R.string.color_picker, colorChoices, colorChoices[0], 6, colorChoices.length);
                 colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
@@ -172,6 +165,11 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
         }
         if(R.id.add_item == id) {
             Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
+        }
+        if(R.id.nav_settings == id) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            onPause();
         }
 
         for (int i = 0; i < CommonUtils.drawerItemsIds.size(); i++) {
@@ -270,6 +268,18 @@ public class WeekViewActivity extends WeekBaseActivity implements NavigationView
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 8, getResources().getDisplayMetrics()));
                 }
                 mWeekView.refreshDrawableState();
+                return true;
+            case R.id.action_month_view:
+                if (mWeekViewType != TYPE_MONTH_VIEW) {
+                    item.setChecked(!item.isChecked());
+                    mWeekViewType = TYPE_MONTH_VIEW;
+                    mWeekView.setNumberOfVisibleDays(30);
+
+                    // Lets change some dimensions to best fit the view.
+                    mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()));
+                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 4, getResources().getDisplayMetrics()));
+                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 4, getResources().getDisplayMetrics()));
+                }
                 return true;
         }
 

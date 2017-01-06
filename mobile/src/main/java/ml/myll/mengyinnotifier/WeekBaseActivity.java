@@ -3,7 +3,6 @@ package ml.myll.mengyinnotifier;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public abstract class WeekBaseActivity extends AppCompatActivity
@@ -28,6 +26,7 @@ public abstract class WeekBaseActivity extends AppCompatActivity
     public static final int TYPE_DAY_VIEW = 1;
     public static final int TYPE_THREE_DAY_VIEW = 2;
     public static final int TYPE_WEEK_VIEW = 3;
+    public static final int TYPE_MONTH_VIEW = 4;
     //Default View
     public int mWeekViewType = TYPE_DAY_VIEW;
     //Must have instance
@@ -110,6 +109,18 @@ public abstract class WeekBaseActivity extends AppCompatActivity
                     mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
+                }
+                return true;
+            case R.id.action_month_view:
+                if (mWeekViewType != TYPE_MONTH_VIEW) {
+                    item.setChecked(!item.isChecked());
+                    mWeekViewType = TYPE_MONTH_VIEW;
+                    mWeekView.setNumberOfVisibleDays(30);
+
+                    // Lets change some dimensions to best fit the view.
+                    mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()));
+                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 8, getResources().getDisplayMetrics()));
+                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 4, getResources().getDisplayMetrics()));
                 }
                 return true;
         }

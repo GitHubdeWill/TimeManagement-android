@@ -22,5 +22,9 @@
             android:title="@string/action_week_view"
             android:orderInCategory="100"
             app:showAsAction="never"/>
+        <item android:id="@+id/action_month_view"
+            android:title="@string/action_month_view"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
     </group>
 </menu>

@@ -7,7 +7,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="introfab">Long Click This Button to set your birthday</string>
-    <string name="introfab2">Short Click to the Top; Long Click to Refresh</string>
 
     <string name="progress">You still have\nYYYY years MM months DD days\nuntil 100 years old.</string>
 
@@ -34,5 +33,11 @@
     <string name="add_more">Add More</string>
     <string name="nav_advance">Advance</string>
     <string name="title_activity_detail">DetailActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="introfab2">Click for more functions</string>
+    <string name="color_settings">Change Color</string>
+    <string name="action_month_view">Month view</string>
+    <string name="refresh_suc">Refreshed!</string>
+    <string name="time_spending">Time Spending Details:</string>
+    <string name="click_to_open">Click to open event switcher</string>
+    <string name="advance_nav">Advance</string>
 </resources>

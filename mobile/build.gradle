@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "ml.myll.mengyinnotifier"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         multiDexEnabled true

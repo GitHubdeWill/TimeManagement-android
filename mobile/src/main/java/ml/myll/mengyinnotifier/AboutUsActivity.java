@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.yalantis.starwars.TilesFrameLayout;
 import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
-import com.yalantis.starwars.render.StarWarsTiles;
 
 /**
  * Created by will on 12/26/2016.

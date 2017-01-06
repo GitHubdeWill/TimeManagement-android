@@ -4,16 +4,13 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,21 +18,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BubbleChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BubbleData;
@@ -55,7 +47,6 @@ import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.yalantis.starwars.TilesFrameLayout;
 import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
 
@@ -288,7 +279,7 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
             yAxis.setAxisMinimum(0f);
             long[] t = CommonUtils.getTotalTime();
             long limit = 0;
-            for (int i = 0; i < t.length; i++) if(t[i]>limit) limit = t[i];
+            for (long l : t) if(l>limit) limit = l;
             yAxis.setAxisMaximum((float)limit);
             yAxis.setDrawLabels(false);
 
@@ -307,28 +298,31 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
         private static void setRadarData(RadarChart mChart){
             int cnt = 6;
 
-            ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
-            ArrayList<RadarEntry> entries2 = new ArrayList<RadarEntry>();
-            ArrayList<RadarEntry> entries3 = new ArrayList<RadarEntry>();
+            ArrayList<RadarEntry> entries1 = new ArrayList<>();
+            ArrayList<RadarEntry> entries2 = new ArrayList<>();
+            ArrayList<RadarEntry> entries3 = new ArrayList<>();
 
             // NOTE: The order of the entries when being added to the entries array determines their position around the center of
             // the chart.
             long[] time = CommonUtils.getTotalTime();
             long[] weekTime = CommonUtils.getTimeDays(7);
             long[] dayTime = CommonUtils.getTimeDays(1);
-            int scaletw = 0;
+            long maxT = 1;
+            long maxW = 1;
+            long maxD = 1;
             for (int i = 0; i < cnt; i++) {
-                scaletw += (int)(time[i]/weekTime[i]);
+                if (maxT < time[i]) maxT = time[i];
+                if (maxW < weekTime[i]) maxW = weekTime[i];
+                if (maxD < dayTime[i]) maxD = dayTime[i];
             }
-            scaletw /= 6;
             for (int i = 0; i < cnt; i++) {
-                float val1 = (float) (time[i]/scaletw);
+                float val1 = (float)time[i]*((float)maxW/(float)maxT);
                 entries1.add(new RadarEntry(val1));
 
-                float val2 = (float) weekTime[i];
+                float val2 = (float)weekTime[i];
                 entries2.add(new RadarEntry(val2));
 
-                float val3 = (float) dayTime[i]*7;
+                float val3 = (float) dayTime[i]* ((float)maxW/(float)maxD);
                 entries3.add(new RadarEntry(val3));
             }
 
@@ -359,7 +353,7 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
             set3.setDrawHighlightCircleEnabled(true);
             set3.setDrawHighlightIndicators(false);
 
-            ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
+            ArrayList<IRadarDataSet> sets = new ArrayList<>();
             sets.add(set1);
             sets.add(set2);
             sets.add(set3);
@@ -516,9 +510,9 @@ public class DetailActivity extends AppCompatActivity  implements TilesFrameLayo
             long[] times = CommonUtils.getEventTimeDays(index, CommonUtils.days);
 
             for (int i = 0; i < count; i++) {
-                yVals.add(new Entry(i, times[i]/1000/3600));
+                yVals.add(new Entry(i, times[i]/1000/3600F));
             }
-            yVals.add(new Entry(count, times[count-1]/1000/3600));
+            yVals.add(new Entry(count, times[count-1]/1000/3600F));
 
             LineDataSet set1;
 

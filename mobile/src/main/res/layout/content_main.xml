@@ -1,6 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#40FFFFFF"
-        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -45,7 +43,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@color/text"
                 android:orientation="vertical"
                 android:layout_weight="4.54"
@@ -59,7 +57,6 @@
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:text="Time Left:"
                     android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
@@ -82,8 +79,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_below="@+id/timeBar"
                         android:layout_marginRight="@dimen/activity_vertical_margin"
+                        android:layout_marginEnd="@dimen/activity_vertical_margin"
                         android:text="100"
                         android:textColor="@android:color/black" />
 
@@ -92,8 +91,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_below="@+id/timeBar"
                         android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginStart="@dimen/activity_vertical_margin"
                         android:text="0"
                         android:textColor="@android:color/black" />
 
@@ -127,7 +128,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_standard">
+        android:padding="@dimen/margin_standard"
+        android:paddingStart="@dimen/margin_standard">
 
         <TextView
             android:id="@+id/title"
@@ -152,8 +154,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:elevation="0dp"
+        android:layout_gravity="start|top"
         android:scaleType="center"
         app:fab_colorNormal="@color/accent"
         app:fab_colorPressed="@android:color/holo_orange_dark"
